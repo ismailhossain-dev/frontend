@@ -1,0 +1,13 @@
+import { Navigate } from 'react-router'
+import LoadingSpinner from '../components/Shared/LoadingSpinner'
+import useRole from '../hooks/useRole'
+
+//libarian hole take login chara hook patay dive
+const AdminRoute = ({ children }) => {
+  const [role, isRoleLoading] = useRole()
+  if (isRoleLoading) return <LoadingSpinner />
+  if (role === 'admin') return children
+  return <Navigate to='/' state={location.pathname} replace='true' />
+}
+
+export default AdminRoute
