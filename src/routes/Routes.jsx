@@ -19,6 +19,7 @@ import Login from "../pages/Login/Login";
 import LibarianRquest from "../pages/Dashboard/Admin/LibarianRquest";
 import LibarianRoute from "./LibarianRoute";
 import AdminRoute from "./AdminRoute";
+import HomeDashboard from "../pages/Dashboard/HomeDashboard/HomeDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+
       {
         path: "/all-book",
         element: <AllBook />,
@@ -60,7 +62,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-        
+            <HomeDashboard />
           </PrivateRoute>
         ),
       },
@@ -70,8 +72,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <LibarianRoute>
-            <AddBook />
-
+              <AddBook />
             </LibarianRoute>
           </PrivateRoute>
         ),
@@ -89,8 +90,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminRoute>
-            <ManageUsers />
-
+              <ManageUsers />
             </AdminRoute>
           </PrivateRoute>
         ),
@@ -100,8 +100,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminRoute>
-            <LibarianRquest />
-
+              <LibarianRquest />
             </AdminRoute>
           </PrivateRoute>
         ),
@@ -125,15 +124,13 @@ export const router = createBrowserRouter([
 
       {
         path: "manage-orders",
-        element:(
+        element: (
           <PrivateRoute>
             <LibarianRoute>
-            <ManageOrders />,
-
+              <ManageOrders />,
             </LibarianRoute>
           </PrivateRoute>
-
-        )
+        ),
       },
     ],
   },

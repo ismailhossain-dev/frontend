@@ -6,9 +6,9 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyOrders = () => {
-  //amra ekane email er mardome order data fetch korsi and amar ekant token kaj kortesi 
+  //amra ekane email er mardome order data fetch korsi and amar ekant token kaj kortesi
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ["orders", user?.email],
@@ -59,9 +59,9 @@ const MyOrders = () => {
                   {/* Table Body */}
                   <tbody className="divide-y divide-gray-100">
                     {/* Map my order Table data  */}
-                    {
-                      orders.map(order => <CustomerOrderDataRow key={order._id} order={order} />)
-                    }
+                    {orders.map((order) => (
+                      <CustomerOrderDataRow key={order._id} order={order} />
+                    ))}
                   </tbody>
                 </table>
               </div>

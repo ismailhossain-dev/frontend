@@ -7,8 +7,7 @@ import { useForm } from "react-hook-form";
 // import axios from "axios";
 import { imageUpload, saveOrUpdateUser } from "../../utils";
 const SignUp = () => {
-
-  const { createUser, updateUserProfile, signInWithGoogle, loading, } = useAuth();
+  const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
@@ -19,7 +18,7 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
- 
+
   console.log(errors); // error check
 
   // React Hook Form submit
@@ -27,39 +26,34 @@ const SignUp = () => {
     const { name, image, email, password } = data;
     const imageFile = image[0];
 
-    
     try {
-     const imageURL =await imageUpload (imageFile)
-    
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
+      const imageURL = await imageUpload(imageFile);
 
-    if (!passwordRegex.test(password)) {
-      toast.error(
-        "Password must be at least 6 characters, include one uppercase letter, one number and one special character"
-      );
-      return; 
-    }
-    console.log("Password is valid");
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
+
+      if (!passwordRegex.test(password)) {
+        toast.error(
+          "Password must be at least 6 characters, include one uppercase letter, one number and one special character",
+        );
+        return;
+      }
+      console.log("Password is valid");
       // step-1 User Registration
       const result = await createUser(email, password);
 
       //SIGNUP WORK LAST mongodb save data
-      await saveOrUpdateUser({name, email, image: imageURL})
+      await saveOrUpdateUser({ name, email, image: imageURL });
       //
       // step-2 image upload (future work)
       console.log(image);
 
       // step-3 Save username & profile photo
-      await updateUserProfile(
-        name,imageURL
-       
-      );
+      await updateUserProfile(name, imageURL);
       //finished image upload work
 
       console.log(result);
       toast.success("Signup Successful");
       navigate(from, { replace: true });
-
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
@@ -69,16 +63,14 @@ const SignUp = () => {
   // Handle Google Signin backend teke use ke aschi
   const handleGoogleSignIn = async () => {
     try {
-     const { user } = await signInWithGoogle();
+      const { user } = await signInWithGoogle();
 
-     
       await saveOrUpdateUser({
         name: user?.displayName,
-        email:user?.email,
+        email: user?.email,
         image: user?.photoURL,
         password: user?.password,
-      })
-
+      });
 
       toast.success("Signup Successful");
       navigate(from, { replace: true });
@@ -95,11 +87,7 @@ const SignUp = () => {
           <h1 className=" text-4xl font-bold">Sign Up</h1>
         </div>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
           <div className="space-y-4">
             {/* Name */}
             <div>
@@ -116,11 +104,7 @@ const SignUp = () => {
                   },
                 })}
               />
-              {errors.name && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.name.message}
-                </p>
-              )}
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
             </div>
 
             {/* Image */}
@@ -129,7 +113,7 @@ const SignUp = () => {
               <input
                 type="file"
                 accept="image/*"
-                className='block w-full text-sm text-gray-500
+                className="block w-full text-sm text-gray-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-md file:border-0
                 file:text-sm file:font-semibold
@@ -137,8 +121,7 @@ const SignUp = () => {
               hover:file:bg-lime-100
                bg-white border border-dashed border-lime-300 rounded-md cursor-pointer
               focus:outline-none 
-                py-2'
-
+                py-2"
                 {...register("image")}
               />
             </div>
@@ -153,17 +136,12 @@ const SignUp = () => {
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
-                    value:
-                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                     message: "Please enter a valid email address",
                   },
                 })}
               />
-              {errors.email && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.email.message}
-                </p>
-              )}
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
             </div>
 
             {/* Password */}
@@ -183,9 +161,7 @@ const SignUp = () => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.password.message}
-                </p>
+                <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
               )}
             </div>
           </div>
@@ -194,20 +170,14 @@ const SignUp = () => {
             type="submit"
             className="bg-pink-500 hover:scale-105 duration-300 w-full rounded-md py-3 text-white"
           >
-            {loading ? (
-              <TbFidgetSpinner className="animate-spin m-auto" />
-            ) : (
-              "Continue"
-            )}
+            {loading ? <TbFidgetSpinner className="animate-spin m-auto" /> : "Continue"}
           </button>
         </form>
 
         {/* Google Signup */}
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px bg-gray-300"></div>
-          <p className="px-3 text-sm text-white">
-            Signup with social accounts
-          </p>
+          <p className="px-3 text-sm text-white">Signup with social accounts</p>
           <div className="flex-1 h-px bg-white"></div>
         </div>
 
@@ -231,4 +201,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
