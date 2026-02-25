@@ -19,17 +19,17 @@ const Books = () => {
   console.log(books);
 
   return (
-    <Container>
+    <div>
       <h1 className="text-3xl text-center text-blue-500 mt-10 font-semibold">Tranding Book</h1>
       {books && books.length > 0 ? (
-        <div className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="py-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {/* amra akane book take map korbo  */}
           {books.map((book) => (
             <Card key={book._id} book={book}></Card>
           ))}
         </div>
       ) : null}
-    </Container>
+    </div>
   );
 };
 
