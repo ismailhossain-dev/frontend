@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { FiMail, FiPhone, FiMapPin, FiClock, FiSend } from "react-icons/fi";
+import { FiMail, FiPhone, FiMapPin, FiSend } from "react-icons/fi";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -116,9 +116,7 @@ const Footer = () => {
             Newsletter
             <span className="absolute -bottom-2 left-0 w-8 h-1 bg-green-500 rounded-full"></span>
           </h3>
-          <p className="text-sm text-slate-400 mb-6 flex items-center gap-2 italic">
-            <FiClock className="text-green-500" /> Mon - Sat: 9:00 AM - 9:00 PM
-          </p>
+
           <div className="relative group">
             <input
               type="email"

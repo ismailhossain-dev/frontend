@@ -1,35 +1,40 @@
 import React from "react";
 import Card from "./Card";
-import Container from "../Shared/Container";
+import Container from "../../../src/components/Shared/Container";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 
 const Books = () => {
-  //useQuery diye data fetch
   const { data: books = [], isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: async () => {
-      // const reslut = await axios(`${import.meta.env.VITE_API_URL}/books`)
-      const reslut = await axios(`${import.meta.env.VITE_API_URL}/sixBooks`);
-      return reslut.data;
+      const result = await axios(`${import.meta.env.VITE_API_URL}/sixBooks`);
+      return result.data;
     },
   });
   if (isLoading) return <LoadingSpinner />;
   console.log(books);
 
   return (
-    <div>
-      <h1 className="text-3xl text-center text-blue-500 mt-10 font-semibold">Tranding Book</h1>
-      {books && books.length > 0 ? (
-        <div className="py-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {/* amra akane book take map korbo  */}
-          {books.map((book) => (
-            <Card key={book._id} book={book}></Card>
-          ))}
+    <Container>
+      <div>
+        <div className="text-center mt-10">
+          <h1 className="text-5xl font-black text-slate-800 tracking-tighter uppercase">
+            Trending <span className="text-blue-600">Books</span>
+          </h1>
+          <div className="h-1.5 w-16 bg-blue-600 mx-auto mt-2 rounded-full"></div>
         </div>
-      ) : null}
-    </div>
+        {books && books.length > 0 ? (
+          <div className="py-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {/* amra akane book take map korbo  */}
+            {books.map((book) => (
+              <Card key={book._id} book={book}></Card>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </Container>
   );
 };
 

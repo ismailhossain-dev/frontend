@@ -1,32 +1,36 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { Link, NavLink } from "react-router"; // react-router-dom use kora better
+import { AiOutlineMenu } from "react-icons/ai";
+import { HiSun, HiMoon } from "react-icons/hi";
 import Container from "../Container";
 import useAuth from "../../../hooks/useAuth";
-import useThem from "../../../hooks/useThem";
 import avatarImg from "../../../assets/images/placeholder.jpg";
 import bookLogo from "../../../assets/images/booklogo.jpg";
+import useTheme from "../../../hooks/useTheme";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, toggleTheme } = useThem();
+  const { theme, toggleTheme } = useTheme();
 
-  // Professional Navigation Links Styling
   const navLinkStyles = ({ isActive }) =>
     `relative px-5 py-2 rounded-full transition-all duration-300 font-medium text-sm flex items-center justify-center ${
       isActive
         ? "bg-green-500 text-white shadow-lg shadow-green-500/30"
-        : "text-gray-300 hover:bg-white/10 hover:text-white"
+        : theme === "dark"
+          ? "text-gray-300 hover:bg-white/10 hover:text-white"
+          : "text-gray-600 hover:bg-black/5 hover:text-black"
     }`;
 
   return (
-    <div className="fixed w-full z-50 ">
-      {" "}
-      {/* Added padding for "Floating" effect */}
-      <div className=" mx-auto bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+    // fixed top-0 left-0 w-full deya hoyeche jate width 100% hoy
+    <div className="fixed top-0 left-0 w-full z-50">
+      <div
+        className={`w-full backdrop-blur-xl border-b transition-colors duration-500 shadow-lg 
+        ${theme === "dark" ? "bg-slate-900/90 border-white/10" : "bg-white/90 border-black/5"}`}
+      >
         <Container>
-          <div className="flex flex-row items-center justify-between py-3 h-16">
+          <div className="flex flex-row items-center justify-between h-16">
             {/* LEFT: Logo */}
             <div className="flex-1 flex justify-start">
               <Link to="/" className="flex items-center gap-2 group">
@@ -37,7 +41,9 @@ const Navbar = () => {
                     className="w-full h-full object-cover transition-transform group-hover:scale-110"
                   />
                 </div>
-                <h2 className="text-white text-lg font-extrabold tracking-tight hidden sm:block">
+                <h2
+                  className={`text-lg font-extrabold tracking-tight hidden sm:block ${theme === "dark" ? "text-white" : "text-slate-900"}`}
+                >
                   Book<span className="text-green-500">Courier</span>
                 </h2>
               </Link>
@@ -45,7 +51,9 @@ const Navbar = () => {
 
             {/* CENTER: Navigation (Desktop) */}
             <nav className="hidden md:flex flex-[2] justify-center">
-              <ul className="flex items-center gap-2 bg-black/20 p-1.5 rounded-full border border-white/5">
+              <ul
+                className={`flex items-center gap-2 p-1.5 rounded-full border ${theme === "dark" ? "bg-black/20 border-white/5" : "bg-gray-100 border-black/5"}`}
+              >
                 <li>
                   <NavLink to="/" className={navLinkStyles}>
                     Home
@@ -63,24 +71,27 @@ const Navbar = () => {
                     </NavLink>
                   </li>
                 )}
+                {!user && (
+                  <li>
+                    <NavLink to="/login" className={navLinkStyles}>
+                      Login
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </nav>
 
             {/* RIGHT: Actions */}
-            <div className="flex-1 flex items-center justify-end gap-3">
-              {/* Theme Toggle Button */}
+            <div className="flex-1 flex items-center justify-end gap-4">
+              {/* Theme Toggle */}
               <button
-                onClick={() => toggleTheme(theme === "light" ? "dark" : "light")}
-                className="p-2.5 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-yellow-400 hover:bg-white/10 transition-all"
+                onClick={toggleTheme}
+                className={`p-2 rounded-lg border transition-all active:scale-90 ${theme === "dark" ? "bg-white/5 border-white/10 text-white" : "bg-black/5 border-black/10 text-slate-900"}`}
               >
                 {theme === "dark" ? (
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
-                  </svg>
+                  <HiSun className="text-xl text-yellow-400" />
                 ) : (
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                  </svg>
+                  <HiMoon className="text-xl text-blue-400" />
                 )}
               </button>
 
@@ -88,9 +99,13 @@ const Navbar = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="flex items-center gap-2 p-1 pl-3 pr-1 rounded-full bg-white/5 border border-white/10 hover:border-green-500/50 transition-all"
+                  className={`flex items-center gap-2 p-1 pl-3 pr-1 rounded-full border transition-all ${theme === "dark" ? "bg-white/5 border-white/10 hover:border-green-500/50" : "bg-black/5 border-black/10 hover:border-green-500/50"}`}
                 >
-                  <span className="text-white md:hidden">
+                  <span
+                    className={
+                      theme === "dark" ? "text-white md:hidden" : "text-slate-900 md:hidden"
+                    }
+                  >
                     <AiOutlineMenu />
                   </span>
                   <img
@@ -102,17 +117,19 @@ const Navbar = () => {
 
                 {/* Dropdown Menu */}
                 {isOpen && (
-                  <div className="absolute right-0 mt-4 w-56 bg-slate-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden py-2 animate-in slide-in-from-top-2 duration-200">
-                    <div className="md:hidden border-b border-white/5 pb-2 mb-2">
+                  <div
+                    className={`absolute right-0 mt-4 w-56 border rounded-2xl shadow-2xl overflow-hidden py-2 z-50 ${theme === "dark" ? "bg-slate-900 border-white/10" : "bg-white border-black/10"}`}
+                  >
+                    <div className="md:hidden border-b border-black/5 pb-2 mb-2 text-sm">
                       <Link
                         to="/"
-                        className="block px-5 py-3 text-gray-300 hover:bg-green-500 hover:text-white transition"
+                        className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
                       >
                         Home
                       </Link>
                       <Link
                         to="/all-book"
-                        className="block px-5 py-3 text-gray-300 hover:bg-green-500 hover:text-white transition"
+                        className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
                       >
                         All Books
                       </Link>
@@ -120,18 +137,18 @@ const Navbar = () => {
 
                     {user ? (
                       <>
-                        <div className="px-5 py-2 mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                        <div className="px-5 py-2 text-xs font-bold text-gray-500 uppercase tracking-widest">
                           User Menu
                         </div>
                         <Link
                           to="/dashboard"
-                          className="block px-5 py-3 text-gray-300 hover:bg-green-500 hover:text-white transition"
+                          className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
                         >
                           Dashboard
                         </Link>
                         <button
                           onClick={logOut}
-                          className="w-full text-left px-5 py-3 text-red-400 hover:bg-red-500 hover:text-white transition"
+                          className="w-full text-left px-5 py-3 text-red-400 hover:bg-red-500 hover:text-white"
                         >
                           Logout
                         </button>
@@ -140,7 +157,7 @@ const Navbar = () => {
                       <>
                         <Link
                           to="/login"
-                          className="block px-5 py-3 text-gray-300 hover:bg-green-500 hover:text-white transition"
+                          className={`block px-5 py-3 hover:bg-green-500 hover:text-white transition ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
                         >
                           Login
                         </Link>

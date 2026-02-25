@@ -13,6 +13,45 @@
   color: white;
 }
 
+/* Toggle work  */
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark;
+}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* data light and dark theme */
+/* Light Mode (Default) */
+:root {
+  --bg-color: #ffffff; /* Puro background-er color */
+  --text-color: #1a1a1a; /* Main text color */
+  --nav-bg: #f8f9fa; /* Navbar background */
+  --primary-color: #22c55e; /* Green color (tomar logo-r sathe mil rekhe) */
+  --card-bg: #ffffff; /* Card ba dropdown-er background */
+  --border-color: #e5e7eb; /* Border color */
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --bg-color: #0f172a; /* Slate-900 moto dark background */
+  --text-color: #f1f5f9; /* Off-white text */
+  --nav-bg: #1e293b; /* Darker navbar background */
+  --primary-color: #4ade80; /* Ektu bright green dark mode-er jonno */
+  --card-bg: #1e293b; /* Dark card background */
+  --border-color: #334155; /* Dark mode border */
+}
+
+/* Ekhon ei variables gulo tomar element-e apply koro */
 body {
-  background: white;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.navbar {
+  background-color: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
 }
