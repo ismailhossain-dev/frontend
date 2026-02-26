@@ -133,23 +133,44 @@ const Navbar = () => {
                       >
                         All Books
                       </Link>
+                      <Link
+                        to="/dashboard"
+                        className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
+                      >
+                        Dashboard
+                      </Link>
                     </div>
 
                     {user ? (
                       <>
-                        <div className="px-5 py-2 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                          User Menu
-                        </div>
-                        <Link
-                          to="/dashboard"
-                          className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
+                        {/* User Name Section */}
+                        <div
+                          className={`px-5 py-4 border-b border-gray-100 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
                         >
-                          Dashboard
-                        </Link>
+                          <p className="text-sm font-semibold truncate">
+                            {user?.displayName || "User Name"}
+                          </p>
+                        </div>
+
+                        {/* Logout Button */}
                         <button
                           onClick={logOut}
-                          className="w-full text-left px-5 py-3 text-red-400 hover:bg-red-500 hover:text-white"
+                          className="w-full flex items-center gap-2 px-5 py-3 text-red-500 font-medium hover:bg-red-50 transition-colors"
                         >
+                          {/* Optional: Logout Icon (React Icons ba SVG use korte paren) */}
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                            />
+                          </svg>
                           Logout
                         </button>
                       </>

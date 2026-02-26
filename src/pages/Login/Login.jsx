@@ -1,35 +1,39 @@
-import { useState } from "react"; // State import kora hoyeche
+import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
+import { useForm } from "react-hook-form"; // React Hook Form import
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import useAuth from "../../hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
 import { TbFidgetSpinner } from "react-icons/tb";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Icons import
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
-  const { signIn, signInWithGoogle, loading, user, setLoading } = useAuth();
-  const [showPassword, setShowPassword] = useState(false); // Password show/hide state
+  const { signIn, signInWithGoogle, loading, user, setLoading, resetPassword } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state || "/";
+
+  // React Hook Form initialization
+  const {
+    register,
+    handleSubmit,
+    getValues, // Email retrieve korar jonno
+    formState: { errors },
+  } = useForm();
 
   if (loading) return <LoadingSpinner />;
   if (user) return <Navigate to={from} replace={true} />;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-
+  // Form Submit Handler
+  const onSubmit = async (data) => {
     try {
-      await signIn(email, password);
+      await signIn(data.email, data.password);
       navigate(from, { replace: true });
       toast.success("Welcome Back!");
     } catch (err) {
-      toast.error(err?.message);
+      toast.error(err?.message || "Invalid email or password");
     }
   };
 
@@ -45,6 +49,20 @@ const Login = () => {
     }
   };
 
+  // Forget password logic fix
+  const handleForgetPassword = async () => {
+    const email = getValues("email"); // Form theke email value nibe
+    if (!email) {
+      return toast.error("Please enter your email address first.");
+    }
+    try {
+      await resetPassword(email);
+      toast.success("Password reset email sent! Check your inbox.");
+    } catch (err) {
+      toast.error(err?.message || "Something went wrong!");
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f3f4f6] p-4 font-sans">
       <div className="flex flex-col w-full max-w-[450px] rounded-2xl shadow-2xl bg-white overflow-hidden border border-gray-100">
@@ -56,7 +74,8 @@ const Login = () => {
         </div>
 
         <div className="px-10 pb-10">
-          <form onSubmit={handleSubmit} className="space-y-5">
+          {/* handleSubmit(onSubmit) use kora hoyeche */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email Field */}
             <div>
               <label className="block mb-1.5 text-sm font-semibold text-slate-700">
@@ -64,40 +83,60 @@ const Login = () => {
               </label>
               <input
                 type="email"
-                name="email"
-                required
                 placeholder="name@company.com"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-gray-50 text-slate-800"
+                className={`w-full px-4 py-3 border rounded-xl outline-none transition-all bg-gray-50 text-slate-800 ${
+                  errors.email
+                    ? "border-red-500 focus:ring-red-200"
+                    : "border-gray-200 focus:ring-2 focus:ring-blue-500"
+                }`}
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" },
+                })}
               />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
             </div>
 
             {/* Password Field */}
             <div>
               <div className="flex justify-between mb-1.5">
                 <label className="text-sm font-semibold text-slate-700">Password</label>
-                <button
-                  type="button"
-                  className="text-xs font-bold text-blue-600 hover:text-blue-800 transition"
-                >
-                  Forgot?
-                </button>
               </div>
 
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"} // Type dynamically change hobe
-                  name="password"
-                  required
+                  type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-gray-50 text-slate-800"
+                  className={`w-full px-4 py-3 border rounded-xl outline-none transition-all bg-gray-50 text-slate-800 ${
+                    errors.password
+                      ? "border-red-500 focus:ring-red-200"
+                      : "border-gray-200 focus:ring-2 focus:ring-blue-500"
+                  }`}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: { value: 6, message: "Minimum 6 characters" },
+                  })}
                 />
-                {/* Eye Icon Button */}
+
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600 transition-colors"
                 >
                   {showPassword ? <AiOutlineEyeInvisible size={22} /> : <AiOutlineEye size={22} />}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
+              )}
+
+              <div className="flex justify-end mt-2">
+                <button
+                  onClick={handleForgetPassword}
+                  type="button"
+                  className="text-xs font-bold text-blue-600 hover:text-blue-800 transition"
+                >
+                  Forgot Password?
                 </button>
               </div>
             </div>

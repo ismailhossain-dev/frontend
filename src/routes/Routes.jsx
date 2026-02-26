@@ -20,6 +20,7 @@ import LibarianRquest from "../pages/Dashboard/Admin/LibarianRquest";
 import LibarianRoute from "./LibarianRoute";
 import AdminRoute from "./AdminRoute";
 import HomeDashboard from "../pages/Dashboard/HomeDashboard/HomeDashboard";
+import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
 
 export const router = createBrowserRouter([
   {
@@ -62,7 +63,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <HomeDashboard />
+            <AdminOverview />
           </PrivateRoute>
         ),
       },

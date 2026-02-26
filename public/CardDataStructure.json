@@ -1,0 +1,26 @@
+{
+  "_id": "1",
+  "title": "The Power of Habit",
+  "category": "Self Development",
+  "price": 350,
+  "rating": 4.7,
+  "location": "Dhaka",
+  "date": "2026-02-25",
+
+  "shortDescription": "Learn how habits shape your life and success.",
+
+  "images": {
+    "cover": "https://example.com/book-cover.jpg",
+    "frontPage": "https://example.com/front.jpg",
+    "backPage": "https://example.com/back.jpg",
+    "inside": ["https://example.com/page1.jpg", "https://example.com/page2.jpg"]
+  },
+
+  "details": {
+    "author": "Charles Duhigg",
+    "publisher": "Random House",
+    "language": "English",
+    "pages": 371,
+    "fullDescription": "This book explains the science of habits and how they impact our personal and professional life."
+  }
+}
