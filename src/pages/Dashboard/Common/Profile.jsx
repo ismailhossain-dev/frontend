@@ -1,61 +1,140 @@
-import useAuth from '../../../hooks/useAuth'
-import coverImg from '../../../assets/images/newbook.jpg'
-import useRole from '../../../hooks/useRole'
+import useAuth from "../../../hooks/useAuth";
+// import coverImg from "../../../assets/images/newbook.jpg";
+import useRole from "../../../hooks/useRole";
+import { Edit3, Mail, Fingerprint, Calendar, ShieldCheck, MapPin } from "lucide-react";
 
 const Profile = () => {
-  const { user } = useAuth()
-  //eta asche isRole component teke 
-  const [role, isRoleLoading] = useRole() 
-  console.log(role);
-console.log(role, isRoleLoading);
+  const { user } = useAuth();
+  const [role, isRoleLoading] = useRole();
+
+  if (isRoleLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-slate-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className='flex justify-center items-center h-screen'>
-      <div className='bg-sky-600 shadow-lg rounded-2xl md:w-4/5 lg:w-3/5'>
-        <img
-          alt='cover photo'
-          src={coverImg}
-          className='w-full mb-4 rounded-t-lg h-56'
-        />
-        <div className='flex flex-col items-center justify-center p-4 -mt-16'>
-          <a href='#' className='relative block'>
-            <img
-              alt='profile'
-              src={user?.photoURL}
-              className='mx-auto object-cover rounded-full h-24 w-24  border-2 border-white '
-            />
-          </a>
+    <div className="min-h-screen bg-slate-50/50 p-4 md:p-10 flex justify-center">
+      <div className="max-w-6xl w-full">
+        {/* Profile Container */}
+        <div className="bg-white shadow-xl shadow-slate-200/50 rounded-[2rem] overflow-hidden border border-slate-100 flex flex-col md:flex-row">
+          {/* Left Side: Avatar & Basic Info */}
+          <div className="md:w-1/3 bg-slate-900 p-8 flex flex-col items-center text-center justify-center relative overflow-hidden">
+            {/* Abstract Background Decoration */}
+            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-500 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl"></div>
+            </div>
 
-          <p className='p-2 px-4 text-xs text-white bg-lime-500 rounded-full'>
-            {role}
-          </p>
-          <p className='mt-2 text-xl font-medium text-white '>
-            User Id: {user?.uid}
-          </p>
-          <div className='w-full p-2 mt-4 rounded-lg'>
-            <div className='flex flex-wrap items-center justify-between text-sm text-gray-600 '>
-              <p className='flex flex-col text-white'>
-                Name
-                <span className='font-bold text-white '>
-                  {user?.displayName}
+            <div className="relative group z-10">
+              <img
+                alt="profile"
+                src={user?.photoURL}
+                className="mx-auto object-cover rounded-[2.5rem] h-44 w-44 border-4 border-slate-800 shadow-2xl transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute -bottom-2 -right-2 h-8 w-8 bg-emerald-500 border-4 border-slate-900 rounded-full shadow-lg"></div>
+            </div>
+
+            <div className="mt-6 z-10">
+              <h2 className="text-2xl font-black text-white tracking-tight leading-tight">
+                {user?.displayName}
+              </h2>
+              <div className="inline-flex items-center gap-2 mt-3 px-4 py-1.5 bg-indigo-500/20 rounded-full border border-indigo-500/30">
+                <ShieldCheck size={14} className="text-indigo-400" />
+                <span className="text-xs font-bold uppercase tracking-widest text-indigo-300">
+                  {role}
                 </span>
-              </p>
-              <p className='flex flex-col text-white'>
-                Email
-                <span className='font-bold text-white '>{user?.email}</span>
-              </p>
+              </div>
+            </div>
 
-              <div>
-                <button className='bg-pink-500  px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-pink-800 block mb-1'>
-                  Update Profile
-                </button>
-              
+            <div className="mt-8 w-full z-10">
+              <button className="flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-700 transition-all text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-900/20 active:scale-95">
+                <Edit3 size={18} />
+                Edit Profile
+              </button>
+            </div>
+          </div>
+
+          {/* Right Side: Detailed Stats & Info */}
+          <div className="md:w-2/3 p-8 md:p-12">
+            <div className="flex justify-between items-center mb-10">
+              <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                Profile Information
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+              </h3>
+              <span className="text-xs font-medium text-slate-400 italic">Last login: Today</span>
+            </div>
+
+            {/* Information Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <InfoCard
+                label="Full Name"
+                value={user?.displayName || "N/A"}
+                icon={<Edit3 size={18} />}
+                color="text-amber-500 bg-amber-50"
+              />
+              <InfoCard
+                label="Email Address"
+                value={user?.email}
+                icon={<Mail size={18} />}
+                color="text-blue-500 bg-blue-50"
+              />
+              <InfoCard
+                label="Identity ID"
+                value={user?.uid?.slice(0, 15) + "..."}
+                icon={<Fingerprint size={18} />}
+                color="text-purple-500 bg-purple-50"
+              />
+              <InfoCard
+                label="Location"
+                value="Not Set"
+                icon={<MapPin size={18} />}
+                color="text-rose-500 bg-rose-50"
+              />
+            </div>
+
+            {/* Activity/Stats Section */}
+            <div className="mt-12">
+              <h4 className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">
+                User Activity
+              </h4>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center">
+                  <p className="text-2xl font-black text-slate-800">12</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Orders</p>
+                </div>
+                <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center">
+                  <p className="text-2xl font-black text-slate-800">4.8</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Rating</p>
+                </div>
+                <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center">
+                  <p className="text-2xl font-black text-slate-800">2.5k</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Points</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+// Polished Info Card
+const InfoCard = ({ label, value, icon, color }) => (
+  <div className="group p-5 rounded-[1.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-300">
+    <div className="flex items-center gap-4">
+      <div className={`p-3 rounded-xl ${color} transition-colors`}>{icon}</div>
+      <div className="overflow-hidden">
+        <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-0.5">
+          {label}
+        </p>
+        <p className="text-sm font-bold text-slate-700 truncate">{value}</p>
+      </div>
+    </div>
+  </div>
+);
+
+export default Profile;
