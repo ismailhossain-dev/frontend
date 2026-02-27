@@ -5,8 +5,9 @@ import { HiSun, HiMoon } from "react-icons/hi";
 import Container from "../Container";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "../../../assets/images/placeholder.jpg";
-import bookLogo from "../../../assets/images/booklogo.jpg";
+
 import useTheme from "../../../hooks/useTheme";
+import Logo from "../../Logo/Logo";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -23,7 +24,6 @@ const Navbar = () => {
     }`;
 
   return (
-    // fixed top-0 left-0 w-full deya hoyeche jate width 100% hoy
     <div className="fixed top-0 left-0 w-full z-50">
       <div
         className={`w-full backdrop-blur-xl border-b transition-colors duration-500 shadow-lg 
@@ -32,23 +32,9 @@ const Navbar = () => {
         <Container>
           <div className="flex flex-row items-center justify-between h-16">
             {/* LEFT: Logo */}
-            <div className="flex-1 flex justify-start">
-              <Link to="/" className="flex items-center gap-2 group">
-                <div className="w-10 h-10 overflow-hidden rounded-lg border border-white/20">
-                  <img
-                    src={bookLogo}
-                    alt="logo"
-                    className="w-full h-full object-cover transition-transform group-hover:scale-110"
-                  />
-                </div>
-                <h2
-                  className={`text-lg font-extrabold tracking-tight hidden sm:block ${theme === "dark" ? "text-white" : "text-slate-900"}`}
-                >
-                  Book<span className="text-green-500">Courier</span>
-                </h2>
-              </Link>
+            <div className="flex-1">
+              <Logo />
             </div>
-
             {/* CENTER: Navigation (Desktop) */}
             <nav className="hidden md:flex flex-[2] justify-center">
               <ul
@@ -64,10 +50,23 @@ const Navbar = () => {
                     All Books
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/about" className={navLinkStyles}>
+                    About
+                  </NavLink>
+                </li>
                 {user && (
                   <li>
                     <NavLink to="/dashboard" className={navLinkStyles}>
                       Dashboard
+                    </NavLink>
+                  </li>
+                )}
+
+                {user && (
+                  <li>
+                    <NavLink to="/blog" className={navLinkStyles}>
+                      Blog
                     </NavLink>
                   </li>
                 )}

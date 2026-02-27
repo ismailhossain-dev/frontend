@@ -16,7 +16,7 @@ import logo5 from "../../assets/images/img-5.avif";
 import logo6 from "../../assets/images/img-6.avif";
 import Container from "../../components/Shared/Container";
 
-const Slider = () => {
+const HomeSlide = () => {
   const slides = [
     { img: logo1, title: "World's Best Classics", subtitle: "Timeless stories delivered to you." },
     { img: logo2, title: "New Arrivals 2026", subtitle: "Explore the latest bestsellers today." },
@@ -45,7 +45,7 @@ const Slider = () => {
             }}
             navigation={true}
             modules={[Autoplay, Pagination, Navigation, EffectFade]}
-            className="mySwiper h-[320px] sm:h-[400px] lg:h-[480px] w-full"
+            className="mySwiper h-[320px] sm:h-[400px] lg:h-[450px] w-full"
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={index} className="relative group">
@@ -89,4 +89,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default HomeSlide;

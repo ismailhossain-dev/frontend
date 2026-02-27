@@ -10,7 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import { auth } from "../firebase/firebase.config"; // ✅ auth import
+import { auth } from "../firebase/firebase.config";
 import { AuthContext } from "./AuthContext";
 
 const googleProvider = new GoogleAuthProvider();
@@ -53,7 +53,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("CurrentUser", currentUser?.email);
       setUser(currentUser);
       setLoading(false);
     });

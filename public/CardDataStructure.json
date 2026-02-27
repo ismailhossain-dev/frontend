@@ -1,26 +1,427 @@
-{
-  "_id": "1",
-  "title": "The Power of Habit",
-  "category": "Self Development",
-  "price": 350,
-  "rating": 4.7,
-  "location": "Dhaka",
-  "date": "2026-02-25",
-
-  "shortDescription": "Learn how habits shape your life and success.",
-
-  "images": {
-    "cover": "https://example.com/book-cover.jpg",
-    "frontPage": "https://example.com/front.jpg",
-    "backPage": "https://example.com/back.jpg",
-    "inside": ["https://example.com/page1.jpg", "https://example.com/page2.jpg"]
+[
+  {
+    "title": "The Power of Habit",
+    "category": "Productivity & Habits",
+    "price": 350,
+    "rating": 4.7,
+    "location": "Dhaka",
+    "date": "2026-02-25",
+    "shortDescription": "Learn how habits shape your life and success.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114873/ThePowerof_Habit-1-m_gft63s.avif",
+    "details": {
+      "author": "Charles Duhigg",
+      "publisher": "Random House",
+      "language": "English",
+      "pages": 371,
+      "fullDescription": "This book explains the science of habits and how they impact our personal and professional life."
+    }
   },
-
-  "details": {
-    "author": "Charles Duhigg",
-    "publisher": "Random House",
-    "language": "English",
-    "pages": 371,
-    "fullDescription": "This book explains the science of habits and how they impact our personal and professional life."
+  {
+    "title": "Atomic Habits",
+    "category": "Productivity & Habits",
+    "price": 380,
+    "rating": 4.8,
+    "location": "Dhaka",
+    "date": "2026-02-24",
+    "shortDescription": "Tiny changes, remarkable results.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114856/Atomic_Habits-2_atguws.avif",
+    "details": {
+      "author": "James Clear",
+      "publisher": "Random House Business",
+      "language": "English",
+      "pages": 320,
+      "fullDescription": "An easy & proven way to build good habits & break bad ones."
+    }
+  },
+  {
+    "title": "How to Win Friends and Influence People",
+    "category": "Relationships & Communication",
+    "price": 280,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-23",
+    "shortDescription": "Timeless principles for better relationships.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114859/How_to_Win_Friends_and_Influence_People-3_aoxgij.avif",
+    "details": {
+      "author": "Dale Carnegie",
+      "publisher": "Simon & Schuster",
+      "language": "English",
+      "pages": 288,
+      "fullDescription": "Classic guide to interpersonal skills and influence."
+    }
+  },
+  {
+    "title": "Thinking, Fast and Slow",
+    "category": "Mindset & Psychology",
+    "price": 420,
+    "rating": 4.5,
+    "location": "Dhaka",
+    "date": "2026-02-22",
+    "shortDescription": "Two systems that drive the way we think.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114872/Thinking_Fast_and_Slow-4_jcjmvi.avif",
+    "details": {
+      "author": "Daniel Kahneman",
+      "publisher": "Farrar, Straus and Giroux",
+      "language": "English",
+      "pages": 499,
+      "fullDescription": "Explores the two modes of thought: fast/intuitive and slow/deliberate."
+    }
+  },
+  {
+    "title": "The 7 Habits of Highly Effective People",
+    "category": "Productivity & Habits",
+    "price": 340,
+    "rating": 4.7,
+    "location": "Dhaka",
+    "date": "2026-02-21",
+    "shortDescription": "Powerful lessons in personal change.",
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Publication18/v4/62/9f/39/629f3985-61a2-9603-bc14-6800e2822033/The7HabitsInteractive.jpg/1200x900wz.jpg",
+    "details": {
+      "author": "Stephen R. Covey",
+      "publisher": "Free Press",
+      "language": "English",
+      "pages": 432,
+      "fullDescription": "Paradigm-shifting classic on principle-centered living."
+    }
+  },
+  {
+    "title": "Mindset",
+    "category": "Mindset & Psychology",
+    "price": 310,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-20",
+    "shortDescription": "The new psychology of success.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114865/Mindset-6_jlrrxt.avif",
+    "details": {
+      "author": "Carol S. Dweck",
+      "publisher": "Ballantine Books",
+      "language": "English",
+      "pages": 320,
+      "fullDescription": "Fixed mindset vs growth mindset — life-changing difference."
+    }
+  },
+  {
+    "title": "Deep Work",
+    "category": "Productivity & Habits",
+    "price": 360,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-19",
+    "shortDescription": "Rules for focused success in a distracted world.",
+    "image": "https://i0.wp.com/itsmoreofacomment.com/wp-content/uploads/2021/01/CalNewportDeepWork.jpg",
+    "details": {
+      "author": "Cal Newport",
+      "publisher": "Grand Central Publishing",
+      "language": "English",
+      "pages": 304,
+      "fullDescription": "Learn how to focus deeply in an age of constant distraction."
+    }
+  },
+  {
+    "title": "Man's Search for Meaning",
+    "category": "Motivation & Leadership",
+    "price": 290,
+    "rating": 4.8,
+    "location": "Dhaka",
+    "date": "2026-02-18",
+    "shortDescription": "Experiences in concentration camps and logotherapy.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114867/Man_s_Search_for_Meaning-8_xdr4vy.avif",
+    "details": {
+      "author": "Viktor E. Frankl",
+      "publisher": "Beacon Press",
+      "language": "English",
+      "pages": 165,
+      "fullDescription": "Profound insights from Holocaust survival and meaning-making."
+    }
+  },
+  {
+    "title": "The Subtle Art of Not Giving a F*ck",
+    "category": "Mindset & Psychology",
+    "price": 320,
+    "rating": 4.5,
+    "location": "Dhaka",
+    "date": "2026-02-17",
+    "shortDescription": "Counterintuitive approach to living a good life.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114866/The_Subtle_Art_of_Not_Giving_a-9_oqtttz.avif",
+    "details": {
+      "author": "Mark Manson",
+      "publisher": "Harper",
+      "language": "English",
+      "pages": 224,
+      "fullDescription": "Refreshing take on what really matters in life."
+    }
+  },
+  {
+    "title": "Ikigai",
+    "category": "Motivation & Leadership",
+    "price": 300,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-16",
+    "shortDescription": "The Japanese secret to a long and happy life.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114858/Ikigai-10_ogfger.avif",
+    "details": {
+      "author": "Héctor García & Francesc Miralles",
+      "publisher": "Penguin",
+      "language": "English",
+      "pages": 208,
+      "fullDescription": "Finding purpose at the intersection of passion, mission, vocation and profession."
+    }
+  },
+  {
+    "title": "Grit",
+    "category": "Motivation & Leadership",
+    "price": 370,
+    "rating": 4.5,
+    "location": "Dhaka",
+    "date": "2026-02-15",
+    "shortDescription": "The power of passion and perseverance.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114867/Grit-11_o345oz.avif",
+    "details": {
+      "author": "Angela Duckworth",
+      "publisher": "Scribner",
+      "language": "English",
+      "pages": 352,
+      "fullDescription": "Why talent is overrated — effort and persistence matter more."
+    }
+  },
+  {
+    "title": "The Miracle Morning",
+    "category": "Productivity & Habits",
+    "price": 290,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-14",
+    "shortDescription": "The not-so-obvious secret guaranteed to transform your life.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772114872/The_Miracle_Morning-12_mruqtk.avif",
+    "details": {
+      "author": "Hal Elrod",
+      "publisher": "Miracle Morning Publishing",
+      "language": "English",
+      "pages": 172,
+      "fullDescription": "Life S.A.V.E.R.S. morning routine that changes everything."
+    }
+  },
+  {
+    "title": "Rich Dad Poor Dad",
+    "category": "Motivation & Leadership",
+    "price": 320,
+    "rating": 4.7,
+    "location": "Dhaka",
+    "date": "2026-02-13",
+    "shortDescription": "What the rich teach their kids about money.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153040/Rich_Dad_Poor_Dad_-13_qyqscc.webp",
+    "details": {
+      "author": "Robert T. Kiyosaki",
+      "publisher": "Plata Publishing",
+      "language": "English",
+      "pages": 336,
+      "fullDescription": "Financial education through two different father perspectives."
+    }
+  },
+  {
+    "title": "The Compound Effect",
+    "category": "Productivity & Habits",
+    "price": 310,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-12",
+    "shortDescription": "Small actions → massive results.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153040/The_Compound_Effect-14_qpd141.avif",
+    "details": {
+      "author": "Darren Hardy",
+      "publisher": "Da Capo Lifelong Books",
+      "language": "English",
+      "pages": 176,
+      "fullDescription": "How consistent small choices create huge outcomes."
+    }
+  },
+  {
+    "title": "Essentialism",
+    "category": "Productivity & Habits",
+    "price": 340,
+    "rating": 4.5,
+    "location": "Dhaka",
+    "date": "2026-02-11",
+    "shortDescription": "The disciplined pursuit of less.",
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Publication211/v4/87/aa/ae/87aaae9e-075c-436e-b790-6967a2d1432a/9780804137393.d.jpg/1200x900wz.jpg",
+    "details": {
+      "author": "Greg McKeown",
+      "publisher": "Currency",
+      "language": "English",
+      "pages": 260,
+      "fullDescription": "Do less but better — focus on what truly matters."
+    }
+  },
+  {
+    "title": "The ONE Thing",
+    "category": "Productivity & Habits",
+    "price": 330,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-10",
+    "shortDescription": "The surprisingly simple truth behind extraordinary results.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153040/The_ONE_Thing-16_ynrqjy.avif",
+    "details": {
+      "author": "Gary Keller",
+      "publisher": "Bard Press",
+      "language": "English",
+      "pages": 240,
+      "fullDescription": "Focus on the one thing that makes everything else easier or unnecessary."
+    }
+  },
+  {
+    "title": "Can't Hurt Me",
+    "category": "Motivation & Leadership",
+    "price": 390,
+    "rating": 4.8,
+    "location": "Dhaka",
+    "date": "2026-02-09",
+    "shortDescription": "Master your mind and defy the odds.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153039/Can_t_Hurt_Me-17_mql2mm.avif",
+    "details": {
+      "author": "David Goggins",
+      "publisher": "Lioncrest Publishing",
+      "language": "English",
+      "pages": 364,
+      "fullDescription": "Inspiring story of mental toughness and breaking limits."
+    }
+  },
+  {
+    "title": "12 Rules for Life",
+    "category": "Mindset & Psychology",
+    "price": 410,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-08",
+    "shortDescription": "An antidote to chaos.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153039/12_Rules_for_Life-18_vnnvsc.avif",
+    "details": {
+      "author": "Jordan B. Peterson",
+      "publisher": "Random House Canada",
+      "language": "English",
+      "pages": 409,
+      "fullDescription": "Practical principles for living a meaningful life."
+    }
+  },
+  {
+    "title": "The Gifts of Imperfection",
+    "category": "Mindset & Psychology",
+    "price": 300,
+    "rating": 4.7,
+    "location": "Dhaka",
+    "date": "2026-02-07",
+    "shortDescription": "Let go of who you think you're supposed to be.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153041/The_Gifts_of_Imperfection-19_dsuepl.avif",
+    "details": {
+      "author": "Brené Brown",
+      "publisher": "Hazelden Publishing",
+      "language": "English",
+      "pages": 160,
+      "fullDescription": "Guide to wholehearted living and self-acceptance."
+    }
+  },
+  {
+    "title": "Daring Greatly",
+    "category": "Mindset & Psychology",
+    "price": 350,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-06",
+    "shortDescription": "How the courage to be vulnerable transforms the way we live.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153039/Daring_Greatly-20_zcvylo.avif",
+    "details": {
+      "author": "Brené Brown",
+      "publisher": "Avery",
+      "language": "English",
+      "pages": 287,
+      "fullDescription": "Power of vulnerability in leadership, love and life."
+    }
+  },
+  {
+    "title": "Drive",
+    "category": "Motivation & Leadership",
+    "price": 360,
+    "rating": 4.5,
+    "location": "Dhaka",
+    "date": "2026-02-05",
+    "shortDescription": "The surprising truth about what motivates us.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153040/Drive-21_qmpdm1.avif",
+    "details": {
+      "author": "Daniel H. Pink",
+      "publisher": "Riverhead Books",
+      "language": "English",
+      "pages": 242,
+      "fullDescription": "Autonomy, mastery, and purpose — the real keys to motivation."
+    }
+  },
+  {
+    "title": "The War of Art",
+    "category": "Motivation & Leadership",
+    "price": 280,
+    "rating": 4.6,
+    "location": "Dhaka",
+    "date": "2026-02-04",
+    "shortDescription": "Break through the blocks and win your inner creative battles.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153039/The_War_of_Art-22_ldul7x.avif",
+    "details": {
+      "author": "Steven Pressfield",
+      "publisher": "Black Irish Entertainment",
+      "language": "English",
+      "pages": 165,
+      "fullDescription": "Overcoming Resistance — every creative person's biggest enemy."
+    }
+  },
+  {
+    "title": "Big Magic",
+    "category": "Motivation & Leadership",
+    "price": 320,
+    "rating": 4.5,
+    "location": "Dhaka",
+    "date": "2026-02-03",
+    "shortDescription": "Creative living beyond fear.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153039/Big_Magic-23_i67vyn.webp",
+    "details": {
+      "author": "Elizabeth Gilbert",
+      "publisher": "Riverhead Books",
+      "language": "English",
+      "pages": 276,
+      "fullDescription": "Inspiring approach to living creatively and fearlessly."
+    }
+  },
+  {
+    "title": "The 5 AM Club",
+    "category": "Productivity & Habits",
+    "price": 370,
+    "rating": 4.4,
+    "location": "Dhaka",
+    "date": "2026-02-02",
+    "shortDescription": "Own your morning. Elevate your life.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153040/The_5_AM_Club-24_iaofp8.avif",
+    "details": {
+      "author": "Robin Sharma",
+      "publisher": "HarperCollins",
+      "language": "English",
+      "pages": 336,
+      "fullDescription": "20/20/20 morning formula for peak performance."
+    }
+  },
+  {
+    "title": "Extreme Ownership",
+    "category": "Motivation & Leadership",
+    "price": 380,
+    "rating": 4.7,
+    "location": "Dhaka",
+    "date": "2026-02-01",
+    "shortDescription": "How U.S. Navy SEALs lead and win.",
+    "image": "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1772153040/Extreme_Ownership-25_eoxxxs.jpg",
+    "details": {
+      "author": "Jocko Willink & Leif Babin",
+      "publisher": "St. Martin's Press",
+      "language": "English",
+      "pages": 320,
+      "fullDescription": "Leadership lessons from combat applied to business and life."
+    }
   }
-}
+]

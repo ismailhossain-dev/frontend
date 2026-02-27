@@ -2,18 +2,17 @@ import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FiMail, FiPhone, FiMapPin, FiSend } from "react-icons/fi";
+import Logo from "../../Logo/Logo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0f172a] text-slate-300 pt-20 pb-10 px-5 border-t border-white/5">
+    <footer className="bg-[#0f172a] text-slate-300 pt-20 pb-10 px-5 border-t border-white/5 mt-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
         {/* Brand & About */}
         <div className="space-y-6">
-          <h2 className="text-3xl font-black text-white tracking-tighter">
-            Book<span className="text-green-500">Courier</span>
-          </h2>
+          <Logo />
           <p className="text-base leading-relaxed text-slate-400 max-w-xs">
             Your premium gateway to the world of literature. We deliver passion, knowledge, and
             stories right to your doorstep.

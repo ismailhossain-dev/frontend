@@ -20,7 +20,7 @@ const Books = () => {
     <Container>
       <div>
         <div className="text-center mt-10">
-          <h1 className="text-5xl font-black text-slate-800 tracking-tighter uppercase">
+          <h1 className="text-5xl font-black text-slate-800 tracking-tighter uppercase dark:text-white ">
             Trending <span className="text-blue-600">Books</span>
           </h1>
           <div className="h-1.5 w-16 bg-blue-600 mx-auto mt-2 rounded-full"></div>

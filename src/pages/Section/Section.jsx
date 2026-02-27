@@ -47,7 +47,7 @@ const Section = () => {
         </section>
 
         {/* WHY CHOOSE US SECTION */}
-        <section className="py-24 bg-slate-50 mb-10 dark:bg-[#0f172a]">
+        <section className="py-24 bg-slate-50 mb-10 dark:bg-[#0f172a] mt-10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-xs font-black text-green-500 uppercase  mb-3">Core Values</h2>

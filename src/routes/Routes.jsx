@@ -21,6 +21,8 @@ import LibarianRoute from "./LibarianRoute";
 import AdminRoute from "./AdminRoute";
 import HomeDashboard from "../pages/Dashboard/HomeDashboard/HomeDashboard";
 import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
+import About from "../components/Home/About";
+import Blog from "../components/Home/Blog/Blog";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,18 @@ export const router = createBrowserRouter([
       {
         path: "/all-book",
         element: <AllBook />,
+      },
+      {
+        path: "about",
+        Component: About,
+      },
+      {
+        path: "blog",
+        element: (
+          <PrivateRoute>
+            <Blog />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/book/:id",
