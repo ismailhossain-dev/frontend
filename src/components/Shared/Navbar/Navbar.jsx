@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router"; // react-router-dom use kora better
+import { Link, NavLink } from "react-router";
 import { AiOutlineMenu } from "react-icons/ai";
 import { HiSun, HiMoon } from "react-icons/hi";
 import Container from "../Container";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "../../../assets/images/placeholder.jpg";
-
 import useTheme from "../../../hooks/useTheme";
 import Logo from "../../Logo/Logo";
 
@@ -15,13 +14,62 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
 
   const navLinkStyles = ({ isActive }) =>
-    `relative px-5 py-2 rounded-full transition-all duration-300 font-medium text-sm flex items-center justify-center ${
+    `whitespace-nowrap px-4 py-2 rounded-full transition-all duration-300 font-medium text-sm flex items-center justify-center ${
       isActive
         ? "bg-green-500 text-white shadow-lg shadow-green-500/30"
         : theme === "dark"
           ? "text-gray-300 hover:bg-white/10 hover:text-white"
           : "text-gray-600 hover:bg-black/5 hover:text-black"
     }`;
+
+  //link
+  const navbarMenu = (
+    <>
+      <li>
+        <NavLink to="/" className={navLinkStyles}>
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/all-book" className={navLinkStyles}>
+          All Books
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/about" className={navLinkStyles}>
+          About
+        </NavLink>
+      </li>
+      {user && (
+        <li>
+          <NavLink to="/dashboard" className={navLinkStyles}>
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+      {user && (
+        <li>
+          <NavLink to="/blog" className={navLinkStyles}>
+            Blog
+          </NavLink>
+        </li>
+      )}
+      {!user && (
+        <li>
+          <NavLink to="/login" className={navLinkStyles}>
+            Login
+          </NavLink>
+        </li>
+      )}
+      {user && (
+        <li>
+          <NavLink to="/contact" className={navLinkStyles}>
+            Contact
+          </NavLink>
+        </li>
+      )}
+    </>
+  );
 
   return (
     <div className="fixed top-0 left-0 w-full z-50">
@@ -30,62 +78,33 @@ const Navbar = () => {
         ${theme === "dark" ? "bg-slate-900/90 border-white/10" : "bg-white/90 border-black/5"}`}
       >
         <Container>
-          <div className="flex flex-row items-center justify-between h-16">
+          <div className="flex flex-row items-center justify-between h-20 md:h-16 gap-2">
             {/* LEFT: Logo */}
-            <div className="flex-1">
+            <div className="shrink-0">
               <Logo />
             </div>
-            {/* CENTER: Navigation (Desktop) */}
-            <nav className="hidden md:flex flex-[2] justify-center">
-              <ul
-                className={`flex items-center gap-2 p-1.5 rounded-full border ${theme === "dark" ? "bg-black/20 border-white/5" : "bg-gray-100 border-black/5"}`}
-              >
-                <li>
-                  <NavLink to="/" className={navLinkStyles}>
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/all-book" className={navLinkStyles}>
-                    All Books
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/about" className={navLinkStyles}>
-                    About
-                  </NavLink>
-                </li>
-                {user && (
-                  <li>
-                    <NavLink to="/dashboard" className={navLinkStyles}>
-                      Dashboard
-                    </NavLink>
-                  </li>
-                )}
 
-                {user && (
-                  <li>
-                    <NavLink to="/blog" className={navLinkStyles}>
-                      Blog
-                    </NavLink>
-                  </li>
-                )}
-                {!user && (
-                  <li>
-                    <NavLink to="/login" className={navLinkStyles}>
-                      Login
-                    </NavLink>
-                  </li>
-                )}
+            {/* CENTER: Navigation (Desktop) */}
+            <nav className="hidden lg:flex items-center justify-center">
+              <ul
+                className={`flex items-center gap-1 p-1 rounded-full border ${
+                  theme === "dark" ? "bg-black/20 border-white/5" : "bg-gray-100 border-black/5"
+                }`}
+              >
+                {navbarMenu}
               </ul>
             </nav>
 
             {/* RIGHT: Actions */}
-            <div className="flex-1 flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end gap-2 md:gap-4 shrink-0">
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className={`p-2 rounded-lg border transition-all active:scale-90 ${theme === "dark" ? "bg-white/5 border-white/10 text-white" : "bg-black/5 border-black/10 text-slate-900"}`}
+                className={`p-2 rounded-lg border transition-all active:scale-90 ${
+                  theme === "dark"
+                    ? "bg-white/5 border-white/10 text-white"
+                    : "bg-black/5 border-black/10 text-slate-900"
+                }`}
               >
                 {theme === "dark" ? (
                   <HiSun className="text-xl text-yellow-400" />
@@ -98,11 +117,15 @@ const Navbar = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className={`flex items-center gap-2 p-1 pl-3 pr-1 rounded-full border transition-all ${theme === "dark" ? "bg-white/5 border-white/10 hover:border-green-500/50" : "bg-black/5 border-black/10 hover:border-green-500/50"}`}
+                  className={`flex items-center gap-2 p-1 pl-3 pr-1 rounded-full border transition-all ${
+                    theme === "dark"
+                      ? "bg-white/5 border-white/10 hover:border-green-500/50"
+                      : "bg-black/5 border-black/10 hover:border-green-500/50"
+                  }`}
                 >
                   <span
                     className={
-                      theme === "dark" ? "text-white md:hidden" : "text-slate-900 md:hidden"
+                      theme === "dark" ? "text-white lg:hidden" : "text-slate-900 lg:hidden"
                     }
                   >
                     <AiOutlineMenu />
@@ -117,79 +140,53 @@ const Navbar = () => {
                 {/* Dropdown Menu */}
                 {isOpen && (
                   <div
-                    className={`absolute right-0 mt-4 w-56 border rounded-2xl shadow-2xl overflow-hidden py-2 z-50 ${theme === "dark" ? "bg-slate-900 border-white/10" : "bg-white border-black/10"}`}
+                    className={`absolute right-0 mt-4 w-56 border rounded-2xl shadow-2xl overflow-hidden py-2 z-50 ${
+                      theme === "dark" ? "bg-slate-900 border-white/10" : "bg-white border-black/10"
+                    }`}
                   >
-                    <div className="md:hidden border-b border-black/5 pb-2 mb-2 text-sm">
-                      <Link
+                    {/* Mobile Links inside Dropdown */}
+                    <div className="lg:hidden border-b border-black/5 pb-2 mb-2 text-sm">
+                      {/* <Link
                         to="/"
-                        className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
+                        className="block px-5 py-2 hover:bg-green-500 hover:text-white transition"
                       >
                         Home
-                      </Link>
-                      <Link
-                        to="/all-book"
-                        className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
-                      >
-                        All Books
-                      </Link>
-                      <Link
-                        to="/dashboard"
-                        className={`block px-5 py-3 hover:bg-green-500 hover:text-white ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
-                      >
-                        Dashboard
-                      </Link>
+                      </Link> */}
+                      {navbarMenu}
+                      {/* ... add other mobile links here ... */}
                     </div>
 
                     {user ? (
                       <>
-                        {/* User Name Section */}
                         <div
-                          className={`px-5 py-4 border-b border-gray-100 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
+                          className={`px-5 py-3 border-b border-black/5 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
                         >
                           <p className="text-sm font-semibold truncate">
-                            {user?.displayName || "User Name"}
+                            {user?.displayName || "User"}
                           </p>
                         </div>
-
-                        {/* Logout Button */}
                         <button
                           onClick={logOut}
                           className="w-full flex items-center gap-2 px-5 py-3 text-red-500 font-medium hover:bg-red-50 transition-colors"
                         >
-                          {/* Optional: Logout Icon (React Icons ba SVG use korte paren) */}
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                            />
-                          </svg>
                           Logout
                         </button>
                       </>
                     ) : (
-                      <>
+                      <div className="p-2 space-y-1">
                         <Link
                           to="/login"
-                          className={`block px-5 py-3 hover:bg-green-500 hover:text-white transition ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
+                          className="block px-5 py-2 hover:bg-green-500 hover:text-white rounded-lg"
                         >
                           Login
                         </Link>
-                        <div className="px-4 py-2">
-                          <Link
-                            to="/signup"
-                            className="block w-full text-center py-2 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition"
-                          >
-                            Sign Up
-                          </Link>
-                        </div>
-                      </>
+                        <Link
+                          to="/signup"
+                          className="block w-full text-center py-2 bg-green-500 text-white rounded-lg font-bold"
+                        >
+                          Sign Up
+                        </Link>
+                      </div>
                     )}
                   </div>
                 )}

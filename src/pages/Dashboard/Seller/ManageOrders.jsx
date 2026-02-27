@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import SellerOrderDataRow from "../../../components/Dashboard/TableRows/SellerOrderDataRow";
+
 import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
@@ -71,12 +71,7 @@ const ManageOrders = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {/* Map my order Table data  */}
-                  {orders.map((order) => (
-                    <SellerOrderDataRow key={order._id} order={order} />
-                  ))}
-                </tbody>
+                <tbody>{/* Map my order Table data  */}</tbody>
               </table>
             </div>
           </div>

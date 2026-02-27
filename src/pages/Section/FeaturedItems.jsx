@@ -48,7 +48,7 @@ const FeaturedItems = () => {
 
   return (
     <Container>
-      <section className="py-24 bg-white dark:bg-[#030712] transition-colors duration-500 overflow-hidden mt-10">
+      <section className="py-24 bg-white dark:bg-[#030712] transition-colors duration-500 overflow-hidden mt-10 rounded-2xl">
         <div className="container mx-auto px-6">
           {/* Header Section */}
           <div className="text-center max-w-3xl mx-auto mb-20">

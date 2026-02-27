@@ -5,7 +5,7 @@ import FeaturedItems from "../Section/FeaturedItems.jsx";
 import Section from "../Section/Section";
 import Services from "../Section/Services.jsx";
 
-import HomeSlide from "../Slider/HomeSlide";
+import HomeSlide from "../Slider/HomeSlide.jsx";
 
 const Home = () => {
   //Tenstake diye data fetch

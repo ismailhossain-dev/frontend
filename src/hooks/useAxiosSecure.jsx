@@ -13,6 +13,7 @@ const useAxiosSecure = () => {
   const { user, logOut, loading } = useAuth();
   const navigate = useNavigate();
 
+  //jwt work axios website
   useEffect(() => {
     if (!loading && user?.accessToken) {
       // Add request interceptor

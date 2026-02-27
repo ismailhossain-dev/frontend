@@ -110,7 +110,7 @@ const Blog = () => {
   // Standard Blog List View
   return (
     <Container>
-      <div className="bg-[#f8fafc] dark:bg-[#0f172a] transition-colors duration-300 min-h-screen pb-20 font-sans mt-10 ">
+      <div className="bg-[#f8fafc] dark:bg-[#0f172a] transition-colors duration-300 min-h-screen pb-20 font-sans mt-10 rounded-2xl ">
         {/* Header Section */}
         <section className="relative pt-28 pb-20 overflow-hidden text-center">
           <div className="container mx-auto px-6 relative z-10">

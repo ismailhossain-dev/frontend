@@ -8,7 +8,7 @@ const Section = () => {
     <Container>
       <div>
         {/* HERO SECTION */}
-        <section className="relative bg-white dark:bg-[#0b1120] py-20 lg:py-32 overflow-hidden">
+        <section className="relative bg-white dark:bg-[#0b1120] py-20 lg:py-32 overflow-hidden rounded-r-2xl">
           {/* Decorative background elements */}
           <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-green-500/10 blur-[120px] rounded-full"></div>
           <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full"></div>
@@ -47,7 +47,7 @@ const Section = () => {
         </section>
 
         {/* WHY CHOOSE US SECTION */}
-        <section className="py-24 bg-slate-50 mb-10 dark:bg-[#0f172a] mt-10">
+        <section className="py-24 bg-slate-50 mb-10 dark:bg-[#0f172a] rounded-2xl mt-10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-xs font-black text-green-500 uppercase  mb-3">Core Values</h2>

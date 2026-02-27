@@ -38,7 +38,7 @@ const FaqSection = () => {
 
   return (
     <Container>
-      <section className="py-24 bg-gray-50 dark:bg-[#06080e] transition-colors duration-500 cursor-pointer mt-10">
+      <section className="py-24 bg-gray-50 dark:bg-[#06080e] transition-colors duration-500 cursor-pointer mt-10 rounded-2xl">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             {/* Section Header */}

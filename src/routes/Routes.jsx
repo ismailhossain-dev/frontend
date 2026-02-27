@@ -17,12 +17,14 @@ import BookDetails from "../pages/bookDetails/BookDetails";
 import AllBook from "../pages/AllBook/AllBook";
 import Login from "../pages/Login/Login";
 import LibarianRquest from "../pages/Dashboard/Admin/LibarianRquest";
-import LibarianRoute from "./LibarianRoute";
 import AdminRoute from "./AdminRoute";
 import HomeDashboard from "../pages/Dashboard/HomeDashboard/HomeDashboard";
-import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
+
 import About from "../components/Home/About";
 import Blog from "../components/Home/Blog/Blog";
+import Contact from "../components/Home/Contact";
+import SwitchRole from "../pages/Dashboard/SwichRole/SwitchRole";
+import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +54,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/contact",
+        element: (
+          <PrivateRoute>
+            <Contact />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/book/:id",
         element: <BookDetails />,
       },
@@ -77,21 +87,22 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <AdminOverview />
+            <SwitchRole />
           </PrivateRoute>
         ),
       },
-      // first login takthe hobe tarporor libarian hothe hobe tarpor route te dokthe parbe
+      //dashboard link set korar jorno route kortechi
       {
-        path: "add-book",
+        path: "dashboard-overview",
         element: (
           <PrivateRoute>
-            <LibarianRoute>
-              <AddBook />
-            </LibarianRoute>
+            <AdminRoute>
+              <AdminOverview />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
+
       {
         path: "my-inventory",
         element: (
@@ -133,17 +144,6 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyOrders />
-          </PrivateRoute>
-        ),
-      },
-
-      {
-        path: "manage-orders",
-        element: (
-          <PrivateRoute>
-            <LibarianRoute>
-              <ManageOrders />,
-            </LibarianRoute>
           </PrivateRoute>
         ),
       },

@@ -8,7 +8,6 @@ import { AiOutlineBars } from "react-icons/ai";
 import { HiOutlineX } from "react-icons/hi"; // New close icon for mobile
 import MenuItem from "./Menu/MenuItem";
 import AdminMenu from "./Menu/AdminMenu";
-import SellerMenu from "./Menu/SellerMenu";
 import CustomerMenu from "./Menu/CustomerMenu";
 import useRole from "../../../hooks/useRole";
 
@@ -90,7 +89,6 @@ const Sidebar = () => {
               </p>
               <div className="space-y-1">
                 {role === "user" && <CustomerMenu />}
-                {role === "librarian" && <SellerMenu />}
                 {role === "admin" && <AdminMenu />}
               </div>
             </div>

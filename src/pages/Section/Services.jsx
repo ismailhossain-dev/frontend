@@ -55,7 +55,7 @@ const Services = () => {
 
   return (
     <Container>
-      <section className="py-24 bg-white dark:bg-[#06080e] transition-colors duration-500">
+      <section className="py-24 bg-white dark:bg-[#06080e] transition-colors duration-500 rounded-2xl">
         <div className="container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">

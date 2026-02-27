@@ -7,7 +7,7 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #caeb66;
+  --color-primary: yellow;
   --color-secondary: #03373d;
 }
 
@@ -26,13 +26,13 @@
 
 /* data light and dark theme */
 
-body {
+/* body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
-}
+} */
 
 .navbar {
   background-color: var(--nav-bg);

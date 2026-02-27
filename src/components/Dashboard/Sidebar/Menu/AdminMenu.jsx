@@ -5,8 +5,15 @@ import { FaUserCircle } from "react-icons/fa";
 const AdminMenu = () => {
   return (
     <>
-      <MenuItem icon={FaUserCog} label="Manage Books" address="manage-users" />
-      <MenuItem icon={FaUserCircle} label="Libarian Request" address="labirian-request" />
+      <MenuItem
+        icon={FaUserCog}
+        label="Dashboard Overview"
+        address="/dashboard/dashboard-overview"
+      />
+      <MenuItem icon={FaUserCog} label="Manage Users" address="manage-users" />
+      <MenuItem icon={FaUserCog} label="Manage books" address="manage-books" />
+      <MenuItem icon={FaUserCog} label="Report" address="admin-report" />
+      <MenuItem icon={FaUserCircle} label="Category" address="admin-category" />
     </>
   );
 };

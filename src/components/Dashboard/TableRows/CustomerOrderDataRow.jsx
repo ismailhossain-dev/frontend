@@ -4,15 +4,12 @@ import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import DeleteModal from "../../Modal/DeleteModal";
 const CustomerOrderDataRow = ({ order }) => {
-  console.log(order);
-  // let [isOpen, setIsOpen] = useState(false);
-  // const closeModal = () => setIsOpen(false);
   const axiosSecure = useAxiosSecure();
   const { image, name, category, price, quantity, status, _id } = order;
 
   //delete order data
   const handleMyOrdersData = (id) => {
-    console.log(id);
+    // console.log(id);
     //sweet alert 2
     Swal.fire({
       title: "Are you sure?",
@@ -26,7 +23,7 @@ const CustomerOrderDataRow = ({ order }) => {
       if (result.isConfirmed) {
         //delete my orders api
         axiosSecure.delete(`/my-orders/${id}`).then((res) => {
-          console.log(res);
+          return res;
         });
 
         Swal.fire({

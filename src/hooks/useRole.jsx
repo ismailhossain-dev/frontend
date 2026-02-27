@@ -2,7 +2,7 @@ import React from "react";
 import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-//Role Work
+//Role Work just database teke role ta niye aste email er mardome
 const useRole = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();

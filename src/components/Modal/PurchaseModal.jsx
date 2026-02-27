@@ -15,7 +15,7 @@ const PurchaseModal = ({ closeModal, isOpen, book }) => {
       category,
       price,
       image,
-      quantity: 1, // আপনি চাইলে এখানে ইউজার থেকে ইনপুট নিতে পারেন
+      quantity: 1,
       seller,
       customer: {
         name: user?.displayName,
