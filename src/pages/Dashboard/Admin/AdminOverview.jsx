@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#f43f5e"];
 
@@ -42,10 +43,10 @@ const AdminOverview = () => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-        const [usersRes, booksRes, ordersRes] = await Promise.all([
+        const [usersRes, booksRes, orderBooks] = await Promise.all([
           axiosSecure.get("/users"),
           axiosSecure.get("/allBooks"),
-          // axiosSecure.get("/orders"),
+          axiosSecure.get("/all-orders"),
         ]);
 
         // console.log("Users:", usersRes.data);
@@ -60,6 +61,7 @@ const AdminOverview = () => {
         setStats({
           users: usersRes.data?.length || 0,
           items: booksRes.data?.length || 0,
+          orders: orderBooks.data?.length || 0,
           // revenue: totalRevenue || 0,
           // orders: ordersRes.data?.length || 0,
         });
@@ -75,11 +77,7 @@ const AdminOverview = () => {
 
   // loading spinner
   if (loading || authLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-white">
-        <Loader2 className="h-12 w-12 animate-spin text-indigo-600" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
@@ -107,18 +105,19 @@ const AdminOverview = () => {
           value={stats.items}
           color="purple"
         />
-        {/* <StatCard
-          icon={<DollarSign size={24} />}
-          label="Total Revenue"
-          value={`$${stats.revenue.toLocaleString()}`}
-          color="emerald"
-        />
+
         <StatCard
           icon={<ShoppingCart size={24} />}
           label="Orders"
           value={stats.orders}
           color="rose"
-        /> */}
+        />
+        <StatCard
+          icon={<DollarSign size={24} />}
+          label="Total Revenue"
+          value="200+"
+          color="emerald"
+        />
       </div>
 
       {/* Charts Section */}

@@ -12,7 +12,7 @@ const ManageOrders = () => {
     queryKey: ["orders", user?.email],
     queryFn: async () => {
       const res = await axios(`${import.meta.env.VITE_API_URL}/manage-orders/${user?.email}`);
-      console.log(res.data);
+      // console.log(res.data);
       // const reslut = await axios(`${import.meta.env.VITE_API_URL}/orders/${user?.email}`);
       return res.data;
     },

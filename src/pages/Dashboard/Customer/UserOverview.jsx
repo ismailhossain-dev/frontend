@@ -9,12 +9,13 @@ import {
   ChevronRight,
   Search,
 } from "lucide-react";
+import { Link } from "react-router";
 
 const UserOverview = () => {
   const stats = [
     {
       label: "Total Books Sent",
-      value: "24",
+      value: "25",
       icon: <Package size={22} />,
       color: "text-blue-600",
       bg: "bg-blue-500/10",
@@ -203,9 +204,12 @@ const UserOverview = () => {
               <p className="text-slate-500 text-sm mb-6 font-medium">
                 Have issues with your book courier? Our team is here to help you 24/7.
               </p>
-              <button className="w-full border-2 border-slate-100 text-slate-800 py-3.5 rounded-2xl font-black text-xs hover:bg-slate-50 transition-all uppercase tracking-widest">
+              <Link
+                to="/contact"
+                className="w-full border-2 btn bg-primary text-white border-slate-100 text-slate-800 py-3.5 rounded-2xl font-black text-xs transition-all uppercase tracking-widest"
+              >
                 Contact Support
-              </button>
+              </Link>
             </div>
           </div>
         </div>

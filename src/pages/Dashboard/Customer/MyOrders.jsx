@@ -9,7 +9,11 @@ const MyOrders = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: orders = [], isLoading } = useQuery({
+  const {
+    data: orders = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["orders", user?.email],
     queryFn: async () => {
       const result = await axiosSecure(`/my-orders/${user.email}`);
@@ -19,7 +23,7 @@ const MyOrders = () => {
 
   if (isLoading) return <LoadingSpinner />;
 
-  console.log(orders);
+  // console.log(orders);
   return (
     <>
       <div className="container mx-auto px-4 sm:px-8">
@@ -59,7 +63,7 @@ const MyOrders = () => {
                   <tbody className="divide-y divide-gray-100">
                     {/* Map my order Table data  */}
                     {orders.map((order) => (
-                      <CustomerOrderDataRow key={order._id} order={order} />
+                      <CustomerOrderDataRow key={order._id} order={order} refetch={refetch} />
                     ))}
                   </tbody>
                 </table>

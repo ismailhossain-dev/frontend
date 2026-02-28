@@ -74,9 +74,6 @@ const HomeSlide = () => {
                       >
                         Shop Now
                       </Link>
-                      <button className="hidden sm:block border border-white/50 hover:bg-white/10 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-sm md:text-base font-semibold backdrop-blur-sm transition-all">
-                        View Details
-                      </button>
                     </div>
                   </div>
                 </div>

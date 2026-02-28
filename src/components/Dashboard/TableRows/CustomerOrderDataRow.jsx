@@ -5,14 +5,11 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import DeleteModal from "../../Modal/DeleteModal";
 import { Eye } from "lucide-react";
 import { FaRegEye } from "react-icons/fa6";
-const CustomerOrderDataRow = ({ order }) => {
+const CustomerOrderDataRow = ({ order, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const { image, name, category, price, quantity, status, _id } = order;
 
-  //delete order data
   const handleMyOrdersData = (id) => {
-    // console.log(id);
-    //sweet alert 2
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be my orders !",
@@ -23,11 +20,11 @@ const CustomerOrderDataRow = ({ order }) => {
       confirmButtonText: "Yes, My Order delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        //delete my orders api
         axiosSecure.delete(`/my-orders/${id}`).then((res) => {
           return res;
         });
 
+        refetch();
         Swal.fire({
           title: "Deleted!",
           text: "My orders has been deleted.",

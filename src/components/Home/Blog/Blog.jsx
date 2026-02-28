@@ -186,7 +186,7 @@ const Blog = () => {
                 <p className="text-slate-400 text-sm mb-8 leading-relaxed">
                   Join 5,000+ readers and get exclusive insights.
                 </p>
-                <button className="w-full bg-emerald-500 text-white font-black py-4 rounded-xl hover:bg-emerald-600 transition-all">
+                <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all shadow-lg active:scale-95 w-full">
                   Join the Club
                 </button>
               </div>

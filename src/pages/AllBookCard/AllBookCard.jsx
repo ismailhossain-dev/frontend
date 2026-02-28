@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import { FiArrowUpRight, FiEye, FiMapPin, FiCalendar, FiStar, FiLayers } from "react-icons/fi";
 const AllBookCard = ({ book }) => {
-  const { _id, name, image, shortDescription, price, category, rating, location, date } = book;
+  const { _id, title, name, image, shortDescription, price, category, rating, location, date } =
+    book;
   // console.log(allbooks);
   return (
     <div className="group relative bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[2.5rem] flex flex-col h-full transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)] p-4">
@@ -50,6 +51,9 @@ const AllBookCard = ({ book }) => {
         </Link>
 
         {/* Short Description - Added here for better visibility */}
+        <h2 className="text-[18px] font-extrabold text-gray-800 dark:text-white tracking-tight leading-tight">
+          {title}
+        </h2>
         <p className="mt-3 text-sm text-slate-500 dark:text-gray-400 line-clamp-2 leading-relaxed ">
           "{shortDescription}"
         </p>

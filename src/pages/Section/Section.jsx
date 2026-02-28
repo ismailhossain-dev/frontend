@@ -51,7 +51,7 @@ const Section = () => {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-xs font-black text-green-500 uppercase  mb-3">Core Values</h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+              <h3 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight mb-4">
                 Why Choose BookCourier?
               </h3>
             </div>

@@ -46,7 +46,7 @@ const FaqSection = () => {
               <div className="inline-flex items-center justify-center p-3 bg-emerald-500/10 rounded-2xl text-emerald-500 mb-4">
                 <FiHelpCircle size={24} />
               </div>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight mb-4">
                 Frequently Asked <span className="text-emerald-500">Questions</span>
               </h2>
               <p className="text-slate-500 dark:text-slate-400 text-lg">

@@ -63,7 +63,6 @@ const ManageBookDataRow = ({ user, index, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/manage-books/${id}`).then((res) => {
-          console.log(res);
           if (res.data.deletedCount) {
             refetch();
             Swal.fire("Deleted!", "Book removed.", "success");

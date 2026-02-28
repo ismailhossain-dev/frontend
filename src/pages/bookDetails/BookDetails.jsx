@@ -177,7 +177,7 @@ const BookDetails = () => {
                   {/* Primary Action Button */}
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="group relative flex-[2] overflow-hidden py-5 rounded-2xl font-black text-xl bg-slate-900 text-white hover:bg-indigo-600 transition-all duration-500 shadow-xl shadow-indigo-100 dark:shadow-none active:scale-[0.98] cursor-pointer"
+                    className="group relative flex-[2] overflow-hidden py-5 rounded-2xl font-black text-xl bg-slate-900 text-white hover:bg-green-500 transition-all duration-500 shadow-xl shadow-indigo-100 dark:shadow-none active:scale-[0.98] cursor-pointer"
                   >
                     <div className="relative z-10 flex items-center justify-center gap-3">
                       <span className="tracking-tight">Get This Book</span>

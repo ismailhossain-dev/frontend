@@ -12,8 +12,6 @@ const PlantDataRow = ({ bookData }) => {
 
   const { name, image, category, quantity, price, _id } = bookData;
   const handleInventoryDelete = (id) => {
-    // console.log(id);
-    //sweet alert work
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -25,8 +23,6 @@ const PlantDataRow = ({ bookData }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/my-books/${id}`).then((res) => {
-          // console.log(res.data);
-
           if (res.data.deletedCount) {
             // refresh the data in the ui
 

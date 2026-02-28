@@ -74,7 +74,7 @@ const Navbar = () => {
   return (
     <div className="fixed top-0 left-0 w-full z-50">
       <div
-        className={`w-full backdrop-blur-xl border-b transition-colors duration-500 shadow-lg 
+        className={`w-full backdrop-blur-xl  transition-colors duration-500 shadow-lg 
         ${theme === "dark" ? "bg-slate-900/90 border-white/10" : "bg-white/90 border-black/5"}`}
       >
         <Container>
@@ -87,8 +87,10 @@ const Navbar = () => {
             {/* CENTER: Navigation (Desktop) */}
             <nav className="hidden lg:flex items-center justify-center">
               <ul
-                className={`flex items-center gap-1 p-1 rounded-full border ${
-                  theme === "dark" ? "bg-black/20 border-white/5" : "bg-gray-100 border-black/5"
+                className={`flex items-center gap-2 p-1.5 rounded-full border transition-all duration-500 shadow-sm ${
+                  theme === "dark"
+                    ? "bg-white/5 border-white/10 backdrop-blur-md shadow-black/20"
+                    : "bg-white/70 border-gray-200 backdrop-blur-md shadow-gray-100"
                 }`}
               >
                 {navbarMenu}
@@ -100,7 +102,7 @@ const Navbar = () => {
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className={`p-2 rounded-lg border transition-all active:scale-90 ${
+                className={`p-2 rounded-lg  transition-all active:scale-90 ${
                   theme === "dark"
                     ? "bg-white/5 border-white/10 text-white"
                     : "bg-black/5 border-black/10 text-slate-900"
