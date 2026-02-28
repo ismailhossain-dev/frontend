@@ -1,36 +1,34 @@
 import { useState } from "react";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 // import coverImg from "../../../assets/images/newbook.jpg";
 import useRole from "../../../hooks/useRole";
 import { Edit3, Mail, Fingerprint, Calendar, ShieldCheck, MapPin } from "lucide-react";
-import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import UpdateFrom from "../../../components/UpdateFrom";
 
 const Profile = () => {
   const { user } = useAuth();
-  const [profile, setProfile] = useState(false);
+
   const [role, isRoleLoading] = useRole();
+  const [update, setUpdate] = useState(false);
   const axiosSecure = useAxiosSecure();
+  if (isRoleLoading) return <LoadingSpinner />;
 
   // ✅ useForm top level
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  // ✅ Loading condition
-  if (isRoleLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-slate-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-  }
-
   const handleUpdateProfile = (data, email) => {
+    console.log(email);
     console.log(data);
-    setProfile(false);
+    setUpdate(true);
+
+    const updateDoc = {
+      displayName: data.name,
+      email: data.email,
+      photoURL: data.image,
+    };
+    axiosSecure.patch(`/users/${user._id}`, updateDoc).then((res) => {
+      console.log("data update successfully ", res);
+    });
   };
 
   return (
@@ -67,97 +65,15 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="mt-8 w-full z-10">
-              <button
-                onClick={() => handleUpdateProfile(user.email)}
-                className="flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-700 transition-all text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-900/20 active:scale-95 mb-5"
-              >
+            <div onClick={() => handleUpdateProfile(user.email)} className="mt-8 w-full z-10">
+              <button className="flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-700 transition-all text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-900/20 active:scale-95 mb-5">
                 <Edit3 size={18} />
                 Edit Profile
               </button>
             </div>
 
             {/* update form */}
-            <form
-              onSubmit={handleSubmit(() => handleUpdateProfile(user.email))}
-              className="space-y-5 p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-xl"
-            >
-              {/* 1. Name Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 ml-1">
-                  Display Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  {...register("name", { required: "Name is required" })}
-                  className={`w-full px-4 py-3 rounded-xl border outline-none transition-all ${
-                    errors.name
-                      ? "border-red-500 bg-red-50"
-                      : "border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                  }`}
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-xs mt-1 ml-1 font-semibold">
-                    {errors.name.message}
-                  </p>
-                )}
-              </div>
-
-              {/* 2. Email Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 ml-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  placeholder="example@mail.com"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
-                    },
-                  })}
-                  className={`w-full px-4 py-3 rounded-xl border outline-none transition-all ${
-                    errors.email
-                      ? "border-red-500 bg-red-50"
-                      : "border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-                  }`}
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-xs mt-1 ml-1 font-semibold">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              {/* 3. Image (File) Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 ml-1">
-                  Profile Image
-                </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("image", { required: "Please upload an image" })}
-                  className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
-                />
-                {errors.image && (
-                  <p className="text-red-500 text-xs mt-1 ml-1 font-semibold">
-                    {errors.image.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 mt-4"
-              >
-                Update Profile 🚀
-              </button>
-            </form>
+            {update ? <UpdateFrom update={update} /> : ""}
             {/* finished update from  */}
           </div>
 

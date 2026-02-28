@@ -12,7 +12,7 @@ const AdminMenu = () => {
       />
       <MenuItem icon={FaUserCog} label="Manage Users" address="manage-users" />
       <MenuItem icon={FaUserCog} label="Manage books" address="manage-books" />
-      <MenuItem icon={FaUserCog} label="Report" address="admin-report" />
+
       <MenuItem icon={FaUserCircle} label="Category" address="admin-category" />
     </>
   );

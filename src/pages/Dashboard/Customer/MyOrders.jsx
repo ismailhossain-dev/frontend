@@ -6,15 +6,14 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyOrders = () => {
-  //amra ekane email er mardome order data fetch korsi and amar ekant token kaj kortesi
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ["orders", user?.email],
     queryFn: async () => {
-      const reslut = await axiosSecure(`/my-orders`);
-      return reslut.data;
+      const result = await axiosSecure(`/my-orders/${user.email}`);
+      return result.data;
     },
   });
 
@@ -27,11 +26,11 @@ const MyOrders = () => {
         <div className="py-8">
           <div className="overflow-x-auto">
             <div className="inline-block min-w-full">
-              <div className="overflow-hidden rounded-3xl shadow-md border border-gray-100 bg-blue-500 ">
+              <div className="overflow-hidden  shadow-md border border-gray-100 bg-blue-500 ">
                 <table className="min-w-full text-sm text-gray-700">
                   {/* Table Head */}
                   <thead className="bg-linear-to-r from-indigo-50 to-purple-50 border-b">
-                    <tr>
+                    <tr className="bg-gray-50 transition-colors border-b">
                       <th className="px-6 py-4 text-left font-semibold uppercase tracking-wide text-gray-600">
                         Image
                       </th>

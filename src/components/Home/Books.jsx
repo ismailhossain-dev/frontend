@@ -9,7 +9,7 @@ const Books = () => {
   const { data: books = [], isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: async () => {
-      const result = await axios(`${import.meta.env.VITE_API_URL}/sixBooks`);
+      const result = await axios(`${import.meta.env.VITE_API_URL}/homeBooks`);
       return result.data;
     },
   });

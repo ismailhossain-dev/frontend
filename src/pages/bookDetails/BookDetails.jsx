@@ -171,28 +171,50 @@ const BookDetails = () => {
               </div>
 
               {/* Action Section */}
-              <div className="mt-auto flex flex-col sm:flex-row items-center gap-4">
-                <button
-                  disabled={quantity <= 0}
-                  onClick={() => setIsOpen(true)}
-                  className={`w-full sm:flex-1 py-5 rounded-[1.5rem] font-black text-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-2xl
-                      ${
-                        quantity > 0
-                          ? "bg-green-500 hover:bg-green-600 text-white shadow-green-500/30 hover:-translate-y-1 active:scale-95"
-                          : "bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed"
-                      }
-                    `}
-                >
-                  {quantity > 0 ? "Purchase This Book" : "Out of Stock"}
-                  <FiTruck className={quantity > 0 ? "animate-bounce" : ""} />
-                </button>
+              <div className="mt-auto space-y-6">
+                {/* Action Row */}
+                <div className="flex flex-col sm:flex-row items-stretch gap-4">
+                  {/* Primary Action Button */}
+                  <button
+                    onClick={() => setIsOpen(true)}
+                    className="group relative flex-[2] overflow-hidden py-5 rounded-2xl font-black text-xl bg-slate-900 text-white hover:bg-indigo-600 transition-all duration-500 shadow-xl shadow-indigo-100 dark:shadow-none active:scale-[0.98] cursor-pointer"
+                  >
+                    <div className="relative z-10 flex items-center justify-center gap-3">
+                      <span className="tracking-tight">Get This Book</span>
+                      <div className="bg-white/20 p-1.5 rounded-lg group-hover:bg-white/30 transition-colors">
+                        <FiTruck size={22} className="animate-[bounce_2s_infinite]" />
+                      </div>
+                    </div>
 
-                <div className="flex items-center gap-2 p-3 bg-gray-100 dark:bg-slate-800 rounded-2xl">
-                  <FiCalendar className="text-green-500" />
-                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                    Listed on: {new Date(date).toLocaleDateString()}
-                  </span>
+                    {/* Hover Shine Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  </button>
+
+                  {/* Info Card (Date) */}
+                  <div className="flex-1 flex items-center justify-center gap-3 px-6 py-5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 rounded-2xl shadow-sm">
+                    <div className="p-2 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400">
+                      <FiCalendar size={20} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">
+                        Listed On
+                      </span>
+                      <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                        {new Date(date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Trust Message */}
+                <p className="text-center text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                  ✨ Secure delivery by{" "}
+                  <span className="text-indigo-500 font-black">BookCourier</span> Express
+                </p>
               </div>
 
               {/* Purchase Modal */}

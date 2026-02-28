@@ -16,7 +16,7 @@ import PaymentSuccess from "../StripePayment/PaymentSuccess";
 import BookDetails from "../pages/bookDetails/BookDetails";
 import AllBook from "../pages/AllBook/AllBook";
 import Login from "../pages/Login/Login";
-import LibarianRquest from "../pages/Dashboard/Admin/LibarianRquest";
+
 import AdminRoute from "./AdminRoute";
 import HomeDashboard from "../pages/Dashboard/HomeDashboard/HomeDashboard";
 
@@ -25,6 +25,9 @@ import Blog from "../components/Home/Blog/Blog";
 import Contact from "../components/Home/Contact";
 import SwitchRole from "../pages/Dashboard/SwichRole/SwitchRole";
 import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
+import ManageBooks from "../pages/Dashboard/Admin/ManageBooks";
+import AdminCategory from "../pages/Dashboard/Admin/AdminCategory";
+import UserOverview from "../pages/Dashboard/Customer/UserOverview";
 
 export const router = createBrowserRouter([
   {
@@ -66,7 +69,7 @@ export const router = createBrowserRouter([
         element: <BookDetails />,
       },
       {
-        path: "/payment-success",
+        path: "payment-success",
         element: <PaymentSuccess />,
       },
       { path: "/login", element: <Login /> },
@@ -122,15 +125,26 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "labirian-request",
+        path: "manage-books",
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <LibarianRquest />
+              <ManageBooks />
             </AdminRoute>
           </PrivateRoute>
         ),
       },
+      {
+        path: "admin-category",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AdminCategory />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+
       {
         path: "profile",
         element: (
@@ -144,6 +158,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyOrders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "user-overview",
+        element: (
+          <PrivateRoute>
+            <UserOverview />
           </PrivateRoute>
         ),
       },

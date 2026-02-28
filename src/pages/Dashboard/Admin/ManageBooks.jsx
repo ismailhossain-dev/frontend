@@ -1,30 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import UserDataRow from "../../../components/Dashboard/TableRows/UserDataRow";
+import React from "react";
+
+import ManageBookDataRow from "../../../components/Dashboard/TableRows/ManageBookDataRow";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
-const ManageUsers = () => {
-  //role update work
+const ManageBooks = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
-    data: users = [],
-    isLoading,
+    data: manageBooks = [],
+
     refetch,
   } = useQuery({
-    queryKey: ["/users", user?.email],
+    queryKey: ["manage-books", user?.email],
     queryFn: async () => {
-      const result = await axiosSecure(`/users`);
-      return result.data;
+      const res = await axiosSecure.get("/manage-books");
+      return res.data;
     },
   });
-  // console.log(users);
-
-  if (isLoading) return <LoadingSpinner />;
 
   return (
-    <>
+    <div>
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -35,35 +32,44 @@ const ManageUsers = () => {
                     <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-left text-sm uppercase font-bold">
                       No:
                     </th>
+
                     <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-left text-sm uppercase font-bold">
-                      Name
+                      Image
                     </th>
+
                     <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-left text-sm uppercase font-bold">
-                      Email
+                      Category
                     </th>
+
                     <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-center text-sm uppercase font-bold">
-                      Role
+                      Price
                     </th>
+
                     <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-center text-sm uppercase font-bold">
-                      date
+                      Status
                     </th>
+
                     <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-center text-sm uppercase font-bold">
                       Action
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user, index) => (
-                    <UserDataRow key={user._id} user={user} index={index} refetch={refetch} />
+                  {manageBooks.map((book, index) => (
+                    <ManageBookDataRow key={book._id} user={book} index={index} refetch={refetch} />
                   ))}
                 </tbody>
               </table>
+
+              {manageBooks.length === 0 && (
+                <div className="text-center py-10 text-gray-500">No books found in the record.</div>
+              )}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default ManageUsers;
+export default ManageBooks;
