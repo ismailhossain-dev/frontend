@@ -33,15 +33,12 @@ const Section = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/all-books">
-                <button className="w-full sm:w-auto px-10 py-4 bg-slate-900 dark:bg-green-600 text-white font-black text-sm uppercase tracking-widest rounded-2xl hover:bg-black dark:hover:bg-green-700 transition-all shadow-xl shadow-green-500/20 flex items-center justify-center gap-2 group">
+              <Link to="/all-book">
+                <button className="w-full sm:w-auto px-10 py-4 bg-slate-900 dark:bg-green-600 text-white font-black text-sm uppercase tracking-widest rounded-2xl hover:bg-green-600 dark:hover:bg-green-600 transition-all shadow-xl shadow-green-500/20 flex items-center justify-center gap-2 group">
                   Browse Collection
                   <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
-              <button className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-black text-sm uppercase tracking-widest rounded-2xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 transition-all">
-                Learn More
-              </button>
             </div>
           </div>
         </section>

@@ -19,11 +19,9 @@ const UpdateFrom = ({ setUpdate }) => {
   });
 
   const handleUpdateForm = async (data) => {
-    // Note: If you want to upload to imgbb, do it here first, then get the URL
-    // For now, I'm using your original logic
     const updateDoc = {
       displayName: data.name,
-      photoURL: user?.photoURL, // Replace with new uploaded URL if needed
+      photoURL: data?.image,
     };
 
     try {

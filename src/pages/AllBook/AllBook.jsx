@@ -1,110 +1,126 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AllBookCard from "../AllBookCard/AllBookCard";
 import Container from "../../components/Shared/Container";
 
 const AllBook = () => {
-  //react usequery diye data fetch
-  const { data: AllBook = [] } = useQuery({
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Data Fetching
+  const { data: allBooks = [], isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: async () => {
-      // const reslut = await axios(`${import.meta.env.VITE_API_URL}/books`)
       const result = await axios(`${import.meta.env.VITE_API_URL}/allBooks`);
-      // console.log(result);
       return result.data;
     },
   });
-  const [filteredBooks, setFilteredBooks] = React.useState([]);
-  const [isSearched, setIsSearched] = React.useState(false);
-  //search work
+
+  // Unique Categories ber kora
+  const categories = ["All", ...new Set(allBooks.map((book) => book.category))];
+
+  // Search filter ar Category filter eksathe handle kora
+  useEffect(() => {
+    let filtered = allBooks;
+
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter((book) => book.category === selectedCategory);
+    }
+
+    if (searchQuery) {
+      filtered = filtered.filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
+    }
+
+    setFilteredBooks(filtered);
+  }, [selectedCategory, searchQuery, allBooks]);
+
   const handleSearch = (e) => {
     e.preventDefault();
-    const location = e.target.location.value.toLowerCase();
-
-    setIsSearched(true);
-
-    const result = AllBook.filter((book) => book.title.toLowerCase().includes(location));
-
-    setFilteredBooks(result);
+    setSearchQuery(e.target.search.value);
   };
 
   return (
     <Container>
-      <div className="flex justify-between items-center mt-10">
-        {/* Title */}
-        <div className="text-center ">
-          <h1 className="text-[10x] sm:text-xl md:text-3xl lg:text-4xl font-black text-slate-800 tracking-tighter uppercase dark:text-white ">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row justify-between items-center mt-10 gap-5">
+        <div>
+          <h1 className="text-2xl md:text-4xl font-black text-slate-800 uppercase dark:text-white">
             Trending All <span className="text-blue-600">Books</span>
           </h1>
-          <div className="hidden sm:block h-1.5 w-16 bg-blue-600 mx-auto mt-2 rounded-full"></div>
+          <div className="hidden sm:block h-1.5 w-16 bg-blue-600 mt-2 rounded-full"></div>
         </div>
 
-        {/* search  */}
-        <form onSubmit={handleSearch} className="flex items-center gap-2 ">
-          <label className="input input-bordered flex items-center gap-2 grow bg-base-100 shadow-sm focus-within:shadow-md transition-all duration-300 border-gray-200 dark:border-gray-700">
-            {/* Search Icon */}
-            <svg
-              className="h-[1.2em] opacity-60 text-primary"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <g
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="2.5"
-                fill="none"
-                stroke="currentColor"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </g>
-            </svg>
-
-            {/* Input Field */}
+        {/* Search Bar */}
+        <form onSubmit={handleSearch} className="flex items-center gap-2 w-full md:w-auto">
+          <label className="input input-bordered flex items-center gap-2 grow bg-base-100 shadow-sm border-gray-200">
             <input
               type="search"
-              name="location"
-              placeholder="Search locations..."
-              className="w-28 sm:w-48 md:w-64 grow outline-none bg-transparent"
+              name="search"
+              placeholder="Search by title..."
+              className="grow outline-none bg-transparent"
             />
           </label>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="btn btn-primary px-3 font-bold hover:scale-105  transition-transform duration-200"
-          >
+          <button type="submit" className="btn btn-primary font-bold">
             Find
           </button>
         </form>
-        {/* finished search work */}
       </div>
-      {/*  */}
 
-      {AllBook && (
-        <>
-          {isSearched ? (
-            filteredBooks.length > 0 ? (
-              <div className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {filteredBooks.map((book) => (
-                  <AllBookCard key={book._id} book={book} />
-                ))}
-              </div>
-            ) : (
-              <div className="py-20 text-center">
-                <h2 className="text-2xl font-bold text-gray-500">❌ No Product Found</h2>
-              </div>
-            )
-          ) : (
-            <div className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {AllBook.map((book) => (
+      <div className="flex flex-col lg:flex-row gap-8 mt-10">
+        {/* Sidebar Category (Left Side) */}
+        <aside className="w-full lg:w-1/4">
+          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl sticky top-24 border border-gray-100 dark:border-gray-700">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Categories</h3>
+            <div className="flex flex-wrap lg:flex-col gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg text-left transition-all font-medium ${
+                    selectedCategory === category
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
+                      : "bg-white dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-200"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        {/* Main Content (Books Grid) */}
+        <main className="w-full lg:w-3/4">
+          {isLoading ? (
+            <div className="flex justify-center py-20">
+              <span className="loading loading-spinner loading-lg text-blue-600"></span>
+            </div>
+          ) : filteredBooks.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredBooks.map((book) => (
                 <AllBookCard key={book._id} book={book} />
               ))}
             </div>
+          ) : (
+            <div className="py-20 text-center bg-gray-50 rounded-2xl">
+              <h2 className="text-2xl font-bold text-gray-400">❌ No Books Found</h2>
+              <button
+                onClick={() => {
+                  setSelectedCategory("All");
+                  setSearchQuery("");
+                }}
+                className="mt-4 text-blue-600 underline"
+              >
+                Reset Filters
+              </button>
+            </div>
           )}
-        </>
-      )}
+        </main>
+      </div>
     </Container>
   );
 };
