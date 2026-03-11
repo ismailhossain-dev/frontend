@@ -90,7 +90,7 @@ const Card = ({ book }) => {
 
           <Link
             to={`/book/${_id}`}
-            className="group/btn relative overflow-hidden flex items-center gap-2 bg-slate-900 dark:bg-green-600 hover:bg-green-500 text-white px-6 py-3.5 rounded-2xl font-bold text-xs transition-all duration-300 active:scale-95 shadow-xl shadow-gray-200 dark:shadow-none"
+            className="group/btn relative overflow-hidden flex items-center gap-2  bg-green-500 text-white px-6 py-3.5 rounded-2xl font-bold text-xs transition-all duration-300 active:scale-95 shadow-xl shadow-gray-200 dark:shadow-none"
           >
             <FiEye className="group-hover/btn:rotate-12 transition-transform" size={16} />
             <span>DETAILS</span>

@@ -165,7 +165,7 @@ const Blog = () => {
                       </div>
                       <button
                         onClick={() => setSelectedBlog(blog)}
-                        className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-2xl font-bold text-sm flex items-center gap-2 hover:bg-emerald-500 dark:hover:bg-emerald-500 dark:hover:text-white transition-all group-hover:shadow-lg"
+                        className=" px-6 py-3 rounded-2xl font-bold text-sm flex items-center gap-2 bg-green-500 text-white transition-all group-hover:shadow-lg"
                       >
                         Read Full Story{" "}
                         <FiArrowRight className="group-hover:translate-x-2 transition-transform" />
@@ -186,7 +186,7 @@ const Blog = () => {
                 <p className="text-slate-400 text-sm mb-8 leading-relaxed">
                   Join 5,000+ readers and get exclusive insights.
                 </p>
-                <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all shadow-lg active:scale-95 w-full">
+                <button className="bg-green-500  text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all shadow-lg active:scale-95 w-full">
                   Join the Club
                 </button>
               </div>

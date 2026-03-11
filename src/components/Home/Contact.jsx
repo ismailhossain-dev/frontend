@@ -53,7 +53,7 @@ const ContactAdminForm = () => {
               type="text"
               placeholder="John Doe"
               {...register("name", { required: "Name is required" })}
-              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium ${
+              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium dark:text-primary ${
                 errors.name
                   ? "border-red-500 bg-red-50"
                   : "border-gray-100 bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50"
@@ -79,7 +79,7 @@ const ContactAdminForm = () => {
                   message: "Please enter a valid email address",
                 },
               })}
-              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium ${
+              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium dark:text-primary ${
                 errors.email
                   ? "border-red-500 bg-red-50"
                   : "border-gray-100 bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50"
@@ -105,7 +105,7 @@ const ContactAdminForm = () => {
                   message: "Please enter a valid phone number",
                 },
               })}
-              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium ${
+              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium dark:text-primary ${
                 errors.phoneNumber
                   ? "border-red-500 bg-red-50"
                   : "border-gray-100 bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50"
@@ -130,7 +130,7 @@ const ContactAdminForm = () => {
                 required: "Message cannot be empty",
                 minLength: { value: 10, message: "Message must be at least 10 characters" },
               })}
-              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium resize-none ${
+              className={`w-full px-5 py-4 rounded-2xl border outline-none transition-all duration-300 font-medium resize-none dark:text-primary ${
                 errors.message
                   ? "border-red-500 bg-red-50"
                   : "border-gray-100 bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50"
@@ -144,7 +144,7 @@ const ContactAdminForm = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-green-900 hover:bg-green-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-indigo-100 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 text-sm uppercase tracking-[0.2em] mt-4"
+            className="w-full bg-green-500 hover:bg-green-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-indigo-100 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 text-sm uppercase tracking-[0.2em] mt-4"
           >
             Send Message 🚀
           </button>

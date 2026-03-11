@@ -23,8 +23,19 @@
   --color-secondary: #03373d;
   --color-black: #00000;
 }
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #000000;
+  --color-secondary: #03373d;
+  --color-black: #00000;
+}
 
 .navbar {
   background-color: var(--nav-bg);
   border-bottom: 1px solid var(--border-color);
+}
+
+/* button */
+.btn {
+  @apply bg-green-500 hover:bg-green-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all shadow-lg active:scale-95;
 }

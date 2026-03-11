@@ -1,7 +1,7 @@
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaRegEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
+
 import Swal from "sweetalert2";
 
 const UserDataRow = ({ user, refetch, index }) => {
@@ -94,14 +94,6 @@ const UserDataRow = ({ user, refetch, index }) => {
             title="View Details"
           >
             <FaRegEye size={18} />
-          </button>
-
-          <button
-            onClick={() => document.getElementById(`edit_modal_${_id}`).showModal()}
-            className="text-yellow-600 hover:text-yellow-900"
-            title="Edit User"
-          >
-            <FaRegEdit size={18} />
           </button>
 
           <button

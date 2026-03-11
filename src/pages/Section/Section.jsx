@@ -34,7 +34,7 @@ const Section = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/all-book">
-                <button className="w-full sm:w-auto px-10 py-4 bg-slate-900 dark:bg-green-600 text-white font-black text-sm uppercase tracking-widest rounded-2xl hover:bg-green-600 dark:hover:bg-green-600 transition-all shadow-xl shadow-green-500/20 flex items-center justify-center gap-2 group">
+                <button className="w-full sm:w-auto px-10 py-4  dark:bg-green-600 text-white font-black text-sm uppercase tracking-widest rounded-2xl bg-green-600 dark:hover:bg-green-600 transition-all shadow-xl shadow-green-500/20 flex items-center justify-center gap-2 group">
                   Browse Collection
                   <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </button>
