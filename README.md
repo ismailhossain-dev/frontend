@@ -1,16 +1,141 @@
-# React + Vite
+# 📚 BookCourier | Online Book Delivery Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**BookCourier** is a modern **full-stack book delivery web application** that allows users to browse books, place orders, and track deliveries easily.
 
-Currently, two official plugins are available:
+The platform is designed to simplify book purchasing and delivery for students and readers through a fast, responsive, and user-friendly interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+# 🌐 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🚀 **Live Site:** https://your-live-site-link.com
 
-## Expanding the ESLint configuration
+💻 **Client Repository:**
+https://github.com/your-username/bookcourier-client
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+⚙️ **Server Repository:**
+https://github.com/your-username/bookcourier-server
+
+---
+
+# 🚀 Key Features
+
+* 🔐 **User Authentication** – Secure login and registration using **Firebase Authentication**.
+* 📚 **Browse & Search Books** – Users can explore different books and view details.
+* 🛒 **Online Book Ordering** – Simple and smooth order placement system.
+* 📦 **Order Tracking Dashboard** – Users can track their orders in a personal dashboard.
+* ⚡ **Fast Data Fetching** – Implemented using **React Query** for efficient data management.
+* 🎨 **Modern UI Design** – Clean and responsive interface with **Tailwind CSS**.
+* 🔔 **Real-time Alerts** – Notifications using **React Toastify** and **SweetAlert2**.
+* 📱 **Fully Responsive** – Works smoothly on mobile, tablet, and desktop devices.
+
+---
+
+# 🛠️ Technology Stack
+
+### Frontend
+
+* **React.js**
+* **Tailwind CSS**
+
+### Backend
+
+* **Node.js**
+* **Express.js**
+
+### Database
+
+* **MongoDB**
+
+### Authentication
+
+* **Firebase Authentication**
+* **JWT (JSON Web Token)**
+
+### Libraries & Tools
+
+* **Axios**
+* **React Query**
+* **React Router**
+* **React Icons**
+* **SweetAlert2**
+* **React Toastify**
+
+---
+
+# 📦 Major Dependencies
+
+* react
+* next
+* axios
+* firebase
+* react-query
+* react-router
+* react-icons
+* react-toastify
+* sweetalert2
+
+---
+
+# 💻 Local Setup & Installation
+
+Follow these steps to run the project locally.
+
+### 1️⃣ Clone the Repository
+
+```bash id="cln001"
+git clone https://github.com/your-username/bookcourier-client.git
+```
+
+### 2️⃣ Navigate to the Project Folder
+
+```bash id="cd001"
+cd bookcourier-client
+```
+
+### 3️⃣ Install Dependencies
+
+```bash id="inst001"
+npm install
+```
+
+### 4️⃣ Run the Development Server
+
+```bash id="run001"
+npm run dev
+```
+
+Now open your browser and visit:
+
+```
+http://localhost:3000
+```
+
+---
+
+# 📁 Project Structure
+
+```
+src
+ ┣ components
+ ┣ pages
+ ┣ hooks
+ ┣ context
+ ┣ utils
+ ┗ App.jsx
+```
+
+---
+
+# 📬 Let's Connect
+
+If you have any questions or want to collaborate on a project, feel free to reach out.
+
+📧 **Email:** [programmarsabbir@gmail.com](mailto:programmarsabbir@gmail.com)
+📱 **WhatsApp:** +8801619408991
+💼 **LinkedIn:** Mohammad Ismail Hossain
+🌐 **Portfolio:** [Visit My Portfolio](https://ismail-hossain69k.netlify.app)
+---
+
+⚙️ **Backend Repository:**  [Vist ZapShift Backend](https://github.com/ismailhossain-dev/backend.git)
+
