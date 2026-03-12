@@ -8,13 +8,13 @@ The platform is designed to simplify book purchasing and delivery for students a
 
 # 🌐 Live Demo
 
-🚀 **Live Site:** https://your-live-site-link.com
+🚀 **Live Site:** https://bookcourier-theta.vercel.app
 
 💻 **Client Repository:**
-https://github.com/your-username/bookcourier-client
+https://github.com/ismailhossain-dev/frontend.git
 
 ⚙️ **Server Repository:**
-https://github.com/your-username/bookcourier-server
+https://github.com/ismailhossain-dev/backend.git
 
 ---
 
