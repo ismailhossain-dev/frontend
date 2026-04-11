@@ -7,6 +7,7 @@ import { FiShoppingBag, FiX, FiCheckCircle } from "react-icons/fi";
 const PurchaseModal = ({ closeModal, isOpen, book }) => {
   const { _id, name, category, price, image, seller, quantity: availableQuantity } = book || {};
   const { user } = useAuth();
+  console.log(user);
 
   const handlePayment = async () => {
     const paymentInfo = {
@@ -126,13 +127,13 @@ const PurchaseModal = ({ closeModal, isOpen, book }) => {
                 <div className="mt-8 grid grid-cols-2 gap-4">
                   <button
                     onClick={closeModal}
-                    className="px-6 py-4 rounded-2xl font-bold text-black dark:hover:bg-slate-800 transition-all uppercase text-[10px] tracking-widest border border-slate-100 dark:border-white/5"
+                    className="px-6 py-4 rounded-2xl font-bold text-black dark:hover:bg-slate-800 transition-all uppercase text-[10px] tracking-widest border border-slate-100 dark:border-white/5 cursor-pointer"
                   >
                     Go Back
                   </button>
                   <button
                     onClick={handlePayment}
-                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-black bg-green-600 shadow-xl text-white shadow-green-500/10 transition-all uppercase text-[10px] tracking-widest"
+                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-black bg-green-600 shadow-xl text-white shadow-green-500/10 transition-all uppercase text-[10px] tracking-widest cursor-pointer"
                   >
                     Confirm & Pay
                   </button>
