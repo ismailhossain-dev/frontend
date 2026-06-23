@@ -19,11 +19,11 @@ const Logo = ({ theme = "light", size = 40 }) => {
 
       {/* Logo Text */}
       <h2
-        className={`text-lg font-extrabold tracking-tight dark:text-white ${
+        className={`text-lg font-extrabold tracking-tight text-green-600  dark:text-white ${
           theme === "dark" ? "text-white" : "text-blue-600"
         }`}
       >
-        Book<span className="text-green-500">Courier</span>
+        BookCourier
       </h2>
     </Link>
   );

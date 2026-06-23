@@ -55,7 +55,7 @@ const Sidebar = () => {
         ${isActive ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
         {/* 1. Logo Section */}
-        <div className="px-6 py-8 hidden md:block">
+        <div className="px-6 pt-10 md:pt-8 pb-6">
           <Link
             to="/"
             className="flex items-center gap-3 p-3 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:border-blue-500/30 transition-all duration-300 group"
@@ -69,8 +69,8 @@ const Sidebar = () => {
               <div className="absolute -inset-1 bg-blue-500/20 blur opacity-0 group-hover:opacity-100 rounded-full transition-opacity"></div>
             </div>
             <div>
-              <h1 className="text-white text-lg font-bold leading-none tracking-tight">
-                Book<span className="text-blue-400">Courier</span>
+              <h1 className=" text-green-600 text-lg font-bold leading-none tracking-tight">
+                BookCourier 
               </h1>
               <span className="text-[10px] text-slate-500 font-medium uppercase tracking-widest">
                 Dashboard

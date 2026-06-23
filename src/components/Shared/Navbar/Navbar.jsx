@@ -40,17 +40,18 @@ const Navbar = () => {
           About
         </NavLink>
       </li>
-      {user && (
-        <li>
-          <NavLink to="/dashboard" className={navLinkStyles}>
-            Dashboard
-          </NavLink>
-        </li>
-      )}
+    
       {user && (
         <li>
           <NavLink to="/blog" className={navLinkStyles}>
             Blog
+          </NavLink>
+        </li>
+      )}
+        {user && (
+        <li>
+          <NavLink to="/dashboard" className={navLinkStyles}>
+            Dashboard
           </NavLink>
         </li>
       )}
@@ -122,7 +123,7 @@ const Navbar = () => {
                   className={`flex items-center gap-2 p-1 pl-3 pr-1 rounded-full border transition-all ${
                     theme === "dark"
                       ? "bg-white/5 border-white/10 hover:border-green-500/50"
-                      : "bg-black/5 border-black/10 hover:border-green-500/50"
+                      : "bg-black/5 border-green-500/50"
                   }`}
                 >
                   <span
@@ -140,58 +141,102 @@ const Navbar = () => {
                 </button>
 
                 {/* Dropdown Menu */}
-                {isOpen && (
-                  <div
-                    className={`absolute right-0 mt-4 w-56 border rounded-2xl shadow-2xl overflow-hidden py-2 z-50 ${
-                      theme === "dark" ? "bg-slate-900 border-white/10" : "bg-white border-black/10"
-                    }`}
-                  >
-                    {/* Mobile Links inside Dropdown */}
-                    <div className="lg:hidden border-b border-black/5 pb-2 mb-2 text-sm">
-                      {/* <Link
-                        to="/"
-                        className="block px-5 py-2 hover:bg-green-500 hover:text-white transition"
-                      >
-                        Home
-                      </Link> */}
-                      {navbarMenu}
-                      {/* ... add other mobile links here ... */}
-                    </div>
+            {isOpen && (
+  <div
+    className={`absolute right-0 mt-3 w-64 border rounded-2xl shadow-2xl overflow-hidden p-1.5 z-50 animate-in fade-in slide-in-from-top-3 duration-200 ${
+      theme === "dark" 
+        ? "bg-slate-900/95 border-slate-800 backdrop-blur-md text-gray-200" 
+        : "bg-white/95 border-gray-100 backdrop-blur-md text-gray-800"
+    }`}
+  >
+    {/* 1. Mobile Links inside Dropdown */}
+    <div className="lg:hidden border-b border-gray-100 dark:border-slate-800 pb-1.5 mb-1.5">
+      <p className="px-3.5 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400">
+        Navigation
+      </p>
+      <ul className="flex flex-col gap-1 list-none pl-0 m-0">
+        {navbarMenu}
+      </ul>
+    </div>
 
-                    {user ? (
-                      <>
-                        <div
-                          className={`px-5 py-3 border-b border-black/5 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}
-                        >
-                          <p className="text-sm font-semibold truncate">
-                            {user?.displayName || "User"}
-                          </p>
-                        </div>
-                        <button
-                          onClick={logOut}
-                          className="w-full flex items-center gap-2 px-5 py-3 text-red-500 font-medium hover:bg-red-50 transition-colors"
-                        >
-                          Logout
-                        </button>
-                      </>
-                    ) : (
-                      <div className="p-2 space-y-1">
-                        <Link
-                          to="/login"
-                          className="block px-5 py-2 hover:bg-green-500 hover:text-white rounded-lg"
-                        >
-                          Login
-                        </Link>
-                        <Link
-                          to="/signup"
-                          className="block w-full text-center py-2 bg-green-500 text-white rounded-lg font-bold"
-                        >
-                          Sign Up
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                )}
+    {/* 2. User Logged In State */}
+    {user ? (
+      <>
+        {/* User Info Card */}
+        <div className="px-3.5 py-2.5 mb-1.5 rounded-xl bg-gray-50 dark:bg-slate-950/40 border border-gray-100/50 dark:border-slate-800/50 flex items-center gap-3">
+          <div className="relative shrink-0">
+            <img
+              className="w-9 h-9 rounded-full object-cover ring-2 ring-green-500/20"
+              src={user?.photoURL || avatarImg}
+              alt="user profile"
+            />
+            <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-white dark:ring-slate-900" />
+          </div>
+          <div className="truncate">
+            <p className="text-xs text-gray-400 font-medium">Welcome back,</p>
+            <p className="text-sm font-bold truncate text-gray-800 dark:text-gray-200">
+              {user?.displayName || "User"}
+            </p>
+          </div>
+        </div>
+
+        {/* Action Menu Links */}
+        <div className="space-y-0.5">
+          <Link
+            to="/dashboard/profile"
+            onClick={() => setIsOpen(false)}
+            className={`flex items-center gap-3 px-3.5 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 ${
+              theme === "dark" 
+                ? "hover:bg-slate-800 text-gray-300 hover:text-white" 
+                : "hover:bg-gray-100 text-gray-600 hover:text-black"
+            }`}
+          >
+            {/* react-icons/hi থেকে HiOutlineUser ব্যবহার করতে পারেন */}
+            <svg className="w-4 h-4 text-gray-400 group-hover:text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            My Profile
+          </Link>
+
+          {/* Logout Button */}
+          <button
+            onClick={() => {
+              logOut();
+              setIsOpen(false);
+            }}
+            className="w-full flex items-center gap-3 px-3.5 py-2.5 text-sm text-red-500 font-semibold rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors duration-200 text-left"
+          >
+            {/* react-icons/hi থেকে HiOutlineLogOut ব্যবহার করতে পারেন */}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </>
+    ) : (
+      /* 3. User Logged Out State (Auth Buttons) */
+      <div className="p-1 space-y-1">
+        <Link
+          to="/login"
+          onClick={() => setIsOpen(false)}
+          className={`block px-4 py-2.5 text-center text-sm font-medium rounded-xl transition ${
+            theme === "dark" ? "hover:bg-slate-800 text-white" : "hover:bg-gray-100 text-slate-900"
+          }`}
+        >
+          Login
+        </Link>
+        <Link
+          to="/signup"
+          onClick={() => setIsOpen(false)}
+          className="block w-full text-center py-2.5 text-sm bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold shadow-md shadow-green-500/10 hover:opacity-95 transition-all active:scale-[0.98]"
+        >
+          Sign Up
+        </Link>
+      </div>
+    )}
+  </div>
+)}
               </div>
             </div>
           </div>

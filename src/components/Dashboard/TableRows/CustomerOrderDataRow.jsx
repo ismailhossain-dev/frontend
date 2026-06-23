@@ -97,13 +97,13 @@ const CustomerOrderDataRow = ({ order, refetch }) => {
         <dialog id={`view_modal_${_id}`} className="modal">
           <div className="modal-box bg-white text-center">
             <img
-              className="w-40 h-56 object-cover mx-auto mb-4 rounded-lg shadow-md"
+              className="w-full h-56 object-cover mx-auto mb-4 rounded-lg shadow-md "
               src={image}
               alt={name}
             />
             <h3 className="font-bold text-2xl text-slate-800">{name}</h3>
             <p className="badge badge-indigo my-2">{category}</p>
-            <p className="text-xl font-bold text-indigo-600 mt-2">Price: ${price}</p>
+            <p className="text-xl font-bold text-black font-bold mt-2">Price: ${price}</p>
             <div className="modal-action justify-center">
               <form method="dialog">
                 <button className="btn btn-outline btn-sm px-8">Close</button>

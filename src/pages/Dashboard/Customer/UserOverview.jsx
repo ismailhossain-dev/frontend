@@ -5,34 +5,37 @@ import {
   CheckCircle,
   ArrowUpRight,
   Clock,
-  MapPin,
-  ChevronRight,
   Search,
+  ChevronRight,
+  Headphones,
 } from "lucide-react";
 import { Link } from "react-router";
 
 const UserOverview = () => {
   const stats = [
     {
-      label: "Total Books Sent",
+      label: "Total Orders",
       value: "25",
       icon: <Package size={22} />,
-      color: "text-blue-600",
+      color: "text-blue-600 dark:text-blue-400",
       bg: "bg-blue-500/10",
+      trend: "+12.5%",
     },
     {
-      label: "In Transit",
-      value: "03",
+      label: "My Orders",
+      value: "0",
       icon: <Truck size={22} />,
-      color: "text-amber-600",
+      color: "text-amber-600 dark:text-amber-400",
       bg: "bg-amber-500/10",
+      trend: "Live",
     },
     {
       label: "Delivered",
-      value: "21",
+      value: "0",
       icon: <CheckCircle size={22} />,
-      color: "text-emerald-600",
+      color: "text-emerald-600 dark:text-emerald-400",
       bg: "bg-emerald-500/10",
+      trend: "94%",
     },
   ];
 
@@ -64,51 +67,55 @@ const UserOverview = () => {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-8 relative overflow-hidden bg-[#f8fafc]">
-      {/* Background Mesh Gradients */}
-      <div className="absolute top-[-5%] left-[-5%] w-[35%] h-[35%] bg-indigo-100/50 rounded-full blur-[100px] -z-10"></div>
-      <div className="absolute bottom-[-5%] right-[-5%] w-[25%] h-[25%] bg-blue-100/50 rounded-full blur-[80px] -z-10"></div>
+    <div className="min-h-screen p-4 md:p-8 relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 transition-colors duration-300">
+      {/* Background Subtle Mesh Gradients */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-gradient-to-tr from-indigo-500/10 to-transparent rounded-full blur-[120px] -z-10"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-[100px] -z-10"></div>
 
       <div className="max-w-7xl mx-auto space-y-8">
-        {/* 1. Header Section */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        {/* ─── 1. HEADER SECTION ─── */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-2">
           <div>
-            <h1 className="text-3xl font-black text-slate-900 tracking-tight">
-              Dashboard <span className="text-indigo-600">Overview</span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Dashboard <span className="bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">Overview</span>
             </h1>
-            <p className="text-slate-500 mt-1 font-medium flex items-center gap-2 text-sm">
+            <p className="text-slate-500 dark:text-gray-400 mt-1 font-medium flex items-center gap-2 text-sm">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
               Everything is running smoothly
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm">
-              Last 30 Days <Clock size={16} />
+            <button className="hidden sm:flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition shadow-xs">
+              Last 30 Days <Clock size={15} />
             </button>
-            <button className="flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
-              New Shipment <ArrowUpRight size={18} />
+            <button className="flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:opacity-95 shadow-lg shadow-indigo-500/15 active:scale-[0.98] transition-all">
+              New Shipment <ArrowUpRight size={16} />
             </button>
           </div>
         </div>
 
-        {/* 2. Stats Cards - Clean Glass Style */}
+        {/* ─── 2. STATS CARDS ─── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-md p-6 rounded-[28px] border border-white shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-xl hover:shadow-indigo-50 transition-all duration-300"
+              className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-6 rounded-2xl border border-gray-100 dark:border-slate-800/60 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-xl hover:shadow-indigo-500/5 hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex justify-between items-center">
-                <div className={`${stat.bg} ${stat.color} p-3.5 rounded-2xl`}>{stat.icon}</div>
-                <div className="bg-emerald-50 text-emerald-600 text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-wider">
-                  +12.5%
+                <div className={`${stat.bg} ${stat.color} p-3 rounded-xl`}>
+                  {stat.icon}
+                </div>
+                <div className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${
+                  stat.label === "In Transit" ? "bg-amber-50 text-amber-600 dark:bg-amber-500/10" : "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10"
+                }`}>
+                  {stat.trend}
                 </div>
               </div>
-              <div className="mt-6">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-[1.5px]">
+              <div className="mt-5">
+                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                   {stat.label}
                 </p>
-                <h3 className="text-4xl font-black text-slate-900 mt-1 tracking-tight">
+                <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tracking-tight">
                   {stat.value}
                 </h3>
               </div>
@@ -116,15 +123,19 @@ const UserOverview = () => {
           ))}
         </div>
 
-        {/* 3. Content Section */}
+        {/* ─── 3. CONTENT CONTENT SECTION ─── */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* Recent Shipments List */}
-          <div className="xl:col-span-2 bg-white/90 backdrop-blur-sm rounded-[32px] border border-white shadow-xl shadow-slate-200/50 p-6 md:p-8">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-black text-slate-800 tracking-tight text-center sm:text-left">
-                Recent Shipments
-              </h2>
-              <button className="text-indigo-600 text-xs font-black uppercase tracking-widest hover:bg-indigo-50 px-3 py-2 rounded-xl transition">
+          
+          {/* Recent Shipments Component */}
+          <div className="xl:col-span-2 bg-white dark:bg-slate-900/60 backdrop-blur-sm rounded-2xl border border-gray-100 dark:border-slate-800/60 shadow-xs p-6 md:p-7">
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+                  Recent Shipments
+                </h2>
+                <p className="text-xs text-slate-400 mt-0.5">Overview of your latest book orders.</p>
+              </div>
+              <button className="text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider hover:bg-indigo-50 dark:hover:bg-indigo-500/10 px-3 py-1.5 rounded-lg transition-colors">
                 See All
               </button>
             </div>
@@ -133,38 +144,42 @@ const UserOverview = () => {
               {shipments.map((item) => (
                 <div
                   key={item.id}
-                  className="group flex items-center justify-between p-4 rounded-[22px] hover:bg-indigo-50/40 border border-transparent hover:border-indigo-50 transition-all duration-200"
+                  className="group flex items-center justify-between p-3.5 rounded-xl hover:bg-slate-50/80 dark:hover:bg-slate-800/40 border border-transparent hover:border-gray-100 dark:hover:border-slate-800/50 transition-all duration-200"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="h-11 w-11 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                      <Package size={18} />
+                    <div className="h-10 w-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                      <Package size={16} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-800 leading-none">{item.title}</h4>
-                      <p className="text-[11px] text-slate-400 font-bold mt-1.5 uppercase tracking-wider">
-                        {item.id} • {item.location}
+                      <h4 className="font-bold text-slate-800 dark:text-slate-200 text-sm leading-tight">
+                        {item.title}
+                      </h4>
+                      <p className="text-[11px] text-slate-400 dark:text-slate-500 font-semibold mt-1 uppercase tracking-wide">
+                        {item.id} <span className="mx-1 text-slate-300 dark:text-slate-700">•</span> {item.location}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-6">
-                    <div className="hidden md:block text-right">
-                      <p
-                        className={`text-[10px] font-black px-2 py-0.5 rounded-md inline-block ${
+                  <div className="flex items-center gap-5">
+                    <div className="text-right">
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-md tracking-wide ${
                           item.status === "Delivered"
-                            ? "bg-emerald-100 text-emerald-600"
-                            : "bg-amber-100 text-amber-600"
+                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+                            : item.status === "In Transit"
+                            ? "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400"
+                            : "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
                         }`}
                       >
-                        {item.status.toUpperCase()}
-                      </p>
-                      <p className="text-[10px] text-slate-300 font-bold mt-1 uppercase italic">
+                        {item.status}
+                      </span>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-1">
                         {item.date}
                       </p>
                     </div>
                     <ChevronRight
-                      size={18}
-                      className="text-slate-300 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all"
+                      size={16}
+                      className="text-slate-300 dark:text-slate-600 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-0.5 transition-all"
                     />
                   </div>
                 </div>
@@ -172,46 +187,54 @@ const UserOverview = () => {
             </div>
           </div>
 
-          {/* Quick Tools */}
+          {/* Sidebar Tools Area */}
           <div className="space-y-6">
-            <div className="bg-slate-900 rounded-[32px] p-8 text-white relative overflow-hidden group shadow-2xl">
+            {/* Real-time Tracking Box */}
+            <div className="bg-slate-900 dark:bg-slate-950 rounded-2xl p-6 text-white relative overflow-hidden group shadow-xl">
               <div className="relative z-10">
-                <h3 className="text-xl font-black leading-snug">
-                  Track Your <br /> Courier Fast.
+                <h3 className="text-lg font-bold tracking-tight leading-snug">
+                  Track Your Courier Fast
                 </h3>
-                <p className="text-slate-400 mt-3 text-xs font-medium leading-relaxed">
-                  Enter your tracking number to get real-time delivery status.
+                <p className="text-slate-400 mt-1.5 text-xs font-normal leading-relaxed">
+                  Enter your tracking number to get real-time delivery updates instantly.
                 </p>
 
-                <div className="mt-6 relative">
+                <div className="mt-5 relative">
                   <input
                     type="text"
-                    placeholder="BC-000000"
-                    className="w-full pl-4 pr-12 py-3.5 bg-white/10 border border-white/10 rounded-2xl focus:bg-white focus:text-slate-900 outline-none transition-all text-sm font-bold placeholder:text-slate-500"
+                    placeholder="BC-102..."
+                    className="w-full pl-4 pr-12 py-3 bg-white/10 dark:bg-white/5 border border-white/10 rounded-xl focus:bg-white focus:text-slate-900 outline-none transition-all text-xs font-semibold placeholder:text-slate-500"
                   />
-                  <button className="absolute right-2 top-2 bg-indigo-600 p-1.5 rounded-xl hover:scale-105 active:scale-95 transition">
-                    <Search size={18} />
+                  <button className="absolute right-1.5 top-1.5 bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 active:scale-95 transition-all text-white">
+                    <Search size={14} />
                   </button>
                 </div>
               </div>
-              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-indigo-600/20 rounded-full blur-2xl group-hover:bg-indigo-600/40 transition-colors"></div>
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-indigo-600/15 rounded-full blur-2xl group-hover:bg-indigo-600/30 transition-colors duration-500"></div>
             </div>
 
-            <div className="bg-white rounded-[32px] p-8 border border-slate-100 shadow-lg">
-              <h3 className="font-black text-slate-800 mb-5 flex items-center gap-2">
-                Need Support?
-              </h3>
-              <p className="text-slate-500 text-sm mb-6 font-medium">
-                Have issues with your book courier? Our team is here to help you 24/7.
+            {/* Support Ticket Box */}
+            <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/60 rounded-2xl p-6 shadow-xs">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-lg">
+                  <Headphones size={16} />
+                </div>
+                <h3 className="font-bold text-slate-800 dark:text-white text-sm">
+                  Need Support?
+                </h3>
+              </div>
+              <p className="text-slate-500 dark:text-slate-400 text-xs mb-5 font-medium leading-relaxed">
+                Have any issues with your book shipment? Our dedicated team is ready to help you 24/7.
               </p>
               <Link
                 to="/contact"
-                className="w-full border-2 btn bg-primary text-white border-slate-100 text-slate-800 py-3.5 rounded-2xl font-black text-xs transition-all uppercase tracking-widest"
+                className="block text-center w-full bg-slate-50 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white text-slate-700 dark:text-slate-300 py-2.5 rounded-xl font-bold text-xs transition-all tracking-wider uppercase"
               >
                 Contact Support
               </Link>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
