@@ -21,7 +21,7 @@ const Home = () => {
       <Services />
 
       {/* Featured Item */}
-      <FeaturedItems />
+      {/* <FeaturedItems /> */}
 
       {/* Blog section */}
       <Blog />
