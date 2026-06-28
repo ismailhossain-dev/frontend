@@ -6,8 +6,9 @@ import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useForm } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { imageUpload } from "../../utils";
+
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import { imageUpload } from "../../utils";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth();
@@ -27,38 +28,42 @@ const SignUp = () => {
     const { name, image, email, password } = data;
 
     try {
-      // 🔹 Image Validation
-      if (!image || image.length === 0) {
-        toast.error("Please upload a profile image");
-        return;
-      }
-
-      const imageFile = image[0];
+      // 🔹 Image Extraction
+      // const imageFile = image[0];
+      // if (!imageFile) {
+      //   toast.error("Please upload a profile image");
+      //   return;
+      // }
 
       // 🔹 Password Validation
       const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
       if (!passwordRegex.test(password)) {
         toast.error(
-          "Password must be at least 6 characters, include one uppercase letter, one number and one special character",
+          "Password must be at least 6 characters, include one uppercase letter, one number and one special character"
         );
         return;
       }
 
-      // 1️ Upload Image
-      const imageURL = await imageUpload(imageFile);
+      // 1️⃣ Upload Image to ImgBB
+      // const imageURL = await imageUpload(imageFile);
+      // if (!imageURL) {
+      //   toast.error("Failed to upload image. Try again.");
+      //   return;
+      // }
 
-      // 2️ Create Firebase User
+      // 2️⃣ Create Firebase User
       const res = await createUser(email, password);
       const user = res.user;
 
-      // 3 Update Firebase Profile
-      await updateUserProfile(name, imageURL);
+      // 3️⃣ Update Firebase Profile with Name and Image URL
+      // await updateUserProfile(name, imageURL);
+      await updateUserProfile(name);
 
-      // 4️Save User to MongoDB
+      // 4️⃣ Save User with image pointer to MongoDB
       const userInfo = {
         email: user.email,
         displayName: name,
-        photoURL: imageURL,
+        //photoURL: imageURL, // Profile image added here
         role: "user",
       };
 
@@ -83,6 +88,7 @@ const SignUp = () => {
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
+        role: "user", // Added role here to match manual signup setup
       };
 
       await axiosSecure.post("/user", userInfo);
@@ -111,7 +117,7 @@ const SignUp = () => {
               <label className="block mb-1 text-sm font-semibold">Full Name</label>
               <input
                 type="text"
-                placeholder="Enter your full name" // Placeholder Added
+                placeholder="Enter your full name"
                 className="w-full px-4 py-2 border rounded-xl focus:outline-blue-500"
                 {...register("name", { required: "Name is required" })}
               />
@@ -119,7 +125,7 @@ const SignUp = () => {
             </div>
 
             {/* Image */}
-            <div>
+            {/* <div>
               <label className="block mb-2 text-sm font-semibold text-slate-700">
                 Profile Image
               </label>
@@ -130,7 +136,6 @@ const SignUp = () => {
                   className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-blue-400 transition-all duration-300"
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    {/* Upload Icon */}
                     <svg
                       className="w-8 h-8 mb-3 text-gray-400"
                       fill="none"
@@ -155,24 +160,23 @@ const SignUp = () => {
                     id="file-upload"
                     type="file"
                     accept="image/*"
-                    className="hidden" // Browser-er default input ta hide kore dewa hoyeche
+                    className="hidden"
                     {...register("image", { required: "Profile image is required" })}
                   />
                 </label>
               </div>
 
-              {/* Error Message */}
               {errors.image && (
                 <p className="text-red-500 text-xs mt-1 italic">{errors.image.message}</p>
               )}
-            </div>
+            </div> */}
 
             {/* Email */}
             <div>
               <label className="block mb-1 text-sm font-semibold">Email</label>
               <input
                 type="email"
-                placeholder="example@gmail.com" // Placeholder Added
+                placeholder="example@gmail.com"
                 className="w-full px-4 py-2 border rounded-xl focus:outline-blue-500"
                 {...register("email", { required: "Email is required" })}
               />
@@ -185,7 +189,7 @@ const SignUp = () => {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="••••••••" // Placeholder Added
+                  placeholder="••••••••"
                   className="w-full px-4 py-2 border rounded-xl focus:outline-blue-500"
                   {...register("password", { required: "Password is required" })}
                 />
