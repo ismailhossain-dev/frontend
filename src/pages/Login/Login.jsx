@@ -38,17 +38,36 @@ const Login = () => {
   };
 
   // Google Signin
-  const handleGoogleSignIn = async () => {
-    try {
-      await signInWithGoogle();
-      navigate(from, { replace: true });
-      toast.success("Login Successful");
-    } catch (err) {
-      setLoading(false);
-      toast.error(err?.message);
-    }
-  };
+ const handleGoogleSignIn = async () => {
+  try {
+    const result = await signInWithGoogle();
+    const loggedInUser = result.user; // Firebase থেকে ইউজার ডাটা নিলাম
 
+    // 🌟 এই অংশটি যুক্ত করুন: ব্যাকএন্ড API-তে ডাটা পাঠানো
+    const response = await fetch("https://backend-kappa-two-21.vercel.app/user", { // আপনার ব্যাকএন্ড URL দিন
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: loggedInUser.email,
+        displayName: loggedInUser.displayName,
+        photoURL: loggedInUser.photoURL,
+      }),
+    });
+
+    const data = await response.json();
+    console.log("Backend response:", data);
+
+    navigate(from, { replace: true });
+    toast.success("Login Successful");
+  } catch (err) {
+    console.error("Google Login Error:", err);
+    // যদি useAuth-এ setLoading থাকে, তবে এখানে false করে দেওয়া ভালো
+    if(typeof setLoading === "function") setLoading(false); 
+    toast.error(err?.message || "Google Sign-In failed");
+  }
+};
   // Forget password logic fix
   const handleForgetPassword = async () => {
     const email = getValues("email"); // Form theke email value nibe

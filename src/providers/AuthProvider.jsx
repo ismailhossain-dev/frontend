@@ -47,9 +47,9 @@ const AuthProvider = ({ children }) => {
   };
 
   //Forget password
-  const resetPassword = (email) => {
-    sendPasswordResetEmail(auth, email);
-  };
+const resetPassword = (email) => {
+  return sendPasswordResetEmail(auth, email);
+};
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
