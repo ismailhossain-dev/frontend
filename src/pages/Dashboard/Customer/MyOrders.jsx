@@ -8,7 +8,7 @@ import { HiOutlineShoppingBag, HiOutlineClipboardList } from "react-icons/hi";
 
 const MyOrders = () => {
   const { user } = useAuth();
-  // const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
 
   const {
     data: orders = [],
@@ -17,9 +17,8 @@ const MyOrders = () => {
   } = useQuery({
     queryKey: ["orders", user?.email],
     queryFn: async () => {
-      // const result = await axiosSecure(`/my-orders/${user.email}`);
-      const result = await fetch(`https://backend-kappa-two-21.vercel.app/my-orders/${user.email}`);
-      return result.json();
+      const result = await axiosSecure(`/my-orders/${user.email}`);
+      return result.data;
     },
     enabled: !!user?.email,
   });
