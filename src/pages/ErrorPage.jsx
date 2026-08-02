@@ -39,7 +39,7 @@ const ErrorPage = () => {
           <div className="mt-12 flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
             <button
               onClick={() => navigate(-1)}
-              className="w-full sm:w-auto px-8 py-4 flex items-center justify-center gap-2 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white font-bold text-sm uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95"
+              className="w-full sm:w-auto px-8 py-4 flex items-center justify-center gap-2 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white font-bold text-sm uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
             >
               <FiArrowLeft size={18} />
               Go Back
@@ -47,33 +47,14 @@ const ErrorPage = () => {
 
             <button
               onClick={() => navigate("/")}
-              className="w-full sm:w-auto px-10 py-4 flex items-center justify-center gap-2 rounded-2xl bg-slate-900 dark:bg-green-600 text-white font-bold text-sm uppercase tracking-widest hover:bg-black dark:hover:bg-green-700 shadow-xl shadow-green-500/20 transition-all active:scale-95"
+              className="w-full sm:w-auto px-10 py-4 flex items-center justify-center gap-2 rounded-2xl bg-slate-900  text-white font-bold text-sm uppercase tracking-widest  shadow-xl shadow-green-500/20 transition-all active:scale-95 cursor-pointer"
             >
               <FiHome size={18} />
               Take Me Home
             </button>
           </div>
 
-          {/* Helpful Links */}
-          <div className="mt-16 pt-8 border-t border-slate-100 dark:border-white/5 w-full max-w-xs">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-4">
-              Need Help?
-            </p>
-            <div className="flex justify-center gap-6 text-xs font-bold text-slate-500 uppercase tracking-widest">
-              <button
-                onClick={() => navigate("/contact")}
-                className="hover:text-green-500 transition-colors"
-              >
-                Contact Support
-              </button>
-              <button
-                onClick={() => navigate("/all-books")}
-                className="hover:text-green-500 transition-colors"
-              >
-                Browse Books
-              </button>
-            </div>
-          </div>
+          
         </div>
       </div>
     </section>

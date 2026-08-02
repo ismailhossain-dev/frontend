@@ -2,10 +2,11 @@ import React from "react";
 import {
   Package,
   Clock,
-  Truck,
   CheckCircle,
   Heart,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 // Chart.js Imports
 import {
@@ -20,6 +21,8 @@ import {
   Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 ChartJS.register(
   CategoryScale,
@@ -33,47 +36,64 @@ ChartJS.register(
 );
 
 const UserOverview = () => {
-  // ডাইনামিক ডেটার জন্য প্লেসহোল্ডার
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  // Overview Data Fetching via TanStack Query
+  const { data: overviewData = {}, isLoading } = useQuery({
+    queryKey: ["user-overview", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/get-all-overview/${user?.email}`);
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+
+  // Dynamic Cards Data
   const stats = [
     {
       label: "Total Orders",
-      value: "25",
+      value: overviewData?.totalOrders || 0,
       icon: <Package size={22} />,
       color: "text-blue-400",
       bg: "bg-blue-500/10",
     },
     {
       label: "Pending Orders",
-      value: "3",
+      value: overviewData?.pendingOrders || 0,
       icon: <Clock size={22} />,
       color: "text-amber-400",
       bg: "bg-amber-500/10",
     },
- 
     {
       label: "Delivered",
-      value: "20",
+      value: overviewData?.completedOrders || 0,
       icon: <CheckCircle size={22} />,
       color: "text-emerald-400",
       bg: "bg-emerald-500/10",
     },
     {
       label: "Wishlist Books",
-      value: "12",
+      value: overviewData?.wishlistCount || 0,
       icon: <Heart size={22} />,
       color: "text-rose-400",
       bg: "bg-rose-500/10",
     },
   ];
 
-  // চার্টের ডেটা
+  // Dynamic Chart Data Processing
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const chartValues = months.map((m) => overviewData?.monthlyCounts?.[m] || 0);
+
   const chartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    labels: months,
     datasets: [
       {
         fill: true,
         label: "Orders Placed",
-        data: [2, 5, 3, 8, 4, 10, 6],
+        data: chartValues,
         borderColor: "#6366f1",
         backgroundColor: "rgba(99, 102, 241, 0.15)",
         tension: 0.4,
@@ -84,7 +104,6 @@ const UserOverview = () => {
     ],
   };
 
-  // চার্টের অপশন (ডার্ক থিমের সাথে মানানসই)
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -117,14 +136,14 @@ const UserOverview = () => {
         },
         ticks: {
           color: "#94a3b8",
-          stepSize: 2,
+          stepSize: 1,
+          precision: 0,
         },
       },
     },
   };
 
   return (
-    /* পুরো পেজের ব্যাকগ্রাউন্ড সবসময় ডার্ক (bg-slate-950) থাকবে */
     <div className="min-h-screen p-4 md:p-8 bg-slate-950 text-slate-100 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-8 mt-6">
         
@@ -142,11 +161,11 @@ const UserOverview = () => {
         </div>
 
         {/* ─── 2. STATS CARDS ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-slate-900 p-5 rounded-2xl border border-slate-800/80 hover:border-slate-700 transition-all duration-200"
+              className="bg-slate-900 p-5 rounded-2xl border border-slate-800/80 hover:border-slate-700 transition-all duration-200 shadow-xl"
             >
               <div className="flex items-center justify-between">
                 <div className={`${stat.bg} ${stat.color} p-3 rounded-xl`}>
@@ -166,7 +185,7 @@ const UserOverview = () => {
         </div>
 
         {/* ─── 3. CHART SECTION ─── */}
-        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800/80">
+        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-lg font-bold text-white tracking-tight">

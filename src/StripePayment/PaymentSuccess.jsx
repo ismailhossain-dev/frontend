@@ -19,7 +19,7 @@ const PaymentSuccess = () => {
   //try to problem solve 
   useEffect(() => {
     if (sessionId) {
-      axios.post("https://backend-kappa-two-21.vercel.app/payment-success", {
+      axios.post("/payment-success", {
         sessionId,
       });
     }

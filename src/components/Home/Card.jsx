@@ -7,6 +7,7 @@ import {
   FiLayers,
   FiHeart,
 } from "react-icons/fi";
+import WishlistButton from "../buttons/WishlistButton/WishlistButton";
 
 const Card = ({ book }) => {
   const {
@@ -22,15 +23,9 @@ const Card = ({ book }) => {
     title,
   } = book;
 
-  // উইশলিস্টের জন্য লোকাল স্টেট (প্রয়োজন অনুযায়ী ব্যাকএন্ড/কন্টেক্সট লজিক বসিয়ে নিতে পারবেন)
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  
 
-  const handleWishlist = (e) => {
-    e.preventDefault(); // লিঙ্ক রিডাইরেক্ট বন্ধ করার জন্য
-    e.stopPropagation();
-    setIsWishlisted(!isWishlisted);
-    // TODO: আপনার Wishlist API বা Handler এখানে কল করুন
-  };
+
 
   return (
     <div className="group relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] flex flex-col h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-green-500/10 p-3.5">
@@ -54,18 +49,7 @@ const Card = ({ book }) => {
           </div>
 
           {/* Heart / Wishlist Button */}
-          <button
-            onClick={handleWishlist}
-            className="p-2.5 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/20 text-slate-700 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 transition-all active:scale-90 shadow-md"
-            title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
-          >
-            <FiHeart
-              size={16}
-              className={`transition-colors ${
-                isWishlisted ? "fill-red-500 text-red-500" : ""
-              }`}
-            />
-          </button>
+          <WishlistButton book={book} />
         </div>
 
         {/* Rating Badge (Bottom Left of Image) */}
