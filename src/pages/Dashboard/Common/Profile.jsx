@@ -30,7 +30,7 @@ const Profile = () => {
             <div className="relative group z-10">
               <img
                 alt="profile"
-                src={user?.photoURL || "https://i.ibb.co/mR4qB8S/avatar.png"}
+                src={user?.photoURL || "https://res.cloudinary.com/ddfgi0gdr/image/upload/v1785668025/download_atpk5y.jpg"}
                 className="mx-auto object-cover rounded-2xl h-40 w-40 border-2 border-emerald-500/40 shadow-2xl group-hover:scale-105 transition-transform duration-300"
               />
               <span className="absolute -bottom-2 -right-2 h-5 w-5 bg-emerald-500 border-4 border-slate-900 rounded-full shadow-md"></span>
@@ -108,17 +108,7 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* User Activity Stats */}
-                <div className="pt-4">
-                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
-                    Overview Statistics
-                  </h4>
-                  <div className="grid grid-cols-3 gap-3">
-                    <StatCard count="12" label="Orders" />
-                    <StatCard count="4.8" label="Rating" />
-                    <StatCard count="2.5k" label="Points" />
-                  </div>
-                </div>
+                
               </div>
             )}
           </div>

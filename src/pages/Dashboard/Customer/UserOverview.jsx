@@ -23,6 +23,7 @@ import {
 import { Line } from "react-chartjs-2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import { NavLink } from "react-router";
 
 ChartJS.register(
   CategoryScale,
@@ -59,6 +60,7 @@ const UserOverview = () => {
       icon: <Package size={22} />,
       color: "text-blue-400",
       bg: "bg-blue-500/10",
+      link: "/dashboard/my-orders"
     },
     {
       label: "Pending Orders",
@@ -66,6 +68,7 @@ const UserOverview = () => {
       icon: <Clock size={22} />,
       color: "text-amber-400",
       bg: "bg-amber-500/10",
+     link: "/dashboard/my-orders"
     },
     {
       label: "Delivered",
@@ -73,6 +76,7 @@ const UserOverview = () => {
       icon: <CheckCircle size={22} />,
       color: "text-emerald-400",
       bg: "bg-emerald-500/10",
+      link: "/dashboard/user-overview"
     },
     {
       label: "Wishlist Books",
@@ -80,6 +84,7 @@ const UserOverview = () => {
       icon: <Heart size={22} />,
       color: "text-rose-400",
       bg: "bg-rose-500/10",
+      link: "/dashboard/my-wishlist"
     },
   ];
 
@@ -163,7 +168,7 @@ const UserOverview = () => {
         {/* ─── 2. STATS CARDS ─── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
-            <div
+            <NavLink  to={stat.link}
               key={index}
               className="bg-slate-900 p-5 rounded-2xl border border-slate-800/80 hover:border-slate-700 transition-all duration-200 shadow-xl"
             >
@@ -180,7 +185,7 @@ const UserOverview = () => {
                   {stat.value}
                 </h3>
               </div>
-            </div>
+            </NavLink>
           ))}
         </div>
 
