@@ -4,7 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router";
-import { HiOutlineShoppingBag, HiOutlineClipboardList } from "react-icons/hi";
+import { HiOutlineShoppingBag, HiOutlineClipboardList, HiOutlineArrowRight } from "react-icons/hi";
 
 const MyOrders = () => {
   const { user } = useAuth();
@@ -23,103 +23,107 @@ const MyOrders = () => {
     enabled: !!user?.email,
   });
 
-  console.log("My orders", orders);
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 min-h-screen transition-colors duration-300">
-      
-      {/* ─── PAGE HEADER ─── */}
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 border-b border-gray-100 dark:border-slate-800/60 pb-6">
-        <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-gradient-to-tr from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/20 hidden sm:block">
-            <HiOutlineClipboardList className="text-2xl" />
-          </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white  dark:text-white tracking-tight">
-              My Orders
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              Track, manage, and review your order history and status.
-            </p>
-          </div>
-        </div>
+    <div className="min-h-screen bg-slate-950 text-slate-100 px-4 sm:px-6 lg:px-8 py-8 transition-all duration-300 mt-6">
+      <div className="max-w-7xl mx-auto space-y-8">
         
-        {/* Total Orders Counter Badge */}
-        {orders.length > 0 && (
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-green-500/10 to-emerald-500/10 text-green-600 dark:text-green-400 border border-green-500/20 dark:border-green-500/10 backdrop-blur-md self-start sm:self-center shadow-xs">
-            <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-            Total Orders: {orders.length}
+        {/* ─── PAGE HEADER ─── */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+          
+          {/* Background Ambient Glow Effect */}
+          <div className="absolute -top-10 -left-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex items-center gap-4 relative z-10">
+            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 text-emerald-400 shadow-inner">
+              <HiOutlineClipboardList className="text-3xl" />
+            </div>
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-2">
+                My Orders
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-400 mt-1 font-medium">
+                Track, manage, and review your purchase history.
+              </p>
+            </div>
           </div>
+
+          {/* Total Orders Badge */}
+          {orders.length > 0 && (
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-lg shadow-emerald-500/5 self-start sm:self-center">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              Total Orders: <span className="font-extrabold text-sm text-white">{orders.length}</span>
+            </div>
+          )}
+        </div>
+
+        {/* ─── MAIN CONTENT AREA ─── */}
+        {orders.length === 0 ? (
+          
+          /* Empty State Section */
+          <div className="text-center py-20 px-6 bg-slate-900/40 border border-slate-800/80 rounded-3xl backdrop-blur-md max-w-xl mx-auto shadow-2xl relative overflow-hidden">
+            <div className="inline-flex p-5 rounded-3xl bg-gradient-to-b from-slate-800 to-slate-900 border border-slate-700/50 text-emerald-400 mb-6 shadow-inner">
+              <HiOutlineShoppingBag className="text-5xl" />
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              No Orders Found
+            </h3>
+            <p className="text-slate-400 text-sm max-w-md mx-auto mt-2 leading-relaxed">
+              Your order history is currently empty. Explore our collection and grab your favorite books today!
+            </p>
+            <div className="mt-8">
+              <Link
+                to="/all-book"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 active:scale-95 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all duration-200"
+              >
+                <span>Browse Collection</span>
+                <HiOutlineArrowRight className="text-lg" />
+              </Link>
+            </div>
+          </div>
+
+        ) : (
+
+          /* Premium Table Container */
+          <div className="bg-slate-900/60 border border-slate-800/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-xl">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                
+                {/* Table Header */}
+                <thead>
+                  <tr className="bg-slate-800/40 border-b border-slate-800/80 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    <th className="px-6 py-4">Book Details</th>
+                    <th className="px-6 py-4">Title</th>
+                    <th className="px-6 py-4">Category</th>
+                    <th className="px-6 py-4">Price</th>
+                    <th className="px-6 py-4">Quantity</th>
+                    <th className="px-6 py-4">Status</th>
+                    <th className="px-6 py-4 text-center">Actions</th>
+                  </tr>
+                </thead>
+
+                {/* Table Body */}
+                <tbody className="divide-y divide-slate-800/60 text-sm">
+                  {orders.map((order) => (
+                    <CustomerOrderDataRow
+                      key={order._id}
+                      order={order}
+                      refetch={refetch}
+                    />
+                  ))}
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+
         )}
+
       </div>
-
-      {/* ─── MAIN CONTENT AREA ─── */}
-      {orders.length === 0 ? (
-        /* Empty State Blueprint */
-        <div className="text-center py-20 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-3xl shadow-xl shadow-gray-100/40 dark:shadow-none max-w-2xl mx-auto backdrop-blur-xs">
-          <div className="inline-flex p-5 rounded-2xl bg-gradient-to-b from-gray-50 to-gray-100 dark:from-slate-800 dark:to-slate-800/50 text-gray-400 dark:text-gray-500 mb-5 shadow-inner">
-            <HiOutlineShoppingBag className="text-4xl" />
-          </div>
-          <h3 className="text-xl font-extrabold text-gray-900 dark:text-white tracking-tight">Your order history is empty</h3>
-          <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm mx-auto mt-2.5 leading-relaxed">
-            It looks like you haven’t added any items to your collection yet. Let's find some amazing books for you!
-          </p>
-          <div className="mt-8">
-            <Link
-              to="/all-book"
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 active:scale-[0.98] rounded-xl shadow-lg shadow-green-500/20 transition-all duration-200"
-            >
-              Start Shopping
-            </Link>
-          </div>
-        </div>
-      ) : (
-        /* Premium Table Framework */
-        <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-3xl shadow-xl shadow-gray-200/30 dark:shadow-none overflow-hidden backdrop-blur-xs">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-100 dark:divide-slate-800 text-sm tracking-wide">
-              {/* Table Head Section */}
-              <thead className="bg-gradient-to-r from-gray-50/80 to-gray-100/50 dark:from-slate-800/40 dark:to-slate-800/20 border-b border-gray-100 dark:border-slate-800">
-                <tr>
-                  <th scope="col" className="px-6 py-4.5 text-left font-bold uppercase tracking-wider text-[11px] text-gray-500 dark:text-gray-400">
-                    Image
-                  </th>
-                  <th scope="col" className="px-6 py-4.5 text-left font-bold uppercase tracking-wider text-[11px] text-gray-500 dark:text-gray-400">
-                    Product Name
-                  </th>
-                  <th scope="col" className="px-6 py-4.5 text-left font-bold uppercase tracking-wider text-[11px] text-gray-500 dark:text-gray-400">
-                    Category
-                  </th>
-                  <th scope="col" className="px-6 py-4.5 text-left font-bold uppercase tracking-wider text-[11px] text-gray-500 dark:text-gray-400">
-                    Price
-                  </th>
-                  <th scope="col" className="px-6 py-4.5 text-left font-bold uppercase tracking-wider text-[11px] text-gray-500 dark:text-gray-400">
-                    Quantity
-                  </th>
-                  <th scope="col" className="px-6 py-4.5 text-left font-bold uppercase tracking-wider text-[11px] text-gray-500 dark:text-gray-400">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-4.5 text-center font-bold uppercase tracking-wider text-[11px] text-gray-500 dark:text-gray-400">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-
-              {/* Table Body Section */}
-              <tbody className="divide-y divide-gray-50 dark:divide-slate-800/60 bg-white dark:bg-slate-900">
-                {orders.map((order) => (
-                  <CustomerOrderDataRow 
-                    key={order._id} 
-                    order={order} 
-                    refetch={refetch} 
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

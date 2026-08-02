@@ -1,4 +1,4 @@
-import Blog from "../../components/Home/Blog/Blog.jsx";
+
 import Books from "../../components/Home/Books";
 import FaqSection from "../Section/FaqSection.jsx/FaqSection.jsx";
 import FeaturedItems from "../Section/FeaturedItems.jsx";
@@ -22,9 +22,7 @@ const Home = () => {
 
       {/* Featured Item */}
       {/* <FeaturedItems /> */}
-
-      {/* Blog section */}
-      <Blog />
+      
 
       {/* FAQ Section */}
       <FaqSection />

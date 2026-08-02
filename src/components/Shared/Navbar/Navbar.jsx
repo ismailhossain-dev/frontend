@@ -43,23 +43,8 @@ const Navbar = () => {
 
       {user && (
         <li>
-          <NavLink to="/blog" className={navLinkStyles}>
-            Blog
-          </NavLink>
-        </li>
-      )}
-      {user && (
-        <li>
           <NavLink to="/dashboard" className={navLinkStyles}>
             Dashboard
-          </NavLink>
-        </li>
-      )}
-
-      {user && (
-        <li>
-          <NavLink to="/contact" className={navLinkStyles}>
-            Contact
           </NavLink>
         </li>
       )}
@@ -94,19 +79,19 @@ const Navbar = () => {
 
             {/* RIGHT: Actions */}
             <div className="flex items-center justify-end gap-2 md:gap-4 shrink-0">
-              {/* Theme Toggle */}
+              {/* Theme Toggle Button */}
               <button
                 onClick={toggleTheme}
-                className={`p-2 rounded-lg  transition-all active:scale-90 ${
+                className={`p-2 rounded-xl transition-all duration-300 active:scale-90 ${
                   theme === "dark"
-                    ? "bg-white/5 border-white/10 text-white"
-                    : "bg-black/5 border-black/10 text-slate-900"
+                    ? "bg-white/5 hover:bg-white/10 text-yellow-400"
+                    : "bg-black/5 hover:bg-black/10 text-blue-600"
                 }`}
               >
                 {theme === "dark" ? (
-                  <HiSun className="text-xl text-yellow-400" />
+                  <HiSun className="text-xl" />
                 ) : (
-                  <HiMoon className="text-xl text-blue-400" />
+                  <HiMoon className="text-xl" />
                 )}
               </button>
 
@@ -247,7 +232,6 @@ const Navbar = () => {
                           >
                             Login
                           </Link>
-                        
                         </div>
                       )}
                     </div>

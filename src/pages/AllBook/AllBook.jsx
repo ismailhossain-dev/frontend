@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import AllBookCard from "../AllBookCard/AllBookCard";
 import Container from "../../components/Shared/Container";
+import Card from "../../components/Home/Card";
 
 const AllBook = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -10,7 +10,6 @@ const AllBook = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("Intermediate");
 
-  // Data Fetching
   const { data: allBooks = [], isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: async () => {
@@ -19,28 +18,25 @@ const AllBook = () => {
     },
   });
 
-  // Unique Categories
   const categories = ["All", ...new Set(allBooks.map((book) => book.category))];
 
-  // Filter + Search + Sort
   useEffect(() => {
     let filtered = [...allBooks];
 
-    // Category Filter
     if (selectedCategory !== "All") {
       filtered = filtered.filter((book) => book.category === selectedCategory);
     }
 
-    // Search Filter
     if (searchQuery) {
       filtered = filtered.filter((book) =>
-        book.title.toLowerCase().includes(searchQuery.toLowerCase()),
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
-    // Sort High Price
     if (sortOption === "High") {
       filtered.sort((a, b) => b.price - a.price);
+    } else if (sortOption === "Low") {
+      filtered.sort((a, b) => a.price - b.price);
     }
 
     setFilteredBooks(filtered);
@@ -53,94 +49,119 @@ const AllBook = () => {
 
   return (
     <Container>
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-center mt-10 gap-5">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-8 md:mt-12 gap-6">
         <div>
-          <h1 className="text-2xl md:text-4xl font-black text-slate-800 uppercase dark:text-white">
-            Trending All <span className="text-blue-600">Books</span>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
+            Trending All <span className="text-blue-600 dark:text-blue-500">Books</span>
           </h1>
-          <div className="hidden sm:block h-1.5 w-16 bg-blue-600 mt-2 rounded-full"></div>
+          <div className="h-1.5 w-16 bg-blue-600 dark:bg-blue-500 mt-2 rounded-full"></div>
         </div>
 
-        {/* Search + Sort */}
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-          {/* Search */}
-          <form onSubmit={handleSearch} className="flex items-center  w-full">
-            <label className="input input-bordered flex items-center gap-2 grow bg-base-100 shadow-sm border-gray-200">
-              <input
-                type="search"
-                name="search"
-                placeholder="Search by title..."
-                className="grow outline-none bg-transparent"
-              />
-            </label>
+          <form onSubmit={handleSearch} className="relative w-full sm:w-72">
+            <input
+              type="search"
+              name="search"
+              placeholder="Search by title..."
+              className="w-full pl-4 pr-20 py-2.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm transition-all text-sm"
+            />
             <button
               type="submit"
-              className="bg-green-500 text-white p-2 rounded-md  btn-primary  font-bold"
+              className="absolute right-1 top-1 bottom-1 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs rounded-lg transition-colors"
             >
-              Find
+              Search
             </button>
           </form>
 
-          {/* Sort */}
           <select
             value={sortOption}
             onChange={(e) => setSortOption(e.target.value)}
-            className="select select-bordered w-full sm:w-40"
+            className="w-full sm:w-44 px-3 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm text-sm font-medium transition-all"
           >
-            <option value="Intermediate">Intermediate</option>
-            <option value="High">High Price</option>
+            <option value="Intermediate">Sort by Default</option>
+            <option value="High">Price: High to Low</option>
+            <option value="Low">Price: Low to High</option>
           </select>
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 mt-10">
-        {/* Sidebar Category */}
+      <div className="flex flex-col lg:flex-row gap-8 mt-8">
         <aside className="w-full lg:w-1/4">
-          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl sticky top-24 border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Categories</h3>
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md p-5 rounded-3xl sticky top-24 border border-gray-200/60 dark:border-gray-700/60 shadow-xl shadow-gray-100/50 dark:shadow-none transition-all duration-300">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2 h-5 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full"></span>
+              <h3 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                Categories
+              </h3>
+            </div>
 
-            <div className="flex flex-wrap lg:flex-col gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg text-left transition-all font-medium ${
-                    selectedCategory === category
-                      ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
-                      : "bg-white dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-200"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+            <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scrollbar-none">
+              {categories.map((category) => {
+                const isActive = selectedCategory === category;
+
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`group relative flex items-center justify-between whitespace-nowrap px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-300 ease-out overflow-hidden flex-shrink-0 lg:flex-shrink ${
+                      isActive
+                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25 scale-[1.01]"
+                        : "bg-gray-50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:shadow-md"
+                    }`}
+                  >
+                    {isActive && (
+                      <span className="hidden lg:block absolute left-0 top-0 bottom-0 w-1 bg-white rounded-r-full" />
+                    )}
+
+                    <span className="relative z-10 capitalize">{category}</span>
+
+                    <svg
+                      className={`hidden lg:block w-4 h-4 transition-transform duration-300 ${
+                        isActive
+                          ? "translate-x-0 opacity-100"
+                          : "-translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 text-blue-500 dark:text-blue-400"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </aside>
 
-        {/* Books Grid */}
         <main className="w-full lg:w-3/4">
           {isLoading ? (
             <div className="flex justify-center py-20">
-              <span className="loading loading-spinner loading-lg text-blue-600"></span>
+              <span className="loading loading-spinner loading-lg text-blue-600 dark:text-blue-500"></span>
             </div>
           ) : filteredBooks.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6">
               {filteredBooks.map((book) => (
-                <AllBookCard key={book._id} book={book} />
+                <Card key={book._id} book={book} />
               ))}
             </div>
           ) : (
-            <div className="py-20 text-center bg-gray-50 rounded-2xl">
-              <h2 className="text-2xl font-bold text-gray-400">❌ No Books Found</h2>
-
+            <div className="py-20 text-center bg-gray-50 dark:bg-gray-800/50 border border-gray-200/60 dark:border-gray-700/60 rounded-3xl">
+              <h2 className="text-xl font-bold text-gray-500 dark:text-gray-400">
+                ❌ No Books Found
+              </h2>
               <button
                 onClick={() => {
                   setSelectedCategory("All");
                   setSearchQuery("");
                   setSortOption("Intermediate");
                 }}
-                className="mt-4 text-blue-600 underline"
+                className="mt-4 px-4 py-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
               >
                 Reset Filters
               </button>

@@ -25,7 +25,7 @@ const Books = () => {
           <div className="h-1.5 w-16 bg-blue-600 mx-auto mt-2 rounded-full"></div>
         </div>
 
-        <div className="py-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="py-10 gap-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 lg:gap-6">
           {/* amra akane book take map korbo  */}
           {books.map((book) => (
             <Card key={book._id} book={book}></Card>

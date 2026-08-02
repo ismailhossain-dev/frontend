@@ -10,7 +10,7 @@ import "swiper/css/effect-fade";
 
 import logo1 from "../../assets/images/img-1.avif";
 import logo2 from "../../assets/images/img-2.avif";
-import logo3 from "../../assets/images/img-3.avif";
+// import logo3 from "../../assets/images/img-3.avif";
 import logo4 from "../../assets/images/img-4.avif";
 import logo5 from "../../assets/images/img-5.avif";
 import logo6 from "../../assets/images/img-6.avif";
@@ -20,7 +20,7 @@ const HomeSlide = () => {
   const slides = [
     { img: logo1, title: "World's Best Classics", subtitle: "Timeless stories delivered to you." },
     { img: logo2, title: "New Arrivals 2026", subtitle: "Explore the latest bestsellers today." },
-    { img: logo3, title: "Academic Essentials", subtitle: "Boost your knowledge." },
+    // { img: logo3, title: "Academic Essentials", subtitle: "Boost your knowledge." },
     { img: logo4, title: "Fiction & Fantasy", subtitle: "Escape into a world of imagination." },
     { img: logo5, title: "Self-Improvement", subtitle: "Master your mind and your life." },
     { img: logo6, title: "Safe Delivery", subtitle: "Handled with care, just for you." },
@@ -28,7 +28,7 @@ const HomeSlide = () => {
 
   return (
     <Container>
-      <section className="py-6 px-4">
+      <section className=" px-4">
         <div className="relative overflow-hidden rounded-2xl md:rounded-[2rem] shadow-xl border border-white/10">
           <Swiper
             effect={"fade"}
@@ -45,7 +45,7 @@ const HomeSlide = () => {
             }}
             navigation={true}
             modules={[Autoplay, Pagination, Navigation, EffectFade]}
-            className="mySwiper h-[320px] sm:h-[400px] lg:h-[450px] w-full"
+            className="mySwiper h-[320px] sm:h-[400px] lg:h-[500px] w-full"
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={index} className="relative group">

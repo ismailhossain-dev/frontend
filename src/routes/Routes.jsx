@@ -21,8 +21,7 @@ import AdminRoute from "./AdminRoute";
 import HomeDashboard from "../pages/Dashboard/HomeDashboard/HomeDashboard";
 
 import About from "../components/Home/About";
-import Blog from "../components/Home/Blog/Blog";
-import Contact from "../components/Home/Contact";
+// import Contact from "../components/Home/Contact";
 import SwitchRole from "../pages/Dashboard/SwichRole/SwitchRole";
 import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
 import ManageBooks from "../pages/Dashboard/Admin/ManageBooks";
@@ -48,22 +47,15 @@ export const router = createBrowserRouter([
         path: "about",
         Component: About,
       },
-      {
-        path: "blog",
-        element: (
-          <PrivateRoute>
-            <Blog />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/contact",
-        element: (
-          <PrivateRoute>
-            <Contact />
-          </PrivateRoute>
-        ),
-      },
+
+      // {
+      //   path: "/contact",
+      //   element: (
+      //     <PrivateRoute>
+      //       <Contact />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "/book/:id",
         element: <BookDetails />,

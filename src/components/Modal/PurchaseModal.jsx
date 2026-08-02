@@ -3,13 +3,49 @@ import { Fragment } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { FiShoppingBag, FiX, FiCheckCircle } from "react-icons/fi";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const PurchaseModal = ({ closeModal, isOpen, book }) => {
   const { _id, name, category, price, image, seller, quantity: availableQuantity } = book || {};
   const { user } = useAuth();
-  console.log(user);
+  // console.log( "hello user " , user);
+  const navigate = useNavigate()
 
   const handlePayment = async () => {
+
+    //User and email na takle payment korte divo na 
+if (!user?.displayName || !user?.email) {
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+      // বাটনগুলোকে সেন্টারে আনার জন্য Bootstrap ফ্লেক্স ক্লাস যুক্ত করা হয়েছে
+      actions: "d-flex justify-content-center gap-2"
+    },
+    buttonsStyling: false
+  });
+
+  swalWithBootstrapButtons.fire({
+    title: "You are not logged in!",
+    text: "Please login to proceed.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Login",
+    cancelButtonText: "Cancel",
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      navigate('/Login'); 
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      swalWithBootstrapButtons.fire({
+        title: "Cancelled",
+        text: "You stayed on the same page.",
+        icon: "error"
+      });
+    }
+  });
+}
     const paymentInfo = {
       bookId: _id,
       name,
