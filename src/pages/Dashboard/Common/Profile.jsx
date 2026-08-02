@@ -13,45 +13,51 @@ const Profile = () => {
   if (isRoleLoading) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-slate-50/50 p-4 md:p-10 flex justify-center">
-      <div className="max-w-6xl w-full">
-        <div className="bg-white shadow-xl shadow-slate-200/50 rounded-[2rem] overflow-hidden border border-slate-100 flex flex-col md:row-reverse lg:flex-row">
-          {/* Left Side: Avatar & Basic Info */}
-          <div className="md:w-1/3 bg-slate-900 p-8 flex flex-col items-center text-center justify-center relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-              <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-500 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 lg:p-12 flex justify-center items-start mt-4">
+      <div className="max-w-5xl w-full">
+        {/* Main Card Container */}
+        <div className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
+          
+          {/* ─── LEFT SIDE: AVATAR & QUICK ACTIONS ─── */}
+          <div className="md:w-5/12 bg-slate-900/90 p-8 flex flex-col items-center text-center justify-center relative overflow-hidden border-r border-slate-800/80">
+            {/* Background Glows */}
+            <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+              <div className="absolute -top-12 -left-12 w-48 h-48 bg-emerald-500/30 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-teal-500/20 rounded-full blur-3xl"></div>
             </div>
 
+            {/* Avatar Section */}
             <div className="relative group z-10">
               <img
                 alt="profile"
-                src={user?.photoURL}
-                className="mx-auto object-cover rounded-[2.5rem] h-44 w-44 border-4 border-slate-800 shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                src={user?.photoURL || "https://i.ibb.co/mR4qB8S/avatar.png"}
+                className="mx-auto object-cover rounded-2xl h-40 w-40 border-2 border-emerald-500/40 shadow-2xl group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute -bottom-2 -right-2 h-8 w-8 bg-emerald-500 border-4 border-slate-900 rounded-full shadow-lg"></div>
+              <span className="absolute -bottom-2 -right-2 h-5 w-5 bg-emerald-500 border-4 border-slate-900 rounded-full shadow-md"></span>
             </div>
 
-            <div className="mt-6 z-10">
-              <h2 className="text-2xl font-black text-white tracking-tight leading-tight">
-                {user?.displayName}
+            {/* Basic Info */}
+            <div className="mt-6 z-10 w-full px-2">
+              <h2 className="text-2xl font-black text-white tracking-tight truncate">
+                {user?.displayName || "User Name"}
               </h2>
-              <div className="inline-flex items-center gap-2 mt-3 px-4 py-1.5 bg-indigo-500/20 rounded-full border border-indigo-500/30">
-                <ShieldCheck size={14} className="text-indigo-400" />
-                <span className="text-xs font-bold uppercase tracking-widest text-indigo-300">
-                  {role}
+              
+              <div className="inline-flex items-center gap-2 mt-3 px-4 py-1.5 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                <ShieldCheck size={14} className="text-emerald-400" />
+                <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+                  {role || "Member"}
                 </span>
               </div>
             </div>
 
-            {/* Toggle Button */}
+            {/* Toggle Edit Button */}
             <div className="mt-8 w-full z-10">
               <button
                 onClick={() => setUpdate(!update)}
-                className={`flex items-center justify-center gap-2 w-full transition-all font-bold py-4 rounded-2xl shadow-lg active:scale-95 mb-5 ${
+                className={`flex items-center justify-center gap-2 w-full transition-all duration-200 font-bold py-3.5 px-6 rounded-2xl shadow-lg active:scale-95 ${
                   update
-                    ? "bg-rose-500 hover:bg-rose-600 text-white"
-                    : "bg-indigo-600 hover:bg-indigo-700 text-white"
+                    ? "bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 border border-rose-500/30"
+                    : "bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black shadow-emerald-500/10"
                 }`}
               >
                 {update ? <X size={18} /> : <Edit3 size={18} />}
@@ -60,53 +66,54 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Right Side: Detailed Info & Update Form */}
-          <div className="md:w-2/3 p-8 md:p-12 relative">
+          {/* ─── RIGHT SIDE: DETAILS & FORM ─── */}
+          <div className="md:w-7/12 p-8 md:p-10 relative flex flex-col justify-between">
             {update ? (
-              <div className="animate-in fade-in zoom-in duration-300">
+              <div className="animate-in fade-in duration-300">
                 <UpdateFrom setUpdate={setUpdate} />
               </div>
             ) : (
-              <div className="animate-in slide-in-from-right-5 duration-500">
-                <div className="flex justify-between items-center mb-10">
-                  <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                    Profile Information
-                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+              <div className="animate-in fade-in duration-300 space-y-8">
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                  <h3 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                    Profile Details
                   </h3>
+                  <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">
+                    Account Overview
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Info Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <InfoCard
                     label="Full Name"
                     value={user?.displayName || "N/A"}
                     icon={<Edit3 size={18} />}
-                    color="text-amber-500 bg-amber-50"
                   />
                   <InfoCard
                     label="Email Address"
-                    value={user?.email}
+                    value={user?.email || "N/A"}
                     icon={<Mail size={18} />}
-                    color="text-blue-500 bg-blue-50"
                   />
                   <InfoCard
                     label="Identity ID"
-                    value={user?.uid?.slice(0, 15) + "..."}
+                    value={user?.uid ? `${user.uid.slice(0, 12)}...` : "N/A"}
                     icon={<Fingerprint size={18} />}
-                    color="text-purple-500 bg-purple-50"
                   />
                   <InfoCard
                     label="Location"
                     value="Not Set"
                     icon={<MapPin size={18} />}
-                    color="text-rose-500 bg-rose-50"
                   />
                 </div>
 
-                <div className="mt-12">
-                  <h4 className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">
-                    User Activity
+                {/* User Activity Stats */}
+                <div className="pt-4">
+                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+                    Overview Statistics
                   </h4>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-3 gap-3">
                     <StatCard count="12" label="Orders" />
                     <StatCard count="4.8" label="Rating" />
                     <StatCard count="2.5k" label="Points" />
@@ -115,28 +122,33 @@ const Profile = () => {
               </div>
             )}
           </div>
+
         </div>
       </div>
     </div>
   );
 };
 
-const InfoCard = ({ label, value, icon, color }) => (
-  <div className="group p-5 rounded-[1.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all">
-    <div className="flex items-center gap-4">
-      <div className={`p-3 rounded-xl ${color}`}>{icon}</div>
+/* Info Card Sub-component */
+const InfoCard = ({ label, value, icon }) => (
+  <div className="p-4 rounded-2xl bg-slate-950/40 border border-slate-800/80 hover:border-slate-700/80 transition-all">
+    <div className="flex items-center gap-3.5">
+      <div className="p-2.5 rounded-xl bg-slate-800/60 text-emerald-400 border border-slate-700/40">
+        {icon}
+      </div>
       <div className="overflow-hidden">
-        <p className="text-[10px] uppercase font-bold text-slate-400 mb-0.5">{label}</p>
-        <p className="text-sm font-bold text-slate-700 truncate">{value}</p>
+        <p className="text-[10px] uppercase font-bold text-slate-500">{label}</p>
+        <p className="text-xs sm:text-sm font-semibold text-slate-200 truncate">{value}</p>
       </div>
     </div>
   </div>
 );
 
+/* Stat Card Sub-component */
 const StatCard = ({ count, label }) => (
-  <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center hover:bg-indigo-50 transition-colors">
-    <p className="text-2xl font-black text-slate-800">{count}</p>
-    <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">{label}</p>
+  <div className="p-4 bg-slate-950/40 rounded-2xl border border-slate-800/80 text-center hover:border-emerald-500/30 transition-all">
+    <p className="text-xl font-extrabold text-white">{count}</p>
+    <p className="text-[10px] font-bold text-slate-500 uppercase mt-0.5">{label}</p>
   </div>
 );
 

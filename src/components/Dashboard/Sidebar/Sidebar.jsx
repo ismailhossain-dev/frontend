@@ -12,6 +12,8 @@ import CustomerMenu from "./Menu/CustomerMenu";
 import useRole from "../../../hooks/useRole";
 import Logo from "../../Logo/Logo";
 
+import { FiHeart } from "react-icons/fi";
+
 const Sidebar = () => {
   const { user, logOut } = useAuth();
   const [isActive, setActive] = useState(false);
@@ -40,8 +42,8 @@ const Sidebar = () => {
       {/* ─── 2. DESKTOP TOP HEADER (ONLY FOR MD/LG SCREENS) ─── */}
       <header className="hidden md:flex fixed top-0 right-0 left-72 h-16 bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 z-30 px-8 items-center justify-between transition-all duration-300 ">
         <div>
-          <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-            Welcome back, <span className="text-slate-900 dark:text-slate-100 font-bold">{user?.displayName || "User"}</span> 👋
+          <h2 className="text-sm font-semibold text-white">
+            Welcome back, <span className="text-white">{user?.displayName || "User"}</span> 👋
           </h2>
         </div>
 
@@ -49,10 +51,10 @@ const Sidebar = () => {
         <div className="flex items-center gap-4">
           <Link
             to="/dashboard/profile"
-            className="flex items-center gap-3 p-1.5 pl-3 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 hover:border-emerald-500/40 transition-all duration-300 group"
+            className="flex items-center gap-3 p-1.5 pl-3 rounded-full bg-slate-800/80 border border-slate-700/60 hover:border-emerald-500/40 transition-all duration-300 group"
           >
             <div className="text-right leading-tight hidden sm:block">
-              <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-emerald-500 transition-colors">
+              <p className="text-xs font-boldtext-slate-200 group-hover:text-emerald-500 transition-colors">
                 {user?.displayName || "Profile"}
               </p>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 capitalize">
@@ -114,9 +116,11 @@ const Sidebar = () => {
                 <span className="w-4 h-[1px] bg-slate-700 mr-2"></span>
                 Main Menu
               </p>
-              <div className="space-y-1">
+              <div className="space-y-2">
                 {role === "user" && <CustomerMenu />}
                 {role === "admin" && <AdminMenu />}
+                <MenuItem icon={FiHeart} label="My Wishlist" address="my-wishlist" />
+
               </div>
             </div>
           </nav>

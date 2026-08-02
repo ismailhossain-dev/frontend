@@ -27,6 +27,7 @@ import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
 import ManageBooks from "../pages/Dashboard/Admin/ManageBooks";
 import AdminCategory from "../pages/Dashboard/Admin/AdminCategory";
 import UserOverview from "../pages/Dashboard/Customer/UserOverview";
+import MyWishlist from "../pages/Dashboard/Customer/MyWishlist";
 
 export const router = createBrowserRouter([
   {
@@ -150,6 +151,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyOrders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-wishlist",
+        element: (
+          <PrivateRoute>
+            <MyWishlist />
           </PrivateRoute>
         ),
       },
