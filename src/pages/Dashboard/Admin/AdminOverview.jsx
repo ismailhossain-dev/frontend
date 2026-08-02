@@ -18,17 +18,17 @@ import {
   ShoppingCart,
   ArrowUpRight,
   TrendingUp,
-  Loader2,
 } from "lucide-react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
-const COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#f43f5e"];
+// Dark Theme Palette colors for Charts
+const COLORS = ["#10b981", "#06b6d4", "#8b5cf6", "#f43f5e"];
 
 const AdminOverview = () => {
   const axiosSecure = useAxiosSecure();
-  const { loading: authLoading } = useAuth(); // wait for auth
+  const { loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     users: 0,
@@ -37,8 +37,7 @@ const AdminOverview = () => {
     orders: 0,
   });
 
-  // console.log(stats);
-  // fetch dashboard data
+  // Fetch Dashboard Analytics Data
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
@@ -49,21 +48,17 @@ const AdminOverview = () => {
           axiosSecure.get("/all-orders"),
         ]);
 
-        // console.log("Users:", usersRes.data);
-        // console.log("Books:", booksRes.data);
-        // console.log("Orders:", ordersRes.data);
-
-        // const totalRevenue = ordersRes.data?.reduce(
-        //   (sum, order) => sum + (Number(order.price) || 0),
-        //   0,
-        // );
+        // Calculate Dynamic Total Revenue
+        const totalRevenue = orderBooks.data?.reduce(
+          (sum, order) => sum + (Number(order.price) || 0),
+          0
+        );
 
         setStats({
           users: usersRes.data?.length || 0,
           items: booksRes.data?.length || 0,
           orders: orderBooks.data?.length || 0,
-          // revenue: totalRevenue || 0,
-          // orders: ordersRes.data?.length || 0,
+          revenue: totalRevenue || 0,
         });
       } catch (err) {
         console.error("Dashboard fetch error:", err);
@@ -75,113 +70,164 @@ const AdminOverview = () => {
     fetchDashboardData();
   }, [axiosSecure]);
 
-  // loading spinner
   if (loading || authLoading) {
     return <LoadingSpinner />;
   }
 
   return (
-    <div className="p-8 bg-[#F8FAFC] min-h-screen space-y-10">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Analytics Overview</h1>
-          <p className="text-slate-500 font-medium mt-1">
-            Hello Admin, here's what's happening today.
+    <div className="mt-10 min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 lg:p-8 space-y-8">
+      {/* ─── HEADER ─── */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-3xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+        {/* Glow Decor */}
+        <div className="absolute -top-10 -left-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10">
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            Analytics Overview
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 font-medium">
+            Welcome back Admin! Here is what's happening with your store today.
           </p>
         </div>
-        <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl font-bold">
+
+        <button className="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-5 py-2.5 rounded-2xl font-black text-xs uppercase tracking-wider transition-all duration-200 shadow-lg shadow-emerald-500/10 active:scale-95 self-start md:self-auto">
           <ArrowUpRight size={18} />
           Export Report
         </button>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard icon={<Users size={24} />} label="Total Users" value={stats.users} color="blue" />
+      {/* ─── STATS CARDS GRID ─── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard
-          icon={<Package size={24} />}
-          label="Total Products"
+          icon={<Users size={22} />}
+          label="Total Users"
+          value={stats.users}
+          trend="+12%"
+        />
+        <StatCard
+          icon={<Package size={22} />}
+          label="Total Books"
           value={stats.items}
-          color="purple"
+          trend="+5%"
         />
-
         <StatCard
-          icon={<ShoppingCart size={24} />}
-          label="Orders"
+          icon={<ShoppingCart size={22} />}
+          label="Total Orders"
           value={stats.orders}
-          color="rose"
+          trend="+18%"
         />
         <StatCard
-          icon={<DollarSign size={24} />}
+          icon={<DollarSign size={22} />}
           label="Total Revenue"
-          value="200+"
-          color="emerald"
+          value={`$${stats.revenue.toFixed(2)}`}
+          trend="+24%"
         />
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Bar Chart */}
-        <div className="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-          <h3 className="text-xl font-bold text-slate-800 mb-6 font-mono">Revenue Trend</h3>
+      {/* ─── CHARTS SECTION ─── */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Revenue Bar Chart */}
+        <div className="lg:col-span-2 bg-slate-900/60 border border-slate-800/80 p-6 rounded-3xl backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-bold text-white tracking-tight">
+              Revenue Trend
+            </h3>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
+              Monthly
+            </span>
+          </div>
+
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={barData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="sales" fill="#6366f1" radius={[10, 10, 0, 0]} barSize={40} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+              <XAxis dataKey="name" stroke="#64748b" tick={{ fill: "#94a3b8", fontSize: 12 }} />
+              <YAxis stroke="#64748b" tick={{ fill: "#94a3b8", fontSize: 12 }} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#0f172a",
+                  borderColor: "#334155",
+                  borderRadius: "1rem",
+                  color: "#f8fafc",
+                }}
+              />
+              <Bar dataKey="sales" fill="#10b981" radius={[8, 8, 0, 0]} barSize={36} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        {/* Pie Chart */}
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-          <h3 className="text-xl font-bold text-slate-800 mb-6 font-mono">Inventory</h3>
-          <ResponsiveContainer width="100%" height={250}>
+        {/* Inventory Pie Chart */}
+        <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-3xl backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-bold text-white tracking-tight">
+              Inventory Share
+            </h3>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 bg-slate-800 px-3 py-1 rounded-full">
+              Categories
+            </span>
+          </div>
+
+          <ResponsiveContainer width="100%" height={240}>
             <PieChart>
-              <Pie data={pieData} dataKey="value" innerRadius={60}>
+              <Pie data={pieData} dataKey="value" innerRadius={60} outerRadius={80} paddingAngle={4}>
                 {pieData.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  <Cell key={i} fill={COLORS[i % COLORS.length]} stroke="#0f172a" strokeWidth={2} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#0f172a",
+                  borderColor: "#334155",
+                  borderRadius: "1rem",
+                  color: "#f8fafc",
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
+
+          {/* Chart Legend */}
+          <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-slate-800/80">
+            {pieData.map((entry, index) => (
+              <div key={entry.name} className="flex items-center gap-2 text-xs text-slate-400">
+                <span
+                  className="size-2.5 rounded-full"
+                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                />
+                <span className="truncate">{entry.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// Stat card component
-const StatCard = ({ icon, label, value, color }) => {
-  console.log(value);
-  const colors = {
-    blue: "text-blue-600 bg-blue-50",
-    purple: "text-purple-600 bg-purple-50",
-    emerald: "text-emerald-600 bg-emerald-50",
-    rose: "text-rose-600 bg-rose-50",
-  };
-
+/* ─── STAT CARD SUB-COMPONENT ─── */
+const StatCard = ({ icon, label, value, trend }) => {
   return (
-    <div className="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+    <div className="p-5 rounded-3xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl shadow-xl hover:border-slate-700/80 transition-all group">
       <div className="flex justify-between items-center">
-        <div className={`p-4 rounded-2xl ${colors[color]}`}>{icon}</div>
-        <div className="flex items-center gap-1 text-emerald-500 font-bold text-sm bg-emerald-50 px-2 py-1 rounded-lg">
-          <TrendingUp size={14} /> 12%
+        <div className="p-3 rounded-2xl bg-slate-800/80 text-emerald-400 border border-slate-700/50 group-hover:scale-110 transition-transform">
+          {icon}
+        </div>
+        <div className="flex items-center gap-1 text-emerald-400 font-bold text-xs bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+          <TrendingUp size={13} /> {trend}
         </div>
       </div>
-      <div className="mt-6">
-        <p className="text-slate-400 text-xs font-black uppercase tracking-widest">{label}</p>
-        <h2 className="text-3xl font-black text-slate-900 mt-1">{value}</h2>
+
+      <div className="mt-5">
+        <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+          {label}
+        </p>
+        <h2 className="text-2xl sm:text-3xl font-black text-white mt-1 tracking-tight">
+          {value}
+        </h2>
       </div>
     </div>
   );
 };
 
-// Static chart data (you can replace with dynamic MongoDB data later)
+// Static Chart Sample Data
 const barData = [
   { name: "Jan", sales: 4000 },
   { name: "Feb", sales: 3000 },
@@ -192,9 +238,9 @@ const barData = [
 ];
 
 const pieData = [
-  { name: "Books", value: 400 },
-  { name: "Electronics", value: 300 },
-  { name: "Groceries", value: 300 },
+  { name: "Fiction", value: 400 },
+  { name: "Sci-Fi", value: 300 },
+  { name: "Self-Help", value: 300 },
   { name: "Others", value: 200 },
 ];
 

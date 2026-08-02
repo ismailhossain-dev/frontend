@@ -49,13 +49,7 @@ const UserOverview = () => {
       color: "text-amber-400",
       bg: "bg-amber-500/10",
     },
-    {
-      label: "In Transit",
-      value: "2",
-      icon: <Truck size={22} />,
-      color: "text-indigo-400",
-      bg: "bg-indigo-500/10",
-    },
+ 
     {
       label: "Delivered",
       value: "20",
@@ -148,7 +142,7 @@ const UserOverview = () => {
         </div>
 
         {/* ─── 2. STATS CARDS ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4">
           {stats.map((stat, index) => (
             <div
               key={index}

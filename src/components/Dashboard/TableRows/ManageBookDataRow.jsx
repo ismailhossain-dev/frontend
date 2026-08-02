@@ -2,12 +2,12 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaRegEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
+import { FiX } from "react-icons/fi";
 import Swal from "sweetalert2";
 
 const ManageBookDataRow = ({ user, index, refetch }) => {
   // Destructuring updated for Book Data
-  //customer ta hole email
-  const { _id, status, name, category, image, price, customer } = user;
+  const { _id, status, name, category, image, price } = user;
   const axiosSecure = useAxiosSecure();
 
   // --- Update Logic (PATCH) ---
@@ -23,7 +23,8 @@ const ManageBookDataRow = ({ user, index, refetch }) => {
     };
 
     try {
-      const res = await axiosSecure.patch(`/manage-books/${customer}`, updateDoc);
+      // NOTE: Using _id ensures exact document update in MongoDB
+      const res = await axiosSecure.patch(`/manage-books/${_id}`, updateDoc);
 
       if (res.data.modifiedCount > 0) {
         Swal.fire({
@@ -32,6 +33,8 @@ const ManageBookDataRow = ({ user, index, refetch }) => {
           text: "Book info updated successfully.",
           timer: 1500,
           showConfirmButton: false,
+          background: "#0f172a",
+          color: "#fff",
         });
         document.getElementById(`edit_modal_${_id}`).close();
         refetch();
@@ -41,12 +44,20 @@ const ManageBookDataRow = ({ user, index, refetch }) => {
           title: "No changes detected",
           timer: 1500,
           showConfirmButton: false,
+          background: "#0f172a",
+          color: "#fff",
         });
         document.getElementById(`edit_modal_${_id}`).close();
       }
     } catch (err) {
       console.error(err);
-      Swal.fire("Error", "Update failed. Please try again.", "error");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Update failed. Please try again.",
+        background: "#0f172a",
+        color: "#fff",
+      });
     }
   };
 
@@ -54,18 +65,27 @@ const ManageBookDataRow = ({ user, index, refetch }) => {
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      html: `Delete <b>${name}</b>?`,
+      html: `Delete <b class="text-rose-400">${name}</b>?`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
+      confirmButtonColor: "#f43f5e",
+      cancelButtonColor: "#334155",
       confirmButtonText: "Yes, delete it!",
+      background: "#0f172a",
+      color: "#fff",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/manage-books/${id}`).then((res) => {
           if (res.data.deletedCount) {
             refetch();
-            Swal.fire("Deleted!", "Book removed.", "success");
+            Swal.fire({
+              title: "Deleted!",
+              text: "Book removed.",
+              icon: "success",
+              background: "#0f172a",
+              color: "#fff",
+            });
           }
         });
       }
@@ -73,129 +93,157 @@ const ManageBookDataRow = ({ user, index, refetch }) => {
   };
 
   return (
-    <tr className="bg-gray-50 transition-colors border-b">
+    <tr className="hover:bg-slate-800/30 transition-colors">
       {/* Index */}
-      <td className="px-5 py-5 text-sm text-center">{index + 1}</td>
+      <td className="px-6 py-4 font-mono text-slate-400 text-xs">{index + 1}</td>
 
       {/* Book Image & Name */}
-      <td className="px-5 py-5 text-sm">
+      <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center gap-3">
-          <div className="avatar">
-            <div className="mask mask-squircle w-12 h-12">
-              <img src={image} alt={name} />
-            </div>
-          </div>
-          <div className="font-bold text-slate-700">{name}</div>
+          <img
+            src={image || "https://i.ibb.co/vBR74Yf/user.png"}
+            alt={name}
+            className="w-11 h-14 object-cover rounded-xl border border-slate-700/60 shadow-md"
+          />
+          <span className="font-semibold text-slate-100 max-w-[200px] truncate" title={name}>
+            {name || "Untitled Book"}
+          </span>
         </div>
       </td>
 
       {/* Category */}
-      <td className="px-5 py-5 text-sm text-gray-600 font-medium">{category}</td>
+      <td className="px-6 py-4 text-slate-300 text-xs font-medium whitespace-nowrap">
+        {category || "Uncategorized"}
+      </td>
 
       {/* Price */}
-      <td className="px-5 py-5 text-sm font-bold text-indigo-600">${price}</td>
+      <td className="px-6 py-4 text-center font-bold text-emerald-400 font-mono text-sm whitespace-nowrap">
+        ${price ? price.toFixed(2) : "0.00"}
+      </td>
 
       {/* Status Badge */}
-      <td className="px-5 py-5 text-sm">
+      <td className="px-6 py-4 text-center whitespace-nowrap">
         <span
-          className={`px-3 py-1 rounded-full text-xs font-bold ${
-            status === "Available" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+          className={`px-3 py-1 rounded-full text-xs font-bold capitalize border ${
+            status === "Available" || status === "pending" || !status
+              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+              : "bg-rose-500/10 text-rose-400 border-rose-500/20"
           }`}
         >
-          {status || "N/A"}
+          {status || "Available"}
         </span>
       </td>
 
       {/* Actions */}
-      <td className="px-5 py-5 text-sm">
-        <div className="flex items-center gap-3 justify-center">
+      <td className="px-6 py-4 whitespace-nowrap text-center">
+        <div className="flex items-center justify-center gap-2">
+          {/* View Details */}
           <button
             onClick={() => document.getElementById(`view_modal_${_id}`).showModal()}
-            className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all"
+            className="p-2 rounded-xl bg-slate-800/60 text-slate-300 hover:text-emerald-400 hover:bg-slate-800 border border-slate-700/50 transition-all active:scale-95"
             title="View Details"
           >
-            <FaRegEye size={16} />
+            <FaRegEye size={15} />
           </button>
 
+          {/* Edit Book */}
           <button
             onClick={() => document.getElementById(`edit_modal_${_id}`).showModal()}
-            className="p-2 bg-yellow-50 text-yellow-600 rounded-lg hover:bg-yellow-600 hover:text-white transition-all"
+            className="p-2 rounded-xl bg-slate-800/60 text-slate-300 hover:text-amber-400 hover:bg-slate-800 border border-slate-700/50 transition-all active:scale-95"
             title="Edit Book"
           >
-            <FaRegEdit size={16} />
+            <FaRegEdit size={15} />
           </button>
 
+          {/* Delete Book */}
           <button
             onClick={() => handleDeleteUser(_id)}
-            className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all"
+            className="p-2 rounded-xl bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white border border-rose-500/20 transition-all active:scale-95"
             title="Delete Book"
           >
             <MdDelete size={16} />
           </button>
         </div>
 
-        {/* --- 1. VIEW MODAL --- */}
-        <dialog id={`view_modal_${_id}`} className="modal">
-          <div className="modal-box bg-white text-center">
+        {/* ─── 1. VIEW MODAL ─── */}
+        <dialog id={`view_modal_${_id}`} className="modal backdrop-blur-md">
+          <div className="modal-box bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center text-slate-100 shadow-2xl">
             <img
-              className="w-40 h-56 object-cover mx-auto mb-4 rounded-lg shadow-md"
+              className="w-36 h-48 object-cover mx-auto mb-4 rounded-2xl shadow-xl border border-slate-700/50"
               src={image}
               alt={name}
             />
-            <h3 className="font-bold text-2xl text-slate-800">{name}</h3>
-            <p className="badge badge-indigo my-2">{category}</p>
-            <p className="text-xl font-bold text-indigo-600 mt-2">Price: ${price}</p>
-            <div className="modal-action justify-center">
+            <h3 className="font-extrabold text-xl text-white">{name}</h3>
+            <span className="inline-block px-3 py-1 my-2 rounded-full text-xs font-bold bg-slate-800 text-emerald-400 border border-slate-700/50">
+              {category}
+            </span>
+            <p className="text-xl font-black text-emerald-400 font-mono mt-1">
+              Price: ${price}
+            </p>
+
+            <div className="modal-action justify-center mt-6">
               <form method="dialog">
-                <button className="btn btn-outline btn-sm px-8">Close</button>
+                <button className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-all">
+                  Close
+                </button>
               </form>
             </div>
           </div>
         </dialog>
 
-        {/* --- 2. EDIT MODAL --- */}
-        <dialog id={`edit_modal_${_id}`} className="modal">
-          <div className="modal-box bg-white" key={name}>
-            <h3 className="font-bold text-lg mb-4 text-slate-800 border-b pb-2">
-              Update Book Info
-            </h3>
+        {/* ─── 2. EDIT MODAL ─── */}
+        <dialog id={`edit_modal_${_id}`} className="modal backdrop-blur-md">
+          <div className="modal-box bg-slate-900 border border-slate-800 rounded-3xl p-6 text-slate-100 shadow-2xl" key={name}>
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-5">
+              <h3 className="font-bold text-lg text-white">Update Book Info</h3>
+              <form method="dialog">
+                <button className="text-slate-400 hover:text-white p-1 rounded-lg">
+                  <FiX size={18} />
+                </button>
+              </form>
+            </div>
+
             <form onSubmit={handleUpdate} className="space-y-4 text-left">
               <div>
-                <label className="block mb-1 text-sm font-semibold text-slate-700">Book Name</label>
+                <label className="block mb-1.5 text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Book Name
+                </label>
                 <input
                   name="name"
                   type="text"
                   defaultValue={name}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none"
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-950 text-slate-100 text-sm border border-slate-800 outline-none focus:border-emerald-500/80 focus:ring-2 focus:ring-emerald-500/10 transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-sm font-semibold text-slate-700">Price ($)</label>
+                <label className="block mb-1.5 text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Price ($)
+                </label>
                 <input
                   name="price"
                   type="number"
                   step="0.01"
                   defaultValue={price}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none"
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-950 text-slate-100 text-sm border border-slate-800 outline-none focus:border-emerald-500/80 focus:ring-2 focus:ring-emerald-500/10 transition-all"
                   required
                 />
               </div>
 
-              <div className="modal-action">
-                <button
-                  type="submit"
-                  className="btn bg-indigo-600 text-white hover:bg-indigo-700 border-none"
-                >
-                  Save Changes
-                </button>
+              <div className="flex justify-end gap-3 pt-4">
                 <button
                   type="button"
                   onClick={() => document.getElementById(`edit_modal_${_id}`).close()}
-                  className="btn"
+                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-all"
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition-all shadow-lg shadow-emerald-500/10 active:scale-95"
+                >
+                  Save Changes
                 </button>
               </div>
             </form>

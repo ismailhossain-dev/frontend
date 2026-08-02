@@ -1,32 +1,47 @@
 import React from "react";
-import { FaLayerGroup, FaArrowRight } from "react-icons/fa";
+import { FaLayerGroup } from "react-icons/fa";
+import { ArrowRight } from "lucide-react";
 
 const BookCategories = ({ data }) => {
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500 hover:shadow-xl hover:shadow-indigo-500/10">
-      <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-indigo-50 opacity-50 transition-transform duration-500 group-hover:scale-150" />
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 backdrop-blur-xl shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/10">
+      
+      {/* Ambient Radial Glow on Hover */}
+      <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl transition-all duration-500 group-hover:bg-emerald-500/20 group-hover:scale-150 pointer-events-none" />
 
       <div className="relative z-10">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-200 transition-transform duration-500 group-hover:rotate-12">
+        {/* Category Icon Container */}
+        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800/80 text-emerald-400 border border-slate-700/50 shadow-inner transition-transform duration-500 group-hover:rotate-12 group-hover:scale-105 group-hover:border-emerald-500/40">
           <FaLayerGroup className="text-xl" />
         </div>
 
-        <h3 className="text-xl font-bold tracking-tight text-slate-800 group-hover:text-indigo-600 transition-colors capitalize">
-          {data}
+        {/* Category Title */}
+        <h3 className="text-xl font-bold tracking-tight text-white transition-colors group-hover:text-emerald-400 capitalize">
+          {data || "Uncategorized"}
         </h3>
-        <p className="mt-2 text-sm font-medium text-slate-500">
-          Manage all books and resources under this category.
+
+        {/* Description */}
+        <p className="mt-2 text-xs font-medium text-slate-400 leading-relaxed">
+          Manage all books, inventory, and resources listed under this category.
         </p>
       </div>
 
-      <div className="relative z-10 mt-6 flex items-center justify-between border-t border-slate-50 pt-4">
-        <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          Active Section
+      {/* Footer Section */}
+      <div className="relative z-10 mt-6 flex items-center justify-between border-t border-slate-800/80 pt-4">
+        {/* Active Badge */}
+        <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          Active Category
         </span>
+
+        {/* Hover Arrow Icon */}
+        <div className="p-1.5 rounded-xl bg-slate-800/50 text-slate-400 group-hover:text-emerald-400 group-hover:bg-emerald-500/10 transition-all duration-300">
+          <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+        </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 h-1 w-0 bg-indigo-600 transition-all duration-500 group-hover:w-full" />
+      {/* Bottom Accent Bar */}
+      <div className="absolute bottom-0 left-0 h-1 w-0 bg-emerald-500 transition-all duration-500 group-hover:w-full" />
     </div>
   );
 };

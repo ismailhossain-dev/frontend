@@ -3,11 +3,12 @@ import UserDataRow from "../../../components/Dashboard/TableRows/UserDataRow";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import { Users } from "lucide-react";
 
 const ManageUsers = () => {
-  //role update work
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+
   const {
     data: users = [],
     isLoading,
@@ -19,50 +20,71 @@ const ManageUsers = () => {
       return result.data;
     },
   });
-  // console.log(users);
 
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <>
-      <div className="container mx-auto px-4 sm:px-8">
-        <div className="py-8">
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-              <table className="min-w-full leading-normal">
-                <thead>
-                  <tr className="bg-gray-100 dark:bg-slate-800">
-                    <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-left text-sm uppercase font-bold">
-                      No:
-                    </th>
-                    <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-left text-sm uppercase font-bold">
-                      Name
-                    </th>
-                    <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-left text-sm uppercase font-bold">
-                      Email
-                    </th>
-                    <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-center text-sm uppercase font-bold">
-                      Role
-                    </th>
-                    <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-center text-sm uppercase font-bold">
-                      date
-                    </th>
-                    <th className="px-5 py-4 border-b border-gray-200 text-gray-800 dark:text-gray-200 text-center text-sm uppercase font-bold">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user, index) => (
-                    <UserDataRow key={user._id} user={user} index={index} refetch={refetch} />
-                  ))}
-                </tbody>
-              </table>
-            </div>
+    <div className="mt-10 min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 lg:p-8 space-y-6">
+      
+      {/* ─── HEADER SECTION ─── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+        {/* Glow Decor */}
+        <div className="absolute -top-10 -left-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="flex items-center gap-4 relative z-10">
+          <div className="p-3.5 rounded-2xl bg-slate-800/80 text-emerald-400 border border-slate-700/50 shadow-inner">
+            <Users className="size-6 sm:size-7" />
+          </div>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+              Manage Users
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-400 mt-1 font-medium">
+              View registered accounts, update details, or manage user roles.
+            </p>
           </div>
         </div>
+
+        {/* Total Users Counter */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 self-start sm:self-center">
+          Total Registered: <span className="font-extrabold text-sm text-white">{users.length}</span>
+        </div>
       </div>
-    </>
+
+      {/* ─── TABLE CONTAINER ─── */}
+      <div className="bg-slate-900/60 border border-slate-800/80 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-xl">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            
+            {/* Table Header */}
+            <thead>
+              <tr className="bg-slate-800/40 border-b border-slate-800/80 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <th className="px-6 py-4">#</th>
+                <th className="px-6 py-4">User</th>
+                <th className="px-6 py-4">Email</th>
+                <th className="px-6 py-4 text-center">Role</th>
+                <th className="px-6 py-4">Joined Date</th>
+                <th className="px-6 py-4 text-center">Actions</th>
+              </tr>
+            </thead>
+
+            {/* Table Body */}
+            <tbody className="divide-y divide-slate-800/60 text-sm">
+              {users.map((user, index) => (
+                <UserDataRow
+                  key={user._id}
+                  user={user}
+                  index={index}
+                  refetch={refetch}
+                />
+              ))}
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+
+    </div>
   );
 };
 

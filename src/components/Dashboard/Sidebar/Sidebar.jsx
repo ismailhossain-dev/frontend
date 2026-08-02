@@ -120,6 +120,7 @@ const Sidebar = () => {
                 {role === "user" && <CustomerMenu />}
                 {role === "admin" && <AdminMenu />}
                 <MenuItem icon={FiHeart} label="My Wishlist" address="my-wishlist" />
+                 <MenuItem icon={FcSettings} label="My Profile" address="/dashboard/profile" />
 
               </div>
             </div>
@@ -133,7 +134,7 @@ const Sidebar = () => {
           </p>
 
           <div className="space-y-1">
-            <MenuItem icon={FcSettings} label="My Profile" address="/dashboard/profile" />
+           
 
             <button
               onClick={logOut}
