@@ -18,7 +18,7 @@ import Container from "../../components/Shared/Container";
 
 const HomeSlide = () => {
   const slides = [
-    { img: logo1, title: "World's Best Classics", subtitle: "Timeless stories delivered to you." },
+    // { img: logo1, title: "World's Best Classics", subtitle: "Timeless stories delivered to you." },
     { img: logo2, title: "New Arrivals 2026", subtitle: "Explore the latest bestsellers today." },
     // { img: logo3, title: "Academic Essentials", subtitle: "Boost your knowledge." },
     { img: logo4, title: "Fiction & Fantasy", subtitle: "Escape into a world of imagination." },
