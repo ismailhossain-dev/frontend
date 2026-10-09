@@ -1,141 +1,138 @@
-# 📚 BookCourier | Online Book Delivery Platform
+# 📚 BookCourier - Library-to-Home Delivery System
 
-**BookCourier** is a modern **full-stack book delivery web application** that allows users to browse books, place orders, and track deliveries easily.
+A modern library delivery management system that allows users to request book pickup and delivery from nearby libraries, making it easier for students, researchers, and readers to borrow and return books without physically visiting the library.
 
-The platform is designed to simplify book purchasing and delivery for students and readers through a fast, responsive, and user-friendly interface.
+## 🔗 Live URL
 
----
+[bookcourier12.vercel.app](#)
 
-# 🌐 Live Demo
+## 📋 Purpose
 
-🚀 **Live Site:** https://bookcourier-theta.vercel.app
+BookCourier bridges the gap between libraries and readers by providing a convenient book delivery service. Users can browse available books, place orders, track deliveries, and manage their reading list all from the comfort of their homes.
 
-💻 **Client Repository:**
-https://github.com/ismailhossain-dev/frontend.git
+## ✨ Key Features
 
-⚙️ **Server Repository:**
-https://github.com/ismailhossain-dev/backend.git
+### User Features
 
----
+- **Browse Books**: Explore a wide collection of books with detailed information
+- **Smart Search & Sort**: Find books quickly by name and sort by price
+- **Order Management**: Place orders, track status, and cancel pending orders
+- **Secure Payment**: Integrated payment system for book orders
+- **Wishlist System**: Save favorite books for later
+- **Review & Rating**: Share feedback on ordered books
+- **Order History**: View all past orders and invoices
+- **Profile Management**: Update personal information and profile picture
 
-# 🚀 Key Features
+### Librarian Features
 
-* 🔐 **User Authentication** – Secure login and registration using **Firebase Authentication**.
-* 📚 **Browse & Search Books** – Users can explore different books and view details.
-* 🛒 **Online Book Ordering** – Simple and smooth order placement system.
-* 📦 **Order Tracking Dashboard** – Users can track their orders in a personal dashboard.
-* ⚡ **Fast Data Fetching** – Implemented using **React Query** for efficient data management.
-* 🎨 **Modern UI Design** – Clean and responsive interface with **Tailwind CSS**.
-* 🔔 **Real-time Alerts** – Notifications using **React Toastify** and **SweetAlert2**.
-* 📱 **Fully Responsive** – Works smoothly on mobile, tablet, and desktop devices.
+- **Add Books**: Add new books to the library catalog
+- **Manage Inventory**: Edit and publish/unpublish books
+- **Order Processing**: View and update order status (pending → shipped → delivered)
+- **Dashboard Analytics**: Track books and orders efficiently
 
----
+### Admin Features
 
-# 🛠️ Technology Stack
+- **User Management**: Promote users to librarian or admin roles
+- **Book Moderation**: Publish, unpublish, or delete any book
+- **Complete Control**: Oversee all platform activities
+
+### Additional Features
+
+- **Authentication**: Secure login with email/password and social login
+- **Responsive Design**: Optimized for mobile, tablet, and desktop
+- **Dark/Light Mode**: Toggle between themes for comfortable viewing
+- **Real-time Updates**: Live order status tracking
+- **Coverage Map**: View delivery-available cities
+- **JWT Security**: Protected routes with token verification
+
+## 🛠️ NPM Packages Used
 
 ### Frontend
 
-* **React.js**
-* **Tailwind CSS**
+- `react` - UI library
+- `react-router-dom` - Routing and navigation
+- `firebase` - Authentication and hosting
+- `axios` - HTTP requests
+- `react-hook-form` - Form handling
+- `react-hot-toast` - Notifications
+- `@tanstack/react-query` - Data fetching and caching
+- `swiper` - Banner slider
+- `react-icons` - Icon components
+- `tailwindcss` - Styling framework
+- `daisyui` - UI components
+- `react-leaflet` - Map integration
+- `stripe` - Payment processing
 
 ### Backend
 
-* **Node.js**
-* **Express.js**
+- `express` - Server framework
+- `mongodb` - Database
+- `dotenv` - Environment variables
+- `cors` - Cross-origin resource sharing
+- `jsonwebtoken` - JWT authentication
+- `stripe` - Payment processing
+- `firebase-admin` - Firebase token verification
 
-### Database
+## 🚀 Getting Started
 
-* **MongoDB**
+### Prerequisites
 
-### Authentication
+- Node.js (v14+)
+- MongoDB
+- Firebase Account
+- Stripe Account
 
-* **Firebase Authentication**
-* **JWT (JSON Web Token)**
+### Installation
 
-### Libraries & Tools
+1. Clone the repositories
 
-* **Axios**
-* **React Query**
-* **React Router**
-* **React Icons**
-* **SweetAlert2**
-* **React Toastify**
-
----
-
-# 📦 Major Dependencies
-
-* react
-* next
-* axios
-* firebase
-* react-query
-* react-router
-* react-icons
-* react-toastify
-* sweetalert2
-
----
-
-# 💻 Local Setup & Installation
-
-Follow these steps to run the project locally.
-
-### 1️⃣ Clone the Repository
-
-```bash id="cln001"
-git clone https://github.com/your-username/bookcourier-client.git
+```bash
+git clone <client-repo-url>
+git clone <server-repo-url>
 ```
 
-### 2️⃣ Navigate to the Project Folder
+2. Install dependencies
 
-```bash id="cd001"
-cd bookcourier-client
-```
+```bash
+# Client
+cd client
+npm install
 
-### 3️⃣ Install Dependencies
-
-```bash id="inst001"
+# Server
+cd server
 npm install
 ```
 
-### 4️⃣ Run the Development Server
+3. Set up environment variables
 
-```bash id="run001"
+```bash
+# Client .env.local
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_API_URL=your_backend_url
+VITE_STRIPE_PUBLIC_KEY=your_stripe_key
+
+# Server .env
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+STRIPE_SECRET_KEY=your_stripe_secret
+```
+
+4. Run the application
+
+```bash
+# Client
+npm run dev
+
+# Server
 npm run dev
 ```
 
-Now open your browser and visit:
 
-```
-http://localhost:3000
-```
 
----
 
-# 📁 Project Structure
-
-```
-src
- ┣ components
- ┣ pages
- ┣ hooks
- ┣ context
- ┣ utils
- ┗ App.jsx
-```
-
----
-
-# 📬 Let's Connect
-
-If you have any questions or want to collaborate on a project, feel free to reach out.
-
-📧 **Email:** [programmarsabbir@gmail.com](mailto:programmarsabbir@gmail.com)
-📱 **WhatsApp:** +8801619408991
-💼 **LinkedIn:** Mohammad Ismail Hossain
-🌐 **Portfolio:** [Visit My Portfolio](https://ismail-hossain69k.netlify.app)
----
-
-⚙️ **Backend Repository:**  [Vist ZapShift Backend](https://github.com/ismailhossain-dev/backend.git)
-
+**Built with ❤️ by [Ismail Hossain]**
