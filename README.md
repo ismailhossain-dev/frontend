@@ -23,12 +23,7 @@ BookCourier bridges the gap between libraries and readers by providing a conveni
 - **Order History**: View all past orders and invoices
 - **Profile Management**: Update personal information and profile picture
 
-### Librarian Features
 
-- **Add Books**: Add new books to the library catalog
-- **Manage Inventory**: Edit and publish/unpublish books
-- **Order Processing**: View and update order status (pending → shipped → delivered)
-- **Dashboard Analytics**: Track books and orders efficiently
 
 ### Admin Features
 
